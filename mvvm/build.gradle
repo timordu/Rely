@@ -1,0 +1,81 @@
+/*
+ *    Copyright (c) 2017-2019 dugang
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.github.dcendents.android-maven'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+    androidExtensions {
+        experimental = true
+    }
+    kapt {
+        generateStubs = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //突破64k文件限制
+    implementation 'androidx.multidex:multidex:2.0.1'
+    //https://github.com/google/gson
+    api 'com.google.code.gson:gson:2.8.5'
+    //https://github.com/square/retrofit
+    api 'com.squareup.retrofit2:retrofit:2.5.0'
+    api 'com.squareup.retrofit2:converter-gson:2.5.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+    //http://mvnrepository.com/artifact/com.squareup.okhttp3/logging-interceptor
+    api 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+    //https://github.com/ReactiveX/RxJava
+    api 'io.reactivex.rxjava2:rxjava:2.2.6'
+    //https://github.com/ReactiveX/RxAndroid
+    api 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    //https://github.com/ReactiveX/RxKotlin
+    api 'io.reactivex.rxjava2:rxkotlin:2.3.0'
+    //https://github.com/greenrobot/EventBus
+    api 'org.greenrobot:eventbus:3.1.1'
+    //https://github.com/JakeWharton/DiskLruCache
+    implementation 'com.jakewharton:disklrucache:2.0.2'
+    implementation project(':rely-core')
+}
