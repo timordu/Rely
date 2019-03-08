@@ -22,6 +22,16 @@ import com.blankj.ALog
 
 @SuppressLint("StaticFieldLeak")
 object Rely {
+    const val CONNECT_EXCEPTION = "网络连接异常，请检查您的网络状态"
+    const val SOCKET_TIMEOUT_EXCEPTION = "网络连接超时，请检查您的网络状态，稍后重试"
+    const val UNKNOWN_HOST_EXCEPTION = "与服务器连接失败"
+    const val JSON_SYNTAX_EXCEPTION = "对象类型错误,无法解析"
+    const val EMPTY_RESPONSE_EXCEPTION = "无效返回"
+    const val UNKNOWN_EXCEPTION = "未知异常"
+
+    var NET_CODE_SUCCESS: Int = 0
+    var NET_CODE_ERROR = -1
+
     lateinit var appContext: Context
     var isDebug: Boolean = true
 

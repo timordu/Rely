@@ -14,15 +14,18 @@
  *    limitations under the License.
  */
 
-package com.android.rely.demo
+package com.android.rely.demo.model.bean
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
-class MainActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
-}
+/**
+ * Created by dugang on 2018/8/8.
+ */
+@Parcelize
+data class User(var userName: String, var password: String) : Parcelable
+
+data class DownloadBean(val url: String, var downloadId: Long = 0)
+
+data class UploadBean(val path: String, var uploadId: Long = 0)

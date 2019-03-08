@@ -14,9 +14,9 @@
  *    limitations under the License.
  */
 
-package com.android.rely.library.core.http.result
+package com.android.rely.retrofit.result
 
-import com.android.rely.library.RelyConfig
+import com.android.rely.Rely
 import com.android.rely.eventbus.MsgEvent
 import com.android.rely.retrofit.Result
 import com.google.gson.JsonSyntaxException
@@ -38,9 +38,9 @@ abstract class ResultObserver<T> : Observer<Result<T>> {
     override fun onComplete() {}
 
     override fun onNext(t: Result<T>) {
-        if (t.code == RelyConfig.NET_CODE_SUCCESS) {
+        if (t.code == Rely.NET_CODE_SUCCESS) {
             if (t.data == null)
-                handlerError(RelyConfig.NET_CODE_ERROR, RelyConfig.EMPTY_RESPONSE_EXCEPTION)
+                handlerError(Rely.NET_CODE_ERROR, Rely.EMPTY_RESPONSE_EXCEPTION)
             else
                 handlerSuccess(t.data)
         } else
@@ -50,13 +50,13 @@ abstract class ResultObserver<T> : Observer<Result<T>> {
     abstract fun handlerSuccess(data: T)
 
     override fun onError(throwable: Throwable) {
-        handlerError(RelyConfig.NET_CODE_ERROR, when (throwable) {
-            is SocketTimeoutException -> RelyConfig.SOCKET_TIMEOUT_EXCEPTION
-            is ConnectException -> RelyConfig.CONNECT_EXCEPTION
-            is UnknownHostException -> RelyConfig.UNKNOWN_HOST_EXCEPTION
-            is EOFException -> RelyConfig.EMPTY_RESPONSE_EXCEPTION
-            is JsonSyntaxException -> RelyConfig.JSON_SYNTAX_EXCEPTION
-            else -> throwable.message ?: RelyConfig.UNKNOWN_EXCEPTION
+        handlerError(Rely.NET_CODE_ERROR, when (throwable) {
+            is SocketTimeoutException -> Rely.SOCKET_TIMEOUT_EXCEPTION
+            is ConnectException -> Rely.CONNECT_EXCEPTION
+            is UnknownHostException -> Rely.UNKNOWN_HOST_EXCEPTION
+            is EOFException -> Rely.EMPTY_RESPONSE_EXCEPTION
+            is JsonSyntaxException -> Rely.JSON_SYNTAX_EXCEPTION
+            else -> throwable.message ?: Rely.UNKNOWN_EXCEPTION
         })
     }
 
