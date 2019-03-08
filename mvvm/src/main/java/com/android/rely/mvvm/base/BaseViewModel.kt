@@ -59,7 +59,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver, LifecycleScopePro
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
-    fun onLifecycleChanged(owner: LifecycleOwner, event: Lifecycle.Event) {
+    open fun onLifecycleChanged(owner: LifecycleOwner, event: Lifecycle.Event) {
     }
 
 
