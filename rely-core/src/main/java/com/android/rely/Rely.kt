@@ -16,5 +16,22 @@
 
 package com.android.rely
 
+import android.annotation.SuppressLint
+import android.content.Context
+import com.blankj.ALog
+
+@SuppressLint("StaticFieldLeak")
 object Rely {
+    lateinit var appContext: Context
+    var isDebug: Boolean = true
+
+    /**
+     * 初始化工具类
+     */
+    fun init(context: Context, debug: Boolean) {
+        appContext = context.applicationContext
+        isDebug = debug
+        //初始化日志工具
+        ALog.init(context).setLogSwitch(debug)
+    }
 }

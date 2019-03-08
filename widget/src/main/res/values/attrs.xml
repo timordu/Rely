@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~      Copyright (c) 2017-2019 dugang
+  ~
+  ~      Licensed under the Apache License, Version 2.0 (the "License");
+  ~      you may not use this file except in compliance with the License.
+  ~      You may obtain a copy of the License at
+  ~
+  ~          http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~      Unless required by applicable law or agreed to in writing, software
+  ~      distributed under the License is distributed on an "AS IS" BASIS,
+  ~      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~      See the License for the specific language governing permissions and
+  ~      limitations under the License.
+  ~
+  -->
+
+<resources>
+    <declare-styleable name="SideIndexBar">
+        <attr name="letterSize" format="dimension" />
+        <attr name="letterColor" format="color" />
+        <attr name="selectedLetterColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="NumberProgressBar">
+        <attr name="progressValue" format="integer" />
+        <attr name="max" format="integer" />
+
+        <attr name="reached_color" format="color" />
+        <attr name="reached_bar_height" format="dimension" />
+
+        <attr name="unreached_color" format="color" />
+        <attr name="unreached_bar_height" format="dimension" />
+
+        <attr name="text_size" format="dimension" />
+        <attr name="text_color" format="color" />
+        <attr name="text_offset" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="PwdInputView">
+        <attr name="maxCount" format="integer" />
+        <!-- 内容类型 -->
+        <attr name="contentType" format="enum">
+            <enum name="pwd" value="0" />
+            <enum name="number" value="1" />
+        </attr>
+        <!-- 密码圆点半径和颜色 -->
+        <attr name="pwdRadius" format="dimension" />
+        <attr name="pwdColor" format="color" />
+        <!-- 边界类型 -->
+        <attr name="borderType" format="enum">
+            <enum name="frame" value="0" />
+            <enum name="singleFrame" value="2" />
+            <enum name="underLine" value="1" />
+        </attr>
+        <attr name="borderColor" format="color" />
+        <attr name="secondBorderColor" format="color" />
+        <attr name="borderWidth" format="dimension" />
+        <attr name="borderAngle" format="dimension" />
+        <attr name="numberSize" format="dimension" />
+        <attr name="numberColor" format="color" />
+    </declare-styleable>
+</resources>

@@ -59,4 +59,6 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     api project(':rely-commo')
+
+    api 'androidx.recyclerview:recyclerview:1.0.0'
 }
