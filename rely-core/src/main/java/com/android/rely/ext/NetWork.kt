@@ -21,8 +21,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.NetworkCapabilities
 import android.provider.Settings
-import com.android.rely.library.ext.connectivityManager
-import com.android.rely.library.ext.wifiManager
+import com.android.rely.common.connectivityManager
+import com.android.rely.common.wifiManager
 
 /*
   ---------- 网络相关扩展函数 ----------

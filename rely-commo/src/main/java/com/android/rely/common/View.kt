@@ -28,7 +28,6 @@ import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
 import com.android.rely.common.utils.OnPageChangeListener
 import com.android.rely.common.utils.TextWatcher
-import com.android.rely.library.ext.inputMethodManager
 import java.util.*
 
 

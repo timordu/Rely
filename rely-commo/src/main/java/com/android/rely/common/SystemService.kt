@@ -15,7 +15,7 @@
  *
  */
 
-package com.android.rely.library.ext
+package com.android.rely.common
 
 import android.accounts.AccountManager
 import android.annotation.SuppressLint

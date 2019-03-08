@@ -20,8 +20,8 @@ import android.content.Context
 import android.os.Build
 import android.text.TextUtils
 import android.webkit.WebSettings
-import com.android.rely.library.ext.telephonyManager
-import com.android.rely.library.ext.wifiManager
+import com.android.rely.common.telephonyManager
+import com.android.rely.common.wifiManager
 import java.net.NetworkInterface
 import java.util.*
 
