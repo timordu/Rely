@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.android.rely.http.cookie
+package com.android.rely.retrofit.cookie
 
 import android.text.TextUtils
 import com.android.rely.common.currentTime

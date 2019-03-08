@@ -14,24 +14,20 @@
  *    limitations under the License.
  */
 
-package com.android.rely.http.cookie
+package com.android.rely.retrofit.cookie
 
 import okhttp3.Cookie
-import okhttp3.CookieJar
 import okhttp3.HttpUrl
 
 /**
- * Created by dugang on 2018/7/5.
+ * Created by dugang on 2018/7/4.
  */
-class CookieJarImpl(private var cookieStore: CookieStore) : CookieJar {
+interface CookieStore {
 
-    @Synchronized
-    override fun saveFromResponse(url: HttpUrl, cookies: MutableList<Cookie>) {
-        cookieStore.saveCookie(url, cookies)
-    }
+    fun saveCookie(url: HttpUrl, mutableList: MutableList<Cookie>)
 
-    @Synchronized
-    override fun loadForRequest(url: HttpUrl): MutableList<Cookie> {
-        return cookieStore.loadCookie(url)
-    }
+    fun loadCookie(url: HttpUrl): MutableList<Cookie>
+
+    fun removeCookie(host: String, cookie: Cookie? = null)
+
 }

@@ -14,20 +14,21 @@
  *    limitations under the License.
  */
 
-package com.android.rely.http.cookie
+package com.android.rely.retrofit
 
-import okhttp3.Cookie
-import okhttp3.HttpUrl
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+
 
 /**
- * Created by dugang on 2018/7/4.
+ * Created by dugang on 2017/7/27.RxJava工具类
  */
-interface CookieStore {
+data class Result<T>(var code: Int, var msg: String, var data: T)
 
-    fun saveCookie(url: HttpUrl, mutableList: MutableList<Cookie>)
 
-    fun loadCookie(url: HttpUrl): MutableList<Cookie>
-
-    fun removeCookie(host: String, cookie: Cookie? = null)
-
+fun <T> Observable<T>.applySchedulers(): Observable<T> {
+    return subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }
+

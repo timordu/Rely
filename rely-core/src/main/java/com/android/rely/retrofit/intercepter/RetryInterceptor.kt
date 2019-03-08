@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.android.rely.http.intercepter
+package com.android.rely.retrofit.intercepter
 
 import okhttp3.Interceptor
 import okhttp3.Response

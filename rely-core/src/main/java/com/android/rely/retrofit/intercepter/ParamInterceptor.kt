@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.android.rely.http.intercepter
+package com.android.rely.retrofit.intercepter
 
 import android.util.ArrayMap
 import okhttp3.FormBody

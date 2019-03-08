@@ -16,16 +16,16 @@
 
 @file:Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 
-package com.android.rely.http
+package com.android.rely.retrofit
 
 import android.util.ArrayMap
 import com.android.rely.Rely
-import com.android.rely.http.cookie.CookieJarImpl
-import com.android.rely.http.cookie.CookieStore
-import com.android.rely.http.cookie.CookieStoreImpl
-import com.android.rely.http.intercepter.HeaderInterceptor
-import com.android.rely.http.intercepter.ParamInterceptor
-import com.android.rely.http.intercepter.RetryInterceptor
+import com.android.rely.retrofit.cookie.CookieJarImpl
+import com.android.rely.retrofit.cookie.CookieStore
+import com.android.rely.retrofit.cookie.CookieStoreImpl
+import com.android.rely.retrofit.intercepter.HeaderInterceptor
+import com.android.rely.retrofit.intercepter.ParamInterceptor
+import com.android.rely.retrofit.intercepter.RetryInterceptor
 import okhttp3.Authenticator
 import okhttp3.Cache
 import okhttp3.Interceptor

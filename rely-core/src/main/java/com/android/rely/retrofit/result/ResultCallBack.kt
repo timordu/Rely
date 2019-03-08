@@ -18,7 +18,7 @@ package com.android.rely.library.core.http.result
 
 import com.android.rely.library.RelyConfig
 import com.android.rely.eventbus.MsgEvent
-import com.android.rely.http.Result
+import com.android.rely.retrofit.Result
 import com.google.gson.JsonSyntaxException
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
