@@ -14,4 +14,21 @@
  *    limitations under the License.
  */
 
-include ':app', ':rely-core', ':rely-commo', ':widget', ':mvvm', ':mvc'
+package com.android.rely.mvc.widget
+
+import android.app.Dialog
+import android.content.Context
+import androidx.annotation.LayoutRes
+import com.android.rely.mvc.R
+
+
+/**
+ * Created by dugang on 2017/4/17. 加载Dialog
+ */
+class LoadingDialog(context: Context, @LayoutRes layoutId: Int = R.layout.dlg_loading) : Dialog(context, R.style.Dialog_Loading) {
+
+    init {
+        setContentView(layoutId)
+        setCanceledOnTouchOutside(false)
+    }
+}
