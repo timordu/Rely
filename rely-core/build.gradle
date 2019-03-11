@@ -58,7 +58,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    api project(':rely-commo')
+    api project(':rely-common')
 
     //突破64k文件限制
     implementation 'androidx.multidex:multidex:2.0.1'
