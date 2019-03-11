@@ -22,7 +22,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
-import com.android.rely.base.BaseFragment
+import com.android.rely.mvc.base.BaseFragment
 import com.android.rely.mvc.R
 import com.android.rely.mvc.base.BaseActivity
 
