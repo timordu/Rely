@@ -61,7 +61,7 @@ dependencies {
     api project(':rely-common')
 
     //突破64k文件限制
-    implementation 'androidx.multidex:multidex:2.0.1'
+    api 'androidx.multidex:multidex:2.0.1'
 
     //https://github.com/google/gson
     api 'com.google.code.gson:gson:2.8.5'
