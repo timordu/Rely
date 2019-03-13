@@ -30,7 +30,7 @@
 
     <style name="AppTheme.Toolbar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="actionMenuTextColor">@color/toolbar_menu_color</item>
-        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textSize">@dimen/toolbar_menu_text_size</item>
     </style>
 
     <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
@@ -41,7 +41,6 @@
     <style name="AppTheme.FullScreen" parent="@style/BaseAppTheme">
         <item name="android:windowFullscreen">true</item>
     </style>
-
 
     <style name="Dialog.Loading" parent="@style/Dialog.Default">
         <item name="android:windowBackground">@android:color/transparent</item>

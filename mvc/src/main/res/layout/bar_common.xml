@@ -17,7 +17,7 @@
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_48"
+    android:layout_height="@dimen/toolbar_height"
     android:background="@color/colorPrimary"
     android:theme="@style/AppTheme.Toolbar">
 
@@ -28,6 +28,6 @@
         android:layout_gravity="center"
         android:maxLines="1"
         android:textColor="@color/toolbar_title_color"
-        android:textSize="@dimen/sp_18" />
+        android:textSize="@dimen/toolbar_text_size" />
 
 </androidx.appcompat.widget.Toolbar>
