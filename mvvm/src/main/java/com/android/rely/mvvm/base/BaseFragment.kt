@@ -55,6 +55,7 @@ abstract class BaseFragment : Fragment(), LifecycleOwner, Toolbar.OnMenuItemClic
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView(view, savedInstanceState)
+        initObserve()
     }
 
     abstract fun initView(view: View, savedInstanceState: Bundle?)

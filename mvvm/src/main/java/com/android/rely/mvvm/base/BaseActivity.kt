@@ -42,6 +42,7 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner {
         super.onCreate(savedInstanceState)
         setContentView(layoutResId)
         initView()
+        initObserve()
     }
 
     protected abstract val layoutResId: Int
