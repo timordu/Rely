@@ -1,4 +1,49 @@
+[![](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)[![](https://jitpack.io/v/timordu/Rely.svg)](https://jitpack.io/#timordu/Rely)
+
 # Rely
+
+一款基于Kotlin开发的Android开发框架
+
+
+
+Download
+--------
+
+1. 在项目根目录下的`build.gradle`添加JitPack仓库
+
+```kotlin
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+2. 在app目录下的`build.gradle`文件添加依赖
+
+```kotlin
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+def rely = '2264737b88'
+dependencies {
+
+    //添加全部依赖
+	//implementation "com.github.timordu:Rely:$rely"
+	//添加公共库和核心库
+	//implementation "com.github.timordu.Rely:rely-common:$rely"
+	//implementation "com.github.timordu.Rely:rely-core:$rely"
+    
+    //添加mvvm开发框架(默认依赖了公共库和核心库)
+    implementation "com.github.timordu.Rely:mvvm:$rely"
+    //添加mvc开发框架(默认依赖了公共库和核心库)
+    //implementation "com.github.timordu.Rely:mvc:$rely"
+    //添加组件库
+    implementation "com.github.timordu.Rely:widget:$rely"
+}
+```
 
 Copyright
 ---------
