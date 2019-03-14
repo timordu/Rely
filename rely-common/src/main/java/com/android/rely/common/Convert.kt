@@ -18,6 +18,7 @@ package com.android.rely.common
 
 import android.net.Uri
 import android.util.ArrayMap
+import kotlin.reflect.full.memberProperties
 
 /**
  * ByteArray转换成16进制字符串
@@ -41,20 +42,18 @@ fun String.hexToByteArray(): ByteArray {
     return data
 }
 
+/**
+ * String转Uri
+ */
 fun String.toUri(): Uri = Uri.parse(this)
 
+/**
+ * 对象转Map
+ */
 fun Any.toMap(): ArrayMap<String, Any> {
     val arrayMap = ArrayMap<String, Any>()
-    val declaredFields = javaClass.declaredFields
-    for (field in declaredFields) {
-        val isAccessible = field.isAccessible
-        field.isAccessible = true
-        arrayMap[field.name] = field.get(this)
-        field.isAccessible = isAccessible
+    javaClass.kotlin.memberProperties.forEach {
+        arrayMap[it.name] = it.get(this)
     }
-    arrayMap.remove("serialVersionUID")
-    arrayMap.remove("Companion")
-    arrayMap.remove("\$change")
-    arrayMap.remove("CREATOR")
     return arrayMap
 }
