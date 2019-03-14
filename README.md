@@ -1,4 +1,4 @@
-[![](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)[![](https://jitpack.io/v/timordu/Rely.svg)](https://jitpack.io/#timordu/Rely)
+[![](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0) [![](https://jitpack.io/v/timordu/Rely.svg)](https://jitpack.io/#timordu/Rely)
 
 # Rely
 
