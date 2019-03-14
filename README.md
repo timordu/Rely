@@ -29,7 +29,6 @@ apply plugin: 'kotlin-android-extensions'
 
 def rely = '2264737b88'
 dependencies {
-
     //添加全部依赖
 	//implementation "com.github.timordu:Rely:$rely"
 	//添加公共库和核心库
