@@ -60,12 +60,6 @@ val Context.EXTERNAL_CACHE_DIR_PATH: String
     get() = externalCacheDir.absolutePath
 
 /**
- * 获取Sdcard的根目录
- */
-val EXTERNAL_DIR_ROOT: String
-    get() = Environment.getExternalStorageDirectory().absolutePath
-
-/**
  * 获取公共下载文件夹路径
  */
 val PUBLIC_DOWNLOAD_DIR: String
@@ -96,6 +90,12 @@ val PUBLIC_MOVIE_DIR: String
     get() = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).absolutePath
 
 /**
+ * 获取Sdcard的根目录
+ */
+val EXTERNAL_DIR_ROOT: String
+    get() = Environment.getExternalStorageDirectory().absolutePath
+
+/**
  * 内存卡是否挂载
  */
 val isExternalStorageWritable: Boolean
@@ -104,24 +104,21 @@ val isExternalStorageWritable: Boolean
 /**
  * 获取内存卡空间总大小
  */
-fun getExternalStorageSize(): Long {
-    if (isExternalStorageWritable) {
+val EXTERNAL_STORAGE_SIZE: Long
+    get() = if (isExternalStorageWritable) {
         val statFs = StatFs(Environment.getExternalStorageDirectory().path)
-        return statFs.blockSizeLong * statFs.blockCountLong
-    }
-    return 0
-}
+        statFs.blockSizeLong * statFs.blockCountLong
+    } else
+        0L
 
 /**
  * 获取内存卡空间可用大小
  */
-fun getExternalStorageAvailableSize(): Long {
-    if (isExternalStorageWritable) {
+val EXTERNAL_STORAGE_AVAILABLE_SIZE: Long
+    get() = if (isExternalStorageWritable) {
         val statFs = StatFs(Environment.getExternalStorageDirectory().path)
-        return statFs.blockSizeLong * statFs.availableBlocksLong
-    }
-    return 0
-}
+        statFs.blockSizeLong * statFs.availableBlocksLong
+    } else 0L
 
 /**
  * 判断是否是文件路径
@@ -153,17 +150,17 @@ fun File.getUri(context: Context, authority: String = context.packageName + ".fi
  * 创建目录. eg. /path or /path/path
  */
 fun String.createFolder(): String =
-        File(EXTERNAL_DIR_ROOT, this).apply {
-            if (!exists()) mkdirs()
-        }.absolutePath
+    File(EXTERNAL_DIR_ROOT, this).apply {
+        if (!exists()) mkdirs()
+    }.absolutePath
 
 /**
  * 根据路径创建文件的父级目录,并返回该路径的绝对路径
  */
 fun String.createParentFile(): String =
-        File(EXTERNAL_DIR_ROOT, this).apply {
-            if (!parentFile.exists()) parentFile.mkdirs()
-        }.absolutePath
+    File(EXTERNAL_DIR_ROOT, this).apply {
+        if (!parentFile.exists()) parentFile.mkdirs()
+    }.absolutePath
 
 
 /**
