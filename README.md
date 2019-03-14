@@ -1,5 +1,4 @@
-[![](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0) [![](https://jitpack.io/v/timordu/Rely.svg)](https://jitpack.io/#timordu/Rely)
-
+![](https://img.shields.io/badge/platform-Android-lightgrey.svg) ![](https://img.shields.io/badge/language-Kotlin-orange.svg) [![](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0) [![](https://jitpack.io/v/timordu/Rely.svg)](https://jitpack.io/#timordu/Rely)
 # Rely
 
 一款基于Kotlin开发的Android开发框架
@@ -34,7 +33,7 @@ dependencies {
 	//添加公共库和核心库
 	//implementation "com.github.timordu.Rely:rely-common:$rely"
 	//implementation "com.github.timordu.Rely:rely-core:$rely"
-    
+
     //添加mvvm开发框架(默认依赖了公共库和核心库)
     implementation "com.github.timordu.Rely:mvvm:$rely"
     //添加mvc开发框架(默认依赖了公共库和核心库)

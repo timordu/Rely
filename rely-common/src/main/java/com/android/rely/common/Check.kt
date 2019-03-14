@@ -35,25 +35,25 @@ fun String.isEmail(): Boolean = isMatches(REGEX_EMAIL)
 //判断字符串是身份证号码
 private const val REGEX_ID_CARDS = "^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9Xx])$"
 
-fun String.isIdCards() = isMatches(REGEX_ID_CARDS)
+fun String.isIdCards(): Boolean = isMatches(REGEX_ID_CARDS)
 
 //判断字符是Url地址
 private const val REGEX_URL = "[a-zA-z]+://[^\\s]*"
 
-fun String.isUrl() = isMatches(REGEX_URL)
+fun String.isUrl(): Boolean = isMatches(REGEX_URL)
 
 //判断字符串是中文
 private const val REGEX_ZH = "^[\\u4e00-\\u9fa5]+$"
 
-fun String.isZh() = isMatches(REGEX_ZH)
+fun String.isZh(): Boolean = isMatches(REGEX_ZH)
 
 //判断字符串是日期
 private const val REGEX_DATE = "^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$"
 
-fun String.isDate() = isMatches(REGEX_DATE)
+fun String.isDate(): Boolean = isMatches(REGEX_DATE)
 
 //判断字符串是IP地址
 private const val REGEX_IP = "((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)"
 
-fun String.isIP() = isMatches(REGEX_IP)
+fun String.isIP(): Boolean = isMatches(REGEX_IP)
 

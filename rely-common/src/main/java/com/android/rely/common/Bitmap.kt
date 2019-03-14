@@ -41,7 +41,7 @@ import java.io.FileOutputStream
 fun ByteArray.toBitmap(): Bitmap = BitmapFactory.decodeByteArray(this, 0, size)
 
 /**
- * bitmap转ByteArray
+ * Bitmap转ByteArray
  */
 fun Bitmap.toByteArray(cf: Bitmap.CompressFormat): ByteArray =
         ByteArrayOutputStream().apply {
@@ -49,7 +49,7 @@ fun Bitmap.toByteArray(cf: Bitmap.CompressFormat): ByteArray =
         }.toByteArray()
 
 /**
- * Drawable转ByteArray
+ * Drawable转Bitmap
  */
 fun Drawable.toBitmap(): Bitmap {
     val config = if (opacity != PixelFormat.OPAQUE) Bitmap.Config.ARGB_8888 else Bitmap.Config.RGB_565
@@ -61,7 +61,7 @@ fun Drawable.toBitmap(): Bitmap {
 }
 
 /**
- * 保存bitmap到本地. 默认/DCIM/Screenshots
+ * 保存View到本地. 默认路径：/DCIM/Screenshots/Screenshot_yyyy_MM_dd_HH_mm_ss.png
  */
 fun View.saveBitmap(savePath: String = "/DCIM/Screenshots") {
     val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
