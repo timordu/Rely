@@ -24,20 +24,19 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-fun <T> Observable<T>.applySchedulers(provider: LifecycleProvider<*>, dialog: Dialog?, delay: Long = 1): Observable<T> {
-    return delay(delay, TimeUnit.SECONDS)
-        .subscribeOn(Schedulers.io())
-        .doOnSubscribe { disposable ->
-            dialog?.setOnCancelListener { disposable.dispose() }
-            dialog?.show()
-        }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnTerminate { dialog?.dismiss() }
-        .bindToLifecycle(provider)
-}
+fun <T> Observable<T>.applySchedulers(provider: LifecycleProvider<*>, dialog: Dialog, delay: Long = 1): Observable<T> =
+        delay(delay, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe { disposable ->
+                    dialog.setOnCancelListener { disposable.dispose() }
+                    dialog.show()
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate { dialog.dismiss() }
+                .bindToLifecycle(provider)
 
-fun <T> Observable<T>.applySchedulers(provider: LifecycleProvider<*>): Observable<T> {
-    return subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .bindToLifecycle(provider)
-}
+
+fun <T> Observable<T>.applySchedulers(provider: LifecycleProvider<*>): Observable<T> =
+        subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .bindToLifecycle(provider)

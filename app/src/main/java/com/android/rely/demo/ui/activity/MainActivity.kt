@@ -16,20 +16,15 @@
 
 package com.android.rely.demo.ui.activity
 
-import com.android.rely.common.toMap
 import com.android.rely.demo.R
-import com.android.rely.demo.model.bean.User
-import com.android.rely.ext.toJson
 import com.android.rely.mvvm.base.BaseActivity
-import com.blankj.ALog
 
 class MainActivity : BaseActivity() {
     override val layoutResId: Int = R.layout.activity_main
 
 
     override fun initView() {
-        val user = User("testName", 1, "138380038700")
-        ALog.dTag("test", user.toMap().toJson())
+
     }
 
 

@@ -29,8 +29,10 @@ class MsgEvent(var code: Int) {
         this.msg = msg
     }
 
-    constructor(code: Int, bundle: Bundle) : this(code) {
-        this.data.putAll(bundle)
+    constructor(code: Int, bundle: Bundle? = null) : this(code) {
+        bundle?.let {
+            this.data.putAll(it)
+        }
     }
 }
 

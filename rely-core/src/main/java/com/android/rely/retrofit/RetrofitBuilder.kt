@@ -59,7 +59,7 @@ class RetrofitBuilder {
     private var writeTimeout: Long = 10
 
     //重试次数
-    private var retryCount: Int = 3
+    private var retryCount: Int = 1
     //重连间隔
     private var retryDelay: Int = 5
     //缓存路径

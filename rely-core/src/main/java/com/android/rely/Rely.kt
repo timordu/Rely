@@ -44,4 +44,9 @@ object Rely {
         //初始化日志工具
         ALog.init(context).setLogSwitch(debug)
     }
+
+    fun initNetCode(success: Int = 0, error: Int = -1) {
+        NET_CODE_SUCCESS = success
+        NET_CODE_ERROR = error
+    }
 }

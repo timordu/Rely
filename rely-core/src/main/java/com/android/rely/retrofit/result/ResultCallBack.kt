@@ -18,6 +18,7 @@ package com.android.rely.retrofit.result
 
 import com.android.rely.Rely
 import com.android.rely.eventbus.MsgEvent
+import com.android.rely.eventbus.post
 import com.android.rely.retrofit.Result
 import com.google.gson.JsonSyntaxException
 import org.greenrobot.eventbus.EventBus
@@ -62,6 +63,6 @@ abstract class ResultCallBack<T> : Callback<Result<T>> {
     }
 
     open fun handlerError(code: Int, msg: String) {
-        EventBus.getDefault().post(MsgEvent(code, msg))
+        MsgEvent(code, msg).post()
     }
 }

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="JavadocGenerationManager">
+    <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Desktop" />
+    <option name="OTHER_OPTIONS" value="-bootclasspath C:\Users\Jnc\AppData\Local\Android\Sdk\platforms\android-28/android.jar" />
+    <option name="LOCALE" value="zh" />
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

@@ -29,22 +29,23 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 
-fun <T> Observable<T>.applySchedulers(lifecycle: Lifecycle, dialog: Dialog?, delay: Long = 1): ObservableSubscribeProxy<T> {
-    return delay(delay, TimeUnit.SECONDS)
-            .subscribeOn(Schedulers.io())
-            .doOnSubscribe { disposable ->
-                dialog?.setOnCancelListener { disposable.dispose() }
-                dialog?.show()
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnTerminate { dialog?.dismiss() }
-            .autoDisposable(AndroidLifecycleScopeProvider.from(lifecycle))
-}
+fun <T> Observable<T>.applySchedulers(lifecycle: Lifecycle, dialog: Dialog, delay: Long = 1): ObservableSubscribeProxy<T> =
+        delay(delay, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe { disposable ->
+                    dialog.setOnCancelListener { disposable.dispose() }
+                    dialog.show()
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate { dialog.dismiss() }
+                .autoDisposable(AndroidLifecycleScopeProvider.from(lifecycle))
+
 
 fun <T> Observable<T>.applySchedulers(lifecycle: Lifecycle): ObservableSubscribeProxy<T> =
         subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .autoDisposable(AndroidLifecycleScopeProvider.from(lifecycle))
+
 
 fun <T> Observable<T>.applySchedulers(provider: ScopeProvider): ObservableSubscribeProxy<T> =
         subscribeOn(Schedulers.io())
