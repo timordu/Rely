@@ -16,10 +16,12 @@
 
 package com.android.rely.upload
 
+import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Message
 import com.android.rely.common.closeIO
 import com.android.rely.common.currentTime
+import com.android.rely.common.isNotNull
 import okhttp3.*
 import okio.BufferedSink
 import okio.Okio
@@ -34,16 +36,14 @@ import java.util.concurrent.Future
  * Created by dugang on 2018/11/26. 批量上传
  */
 @Suppress("unused")
-object UploadManager {
-    const val STATUS_PENDING = 0
-    const val STATUS_RUNNING = 1
-    const val STATUS_COMPLETED = 2
-    const val STATUS_FAILED = 3
-    const val STATUS_CANCELED = 4
-
-    private lateinit var url: String
-    private var interceptor: Interceptor? = null
-    private var maxThread = 3
+class UploadManager(private val url: String, private val interceptor: Interceptor? = null, private val maxThread: Int = 3) {
+    companion object {
+        const val STATUS_PENDING = 0
+        const val STATUS_RUNNING = 1
+        const val STATUS_COMPLETED = 2
+        const val STATUS_FAILED = 3
+        const val STATUS_CANCELED = 4
+    }
 
     private val uploadExecutor: ExecutorService by lazy { Executors.newFixedThreadPool(maxThread) }
     private val futureMap: ConcurrentHashMap<Long, Future<*>>   by lazy { ConcurrentHashMap<Long, Future<*>>() }
@@ -52,11 +52,6 @@ object UploadManager {
     private val listenerMap: ConcurrentHashMap<Long, OnUploadListener> by lazy { ConcurrentHashMap<Long, OnUploadListener>() }
     private val mHandler: ExecutorHandler by lazy { ExecutorHandler() }
 
-    fun init(url: String, interceptor: Interceptor? = null, maxThread: Int = 3) {
-        UploadManager.url = url
-        UploadManager.interceptor = interceptor
-        UploadManager.maxThread = maxThread
-    }
 
     fun addTask(file: File, alias: String = "file"): Long {
         val uploadInfo = UploadInfo().apply {
@@ -73,9 +68,9 @@ object UploadManager {
     /**
      * 开始单个任务
      */
-    fun start(downloadId: Long) {
-        taskMap[downloadId]?.let {
-            if (it.uploadInfo.status == STATUS_PENDING && !futureMap.containsKey(downloadId) || it.uploadInfo.status == STATUS_FAILED) {
+    fun start(uploadId: Long) {
+        taskMap[uploadId]?.let {
+            if (it.uploadInfo.status == STATUS_PENDING && !futureMap.containsKey(uploadId) || it.uploadInfo.status == STATUS_FAILED) {
                 it.uploadInfo.status = STATUS_PENDING
                 futureMap[it.uploadInfo.id] = uploadExecutor.submit(it)
                 mHandler.sendMessage(Message().apply { obj = it.uploadInfo })
@@ -94,12 +89,12 @@ object UploadManager {
     /**
      * 取消正在上传或等待上传的任务
      */
-    fun cancel(downloadId: Long) {
-        taskMap[downloadId]?.let {
+    fun cancel(uploadId: Long) {
+        taskMap[uploadId]?.let {
             if (it.uploadInfo.status == STATUS_RUNNING)
                 it.uploadInfo.status = STATUS_CANCELED
             else {
-                futureMap[downloadId]?.cancel(true)
+                futureMap[uploadId]?.cancel(true)
                 mHandler.sendMessage(Message().apply { obj = it.uploadInfo.apply { status = STATUS_CANCELED } })
             }
         }
@@ -122,13 +117,17 @@ object UploadManager {
     }
 
     /**
-     * 清除监听器,需要在Activity或Fragment的生命周期onPause()时调用
+     * 清除监听器
      */
-    fun unregisterListener() {
-        listenerMap.clear()
+    fun unregisterListener(uploadId: Long? = null) {
+        if (uploadId.isNotNull())
+            listenerMap.clear()
+        else
+            listenerMap.remove(uploadId)
     }
 
-    private class ExecutorHandler : Handler() {
+    @SuppressLint("HandlerLeak")
+    private inner class ExecutorHandler : Handler() {
         override fun handleMessage(msg: Message) {
             val uploadInfo = msg.obj as UploadInfo
             when (uploadInfo.status) {
@@ -157,7 +156,7 @@ object UploadManager {
         }
     }
 
-    private class UploadTask(var uploadInfo: UploadInfo) : Runnable {
+    private inner class UploadTask(var uploadInfo: UploadInfo) : Runnable {
         private val file: File by lazy { File(uploadInfo.path) }
         private var milliseconds: Long = 0
 

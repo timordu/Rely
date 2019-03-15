@@ -16,13 +16,11 @@
 
 package com.android.rely.download
 
+import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Message
 import com.android.rely.Rely
-import com.android.rely.common.PUBLIC_DOWNLOAD_DIR
-import com.android.rely.common.closeIO
-import com.android.rely.common.currentTime
-import com.android.rely.common.isNull
+import com.android.rely.common.*
 import com.android.rely.ext.wifiConnected
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -37,15 +35,18 @@ import java.util.concurrent.Future
 /**
  * Created by dugang on 2018/11/14. 批量下载
  */
-object DownloadManager {
-    const val STATUS_PENDING = 0
-    const val STATUS_RUNNING = 1
-    const val STATUS_PAUSED = 2
-    const val STATUS_COMPLETED = 3
-    const val STATUS_FAILED = 4
-    const val STATUS_CANCELED = 5
+@Suppress("unused")
+class DownloadManager(private val rootPath: String = PUBLIC_DOWNLOAD_DIR, private val maxThread: Int = 3, private val limitWiFi: Boolean = true) {
+    companion object {
+        const val STATUS_PENDING = 0
+        const val STATUS_RUNNING = 1
+        const val STATUS_PAUSED = 2
+        const val STATUS_COMPLETED = 3
+        const val STATUS_FAILED = 4
+        const val STATUS_CANCELED = 5
+    }
 
-    private var maxThread = 3
+
     private val downLoadExecutor: ExecutorService by lazy { Executors.newFixedThreadPool(maxThread) }
     private val futureMap: ConcurrentHashMap<Long, Future<*>>   by lazy { ConcurrentHashMap<Long, Future<*>>() }
 
@@ -53,20 +54,6 @@ object DownloadManager {
     private val listenerMap: ConcurrentHashMap<Long, OnDownloadListener> by lazy { ConcurrentHashMap<Long, OnDownloadListener>() }
     private val mHandler: ExecutorHandler by lazy { ExecutorHandler() }
 
-    private var rootPath = PUBLIC_DOWNLOAD_DIR
-    private var limitWiFi = true
-
-    /**
-     * 初始化下载参数,建议在Application中初始化
-     * @param rootPath 下载根路径,默认Download目录
-     * @param maxThread  最大并发任务数3
-     * @param limitWiFi  是否只在wifi连接时下载,默认true
-     */
-    fun init(rootPath: String = PUBLIC_DOWNLOAD_DIR, maxThread: Int = 3, limitWiFi: Boolean = true) {
-        DownloadManager.rootPath = rootPath
-        DownloadManager.maxThread = maxThread
-        DownloadManager.limitWiFi = limitWiFi
-    }
 
     fun addTask(url: String): Long {
         if (url.isEmpty() || url.isBlank() || !url.contains("/")) return 0
@@ -160,7 +147,7 @@ object DownloadManager {
     /**
      * 取消全部任务
      */
-    fun cancelALl() {
+    fun cancelAll() {
         taskMap.values.forEach { cancel(it.downloadInfo.id) }
     }
 
@@ -174,19 +161,21 @@ object DownloadManager {
     }
 
     /**
-     * 清除监听器,需要在Activity或Fragment的生命周期onPause()时调用
+     * 清除监听器
      */
     fun unregisterListener(downloadId: Long? = null) {
-        if (downloadId.isNull())
-            listenerMap.remove(downloadId)
-        else
+        if (downloadId.isNotNull())
             listenerMap.clear()
+        else
+            listenerMap.remove(downloadId)
+
     }
 
     /**
      * 执行消息分发
      */
-    private class ExecutorHandler : Handler() {
+    @SuppressLint("HandlerLeak")
+    private inner class ExecutorHandler : Handler() {
         override fun handleMessage(msg: Message) {
             val downloadInfo = msg.obj as DownloadInfo
             when (downloadInfo.status) {
@@ -226,7 +215,7 @@ object DownloadManager {
         }
     }
 
-    private class DownloadTask(var downloadInfo: DownloadInfo) : Runnable {
+    private inner class DownloadTask(var downloadInfo: DownloadInfo) : Runnable {
         private val mClient: OkHttpClient by lazy { OkHttpClient.Builder().build() }
         private var milliseconds: Long = 0
 

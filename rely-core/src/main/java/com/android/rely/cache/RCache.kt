@@ -105,6 +105,7 @@ class RCache(cacheDir: File, max_size: Long, max_count: Int, appVersion: Int) {
     /**
      * 保存String类型数据,如果传入null,则移除该key的缓存
      */
+    @JvmOverloads
     fun put(key: String, value: String?, saveTime: Int = Int.MAX_VALUE) {
         if (value.isNotNull())
             put(key, value!!.toByteArray(), saveTime)
