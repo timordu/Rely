@@ -21,10 +21,7 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.os.Parcelable
 import com.android.rely.Rely
-import com.android.rely.common.DATA_DIR_PATH
-import com.android.rely.common.currentTime
-import com.android.rely.common.formatFileLength
-import com.android.rely.common.toBitmap
+import com.android.rely.common.*
 import com.android.rely.ext.*
 import com.jakewharton.disklrucache.DiskLruCache
 import java.io.ByteArrayOutputStream
@@ -53,7 +50,7 @@ class RCache(cacheDir: File, max_size: Long, max_count: Int, appVersion: Int) {
          * @param max_count 最大缓存数量
          */
         fun get(cacheDir: String = "RCache", max_size: Long = MAX_SIZE, max_count: Int = MAX_COUNT): RCache =
-                get(File(Rely.appContext.DATA_DIR_PATH, cacheDir), max_size, max_count)
+            get(File(Rely.appContext.DATA_DIR_PATH, cacheDir), max_size, max_count)
 
         /**
          * 获取RCache实例
@@ -86,98 +83,136 @@ class RCache(cacheDir: File, max_size: Long, max_count: Int, appVersion: Int) {
     */
 
     /**
-     * 保存ByteArray类型数据
+     * 保存ByteArray类型数据,如果传入null,则移除该key的缓存
      */
-    fun put(key: String, value: ByteArray, saveTime: Int = Int.MAX_VALUE) {
-        val sb = StringBuilder().apply {
-            append(currentTime + saveTime * 1000L)
-            append(" ")
-            append(value.base64Encode2Str())
-        }
+    @JvmOverloads
+    fun put(key: String, value: ByteArray?, saveTime: Int = Int.MAX_VALUE) {
+        if (value.isNotNull()) {
+            val sb = StringBuilder().apply {
+                append(currentTime + saveTime * 1000L)
+                append(" ")
+                append(value!!.encryptByAES(MY_UUID).base64Encode2Str())
+            }
 
-        val editor = diskLruCache.edit(key.md5()).apply {
-            set(0, sb.toString())
-        }
-        editor.commit()
+            val editor = diskLruCache.edit(key.md5()).apply {
+                set(0, sb.toString())
+            }
+            editor.commit()
+        } else
+            remove(key)
     }
 
     /**
-     * 保存String类型数据
+     * 保存String类型数据,如果传入null,则移除该key的缓存
      */
-    fun put(key: String, value: String, saveTime: Int = Int.MAX_VALUE) {
-        put(key, value.toByteArray(), saveTime)
+    fun put(key: String, value: String?, saveTime: Int = Int.MAX_VALUE) {
+        if (value.isNotNull())
+            put(key, value!!.toByteArray(), saveTime)
+        else
+            remove(key)
     }
 
     /**
-     * 保存Boolean类型数据
+     * 保存Boolean类型数据,如果传入null,则移除该key的缓存
      */
-    fun put(key: String, value: Boolean, saveTime: Int = Int.MAX_VALUE) {
-        put(key, value.toString(), saveTime)
+    fun put(key: String, value: Boolean?, saveTime: Int = Int.MAX_VALUE) {
+        if (value.isNotNull())
+            put(key, value.toString(), saveTime)
+        else
+            remove(key)
     }
 
     /**
-     * 保存Int类型数据
+     * 保存Int类型数据,如果传入null,则移除该key的缓存
      */
-    fun put(key: String, value: Int, saveTime: Int = Int.MAX_VALUE) {
-        put(key, value.toString(), saveTime)
+    fun put(key: String, value: Int?, saveTime: Int = Int.MAX_VALUE) {
+        if (value.isNotNull())
+            put(key, value.toString(), saveTime)
+        else
+            remove(key)
     }
 
     /**
-     * 保存Long类型数据
+     * 保存Long类型数据,如果传入null,则移除该key的缓存
      */
-    fun put(key: String, value: Long, saveTime: Int = Int.MAX_VALUE) {
-        put(key, value.toString(), saveTime)
+    fun put(key: String, value: Long?, saveTime: Int = Int.MAX_VALUE) {
+        if (value.isNotNull())
+            put(key, value.toString(), saveTime)
+        else
+            remove(key)
     }
 
     /**
-     * 保存Float类型数据
+     * 保存Float类型数据,如果传入null,则移除该key的缓存
      */
-    fun put(key: String, value: Float, saveTime: Int = Int.MAX_VALUE) {
-        put(key, value.toString(), saveTime)
+    fun put(key: String, value: Float?, saveTime: Int = Int.MAX_VALUE) {
+        if (value.isNotNull())
+            put(key, value.toString(), saveTime)
+        else
+            remove(key)
     }
 
     /**
-     * 保存Double类型数据
+     * 保存Double类型数据,如果传入null,则移除该key的缓存
      */
-    fun put(key: String, value: Double, saveTime: Int = Int.MAX_VALUE) {
-        put(key, value.toString(), saveTime)
+    fun put(key: String, value: Double?, saveTime: Int = Int.MAX_VALUE) {
+        if (value.isNotNull())
+            put(key, value.toString(), saveTime)
+        else
+            remove(key)
     }
 
     /**
-     * 保存Bitmap类型数据
+     * 保存Bitmap类型数据,如果传入null,则移除该key的缓存
      */
-    fun put(key: String, value: Bitmap, saveTime: Int = Int.MAX_VALUE) {
-        val baos = ByteArrayOutputStream()
-        value.compress(Bitmap.CompressFormat.PNG, 100, baos)
-        put(key, baos.toByteArray(), saveTime)
+    @JvmOverloads
+    fun put(key: String, value: Bitmap?, saveTime: Int = Int.MAX_VALUE) {
+        if (value.isNotNull()) {
+            val baos = ByteArrayOutputStream()
+            value!!.compress(Bitmap.CompressFormat.PNG, 100, baos)
+            put(key, baos.toByteArray(), saveTime)
+        } else
+            remove(key)
     }
 
     /**
-     * 保存Drawable类型数据
+     * 保存Drawable类型数据,如果传入null,则移除该key的缓存
      */
-    fun put(key: String, value: Drawable, saveTime: Int = Int.MAX_VALUE) {
-        put(key, value.toBitmap(), saveTime)
+    fun put(key: String, value: Drawable?, saveTime: Int = Int.MAX_VALUE) {
+        if (value.isNotNull())
+            put(key, value!!.toBitmap(), saveTime)
+        else
+            remove(key)
     }
 
     /**
      * 保存Object数据,如果传入null,则移除该key的缓存
      */
-    fun <T : Parcelable> put(key: String, value: T, saveTime: Int = Int.MAX_VALUE) {
-        put(key, value.toJson(), saveTime)
+    fun <T : Parcelable> put(key: String, value: T?, saveTime: Int = Int.MAX_VALUE) {
+        if (value.isNotNull())
+            put(key, value.toJson(), saveTime)
+        else
+            remove(key)
     }
 
     /**
      * 保存List数据,如果传入null,则移除该key的缓存
      */
-    fun <T> put(key: String, value: List<T>, saveTime: Int = Int.MAX_VALUE) {
-        put(key, value.toJson(), saveTime)
+    fun <T> put(key: String, value: List<T>?, saveTime: Int = Int.MAX_VALUE) {
+        if (value.isNotNull())
+            put(key, value.toJson(), saveTime)
+        else
+            remove(key)
     }
 
     /**
      * 保存Map类型数据,如果传入null,则移除该key的缓存
      */
-    fun <T, E> put(key: String, value: Map<T, E>, saveTime: Int = Int.MAX_VALUE) {
-        put(key, value.toJson(), saveTime)
+    fun <T, E> put(key: String, value: Map<T, E>?, saveTime: Int = Int.MAX_VALUE) {
+        if (value.isNotNull())
+            put(key, value.toJson(), saveTime)
+        else
+            remove(key)
     }
 
     /**
@@ -187,7 +222,7 @@ class RCache(cacheDir: File, max_size: Long, max_count: Int, appVersion: Int) {
         val data = diskLruCache.get(key.md5())?.getString(0)?.split(" ")
         data?.let {
             if (currentTime <= it[0].toLong()) {
-                return it[1].base64Decode()
+                return it[1].base64Decode().decryptByAES(MY_UUID)
             }
         }
         return null
@@ -236,7 +271,8 @@ class RCache(cacheDir: File, max_size: Long, max_count: Int, appVersion: Int) {
     /**
      * 读取Map数据,value暂不支持Any类型的值
      */
-    fun <T, E> getAsMap(key: String, clazz1: Class<T>, clazz2: Class<E>): Map<T, E>? = getAsString(key)?.jsonToMap(clazz1, clazz2)
+    fun <T, E> getAsMap(key: String, clazz1: Class<T>, clazz2: Class<E>): Map<T, E>? =
+        getAsString(key)?.jsonToMap(clazz1, clazz2)
 
     /**
      * 获取Bitmap类型的数据
@@ -255,13 +291,10 @@ class RCache(cacheDir: File, max_size: Long, max_count: Int, appVersion: Int) {
      */
     fun size(): String = diskLruCache.size().formatFileLength()
 
-
     /**
      * 清空缓存
      */
     fun delete() {
         diskLruCache.delete()
     }
-
-
 }
