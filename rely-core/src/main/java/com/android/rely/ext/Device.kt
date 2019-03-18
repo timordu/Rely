@@ -20,6 +20,7 @@ import android.content.Context
 import android.os.Build
 import android.text.TextUtils
 import android.webkit.WebSettings
+import androidx.annotation.RequiresApi
 import com.android.rely.common.telephonyManager
 import com.android.rely.common.wifiManager
 import java.net.NetworkInterface
@@ -48,7 +49,8 @@ val MY_DEVICE_NAME: String = Build.MANUFACTURER + " " + Build.MODEL
 /**
  * 获取设备ABI列表
  */
-//val MY_DEVICE_ABIS: Array<String> = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) Build.SUPPORTED_ABIS else arrayOf(Build.CPU_ABI)
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+val MY_DEVICE_ABIS: Array<String> = Build.SUPPORTED_ABIS
 
 /**
  * 获取Http的UserAgent

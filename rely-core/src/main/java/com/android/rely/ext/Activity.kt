@@ -27,7 +27,10 @@ import android.view.WindowManager
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.android.rely.common.hideSoftInput
+import com.android.rely.common.windowManager
 
 /**
  * 跳转到指定的Activity
@@ -81,25 +84,43 @@ fun Activity.closeActivity(bundle: Bundle? = null) {
     finish()
 }
 
-fun FragmentActivity.replaceFragment(@IdRes layoutId: Int, f: Fragment, bundle: Bundle = Bundle(), tag: String? = null) {
-    supportFragmentManager.beginTransaction()
-            .replace(layoutId, f.apply { arguments = bundle }, tag)
-            .commitAllowingStateLoss()
+/**
+ * Fragment事务扩展
+ */
+inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) {
+    beginTransaction().func().commitAllowingStateLoss()
 }
 
-fun FragmentActivity.addFragment(@IdRes layoutId: Int, f: Fragment, bundle: Bundle = Bundle(), tag: String? = null) {
-    supportFragmentManager.beginTransaction()
-            .add(layoutId, f.apply { arguments = bundle }, tag)
-            .addToBackStack(null)
-            .commitAllowingStateLoss()
+/**
+ * 替换Fragment
+ */
+fun FragmentActivity.replaceFragment(@IdRes layoutId: Int, f: Fragment, bundle: Bundle? = null, tag: String? = null) {
+    supportFragmentManager.inTransaction {
+        replace(layoutId, f.apply { arguments = bundle }, tag)
+    }
 }
 
+/**
+ * 添加Fragment
+ */
+fun FragmentActivity.addFragment(@IdRes layoutId: Int, f: Fragment, bundle: Bundle? = null, tag: String? = null) {
+    supportFragmentManager.inTransaction {
+        add(layoutId, f.apply { arguments = bundle }, tag).addToBackStack(null)
+    }
+}
+
+/**
+ * 隐藏Fragment
+ */
 fun FragmentActivity.hideFragment(f: Fragment) {
-    supportFragmentManager.beginTransaction().hide(f).commitAllowingStateLoss()
+    supportFragmentManager.inTransaction { hide(f) }
 }
 
+/**
+ * 显示Fragment
+ */
 fun FragmentActivity.showFragment(f: Fragment) {
-    supportFragmentManager.beginTransaction().show(f).commitAllowingStateLoss()
+    supportFragmentManager.inTransaction { show(f) }
 }
 
 
@@ -154,7 +175,7 @@ fun Context.getScreenOrientation(): Int = resources.configuration.orientation
 /**
  * 获取屏幕旋转角度
  */
-fun Activity.getScreenRotation(): Int =
+fun Context.getScreenRotation(): Int =
         when (windowManager.defaultDisplay.rotation) {
             Surface.ROTATION_90 -> 90
             Surface.ROTATION_180 -> 180

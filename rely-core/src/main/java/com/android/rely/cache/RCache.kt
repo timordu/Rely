@@ -295,7 +295,7 @@ class RCache(cacheDir: File, max_size: Long, max_count: Int, appVersion: Int) {
     /**
      * 清空缓存
      */
-    fun delete() {
+    fun clear() {
         diskLruCache.delete()
     }
 }

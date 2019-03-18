@@ -22,6 +22,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.Signature
 import android.net.Uri
+import android.os.Build
 import com.android.rely.Rely
 import com.android.rely.common.getUri
 import com.android.rely.common.activityManager
@@ -104,8 +105,10 @@ fun Context.getSignatureSHA256(format: Boolean = true): String {
         signature
 }
 
-fun Context.getSignature(): Array<Signature> =
-        packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES).signingInfo.apkContentsSigners
+@TargetApi(Build.VERSION_CODES.P)
+private fun Context.getSignature(): Array<Signature> =
+        packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES)
+                .signingInfo.apkContentsSigners
 
 
 /**

@@ -32,75 +32,57 @@ import androidx.fragment.app.FragmentTransaction
  * 跳转到指定的Activity
  */
 fun Fragment.skipToActivity(clazz: Class<out Activity>, bundle: Bundle? = null) {
-    val intent = Intent(activity, clazz).apply {
-        putExtras(Bundle().apply { bundle?.let { putAll(it) } })
-    }
-    startActivity(intent)
+    activity?.skipToActivity(clazz, bundle)
 }
 
 /**
  * 带返回的跳转到指定的Activity
  */
 fun Fragment.skipToActivityForResult(clazz: Class<out Activity>, requestCode: Int, bundle: Bundle? = null) {
-    val intent = Intent(activity, clazz).apply {
-        putExtras(Bundle().apply { bundle?.let { putAll(it) } })
-    }
-    startActivityForResult(intent, requestCode)
+    activity?.skipToActivityForResult(clazz, requestCode, bundle)
 }
 
 /**
  * 跳转到指定的Activity并结束当前Activity
  */
 fun Fragment.skipToActivityAndFinish(clazz: Class<out Activity>, bundle: Bundle? = null) {
-    skipToActivity(clazz, bundle)
-    activity?.finish()
+    activity?.skipToActivityAndFinish(clazz, bundle)
 }
 
 /**
  * 从新线程启动指定的Activity
  */
 fun Fragment.skipToActivityWithNewTask(clazz: Class<out Activity>, bundle: Bundle? = null) {
-    val intent = Intent(activity, clazz).apply {
-        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        putExtras(Bundle().apply { bundle?.let { putAll(it) } })
-    }
-    startActivity(intent)
-    activity?.finish()
+    activity?.skipToActivityWithNewTask(clazz, bundle)
 }
 
 /**
- * 关闭界面,如果bundle不为空则返回
+ * 关闭界面
  */
 fun Fragment.closeActivity(bundle: Bundle? = null) {
     activity?.closeActivity(bundle)
 }
 
 fun Fragment.replaceFragment(@IdRes layoutId: Int, f: Fragment, bundle: Bundle = Bundle(), tag: String? = null) {
-    childFragmentManager.beginTransaction()
-            .replace(layoutId, f.apply { arguments = bundle }, tag)
-            .commitAllowingStateLoss()
+    childFragmentManager.inTransaction {
+        replace(layoutId, f.apply { arguments = bundle }, tag)
+    }
 }
 
 fun Fragment.addFragment(@IdRes layoutId: Int, f: Fragment, bundle: Bundle = Bundle(), tag: String? = null) {
-    childFragmentManager.beginTransaction()
-            .add(layoutId, f.apply { arguments = bundle }, tag)
-            .commitAllowingStateLoss()
+    childFragmentManager.inTransaction {
+        add(layoutId, f.apply { arguments = bundle }, tag)
+    }
 }
 
 fun Fragment.hideFragment(f: Fragment) {
-    childFragmentManager.beginTransaction().hide(f).commitAllowingStateLoss()
+    childFragmentManager.inTransaction { hide(f) }
 }
 
 fun Fragment.showFragment(f: Fragment) {
-    childFragmentManager.beginTransaction().show(f).commitAllowingStateLoss()
+    childFragmentManager.inTransaction { show(f) }
 }
 
-/**
- * Fragment事务扩展
- */
-inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) {
-    beginTransaction().func().commitAllowingStateLoss()
-}
 
 /**
  * 隐藏软键盘
