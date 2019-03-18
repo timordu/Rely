@@ -47,10 +47,10 @@ import org.greenrobot.eventbus.ThreadMode
  * Created by dugang on 2017/8/21. Fragment基类
  */
 @Suppress("OverridingDeprecatedMember", "DEPRECATION")
-abstract class BaseFragment : Fragment(), LifecycleProvider<FragmentEvent>,Toolbar.OnMenuItemClickListener {
+abstract class BaseFragment : Fragment(), LifecycleProvider<FragmentEvent>, Toolbar.OnMenuItemClickListener {
     private val lifecycleSubject = BehaviorSubject.create<FragmentEvent>()
 
-    protected val mContext: Context get() = activity as Context
+    protected open val mContext: Context get() = activity as Context
     protected val loadingDialog: LoadingDialog by lazy { LoadingDialog(mContext) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
