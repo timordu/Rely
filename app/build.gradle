@@ -62,6 +62,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     implementation project(':mvvm')
+    implementation project(':widget')
 
     //添加全部依赖
     //    implementation "com.github.timordu:Rely:$rely"

@@ -17,14 +17,22 @@
 package com.android.rely.demo.ui.activity
 
 import com.android.rely.demo.R
+import com.android.rely.demo.ui.activity.fingerprint.FingerprintActivity
+import com.android.rely.ext.skipToActivity
 import com.android.rely.mvvm.base.BaseActivity
+import com.android.rely.mvvm.ext.initToolBar
+import kotlinx.android.synthetic.main.act_main.*
 
 class MainActivity : BaseActivity() {
-    override val layoutResId: Int = R.layout.activity_main
+    override val layoutResId: Int = R.layout.act_main
 
 
     override fun initView() {
+        initToolBar("功能测试")
 
+        fingerprint.setOnClickListener {
+            skipToActivity(FingerprintActivity::class.java)
+        }
     }
 
 
