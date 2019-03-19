@@ -14,15 +14,11 @@
  *    limitations under the License.
  */
 
-package com.android.rely.ext
+package com.android.rely.common
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.android.rely.Rely
-import com.android.rely.common.clearSP
-import com.android.rely.common.getSP
-import com.android.rely.common.removeSP
-import com.android.rely.common.setSP
 
 /**
  * Created by dugang on 2018/5/14.
@@ -31,25 +27,39 @@ import com.android.rely.common.setSP
 /**
  * 获取SharedPreferences,null返回默认的SharedPreferences
  */
-fun getSP(spName: String? = null): SharedPreferences = Rely.appContext.getSP(spName)
+fun Context.getSP(spName: String? = null): SharedPreferences {
+    return if (spName == null) {
+        PreferenceManager.getDefaultSharedPreferences(this)
+    } else {
+        getSharedPreferences(spName, 0)
+    }
+}
 
 /**
  * 保存SharedPreferences，根据传入类型自动转换
  */
-fun <T : Comparable<T>> setSP(keyName: String, value: T, spName: String? = null) {
-    Rely.appContext.setSP(keyName, value, spName)
+fun <T : Comparable<T>> Context.setSP(keyName: String, value: T, spName: String? = null) {
+    getSP(spName).edit().apply {
+        when (value) {
+            is Boolean -> putBoolean(keyName, value as Boolean)
+            is Int -> putInt(keyName, value as Int)
+            is String -> putString(keyName, value as String)
+            is Float -> putFloat(keyName, value as Float)
+            is Long -> putLong(keyName, value as Long)
+        }
+    }.apply()
 }
 
 /**
  * 移除SharedPreferences
  */
-fun removeSP(key: String, spName: String? = null) {
-    Rely.appContext.removeSP(key, spName)
+fun Context.removeSP(key: String, spName: String? = null) {
+    getSP(spName).edit().remove(key).apply()
 }
 
 /**
  * 清空SharedPreferences
  */
-fun clearSP(spName: String? = null) {
-    Rely.appContext.clearSP(spName)
+fun Context.clearSP(spName: String? = null) {
+    getSP(spName).edit().clear().apply()
 }

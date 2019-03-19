@@ -24,8 +24,7 @@ import android.content.pm.Signature
 import android.net.Uri
 import android.os.Build
 import com.android.rely.Rely
-import com.android.rely.common.getUri
-import com.android.rely.common.activityManager
+import com.android.rely.common.*
 import java.io.File
 import java.util.*
 

@@ -20,28 +20,60 @@ import android.annotation.TargetApi
 import android.app.Dialog
 import android.content.Context
 import android.os.Build
-import android.os.VibrationEffect
-import android.os.Vibrator
 import android.view.animation.AnimationUtils
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.core.os.CancellationSignal
+import com.android.rely.common.screenWidth
 import com.android.rely.widget.R
 import kotlinx.android.synthetic.main.dlg_fingerprint.*
 
 /**
  * Created by dugang on 2018/10/26.指纹验证弹窗
  */
-class FingerprintAuthDialog(context: Context, onAuthListener: (success: Boolean, message: String?) -> Unit) :
+class FingerprintManager(context: Context, onAuthListener: (success: Boolean, message: String?) -> Unit) :
         Dialog(context, R.style.Dialog_Fingerprint) {
+
+    companion object {
+        /**
+         * 判断硬件是否支持指纹识别
+         */
+        @JvmStatic
+        fun isHardwareSupport(context: Context): Boolean =
+                FingerprintManagerCompat.from(context).isHardwareDetected
+
+        /**
+         * 判断是否已经注册有指纹
+         */
+        @JvmStatic
+        fun hasEnrolledFingerprints(context: Context): Boolean =
+                FingerprintManagerCompat.from(context).hasEnrolledFingerprints()
+
+        /**
+         * 显示指纹验证弹窗
+         */
+        fun showAuthDialog(context: Context, onAuthListener: (success: Boolean, message: String?) -> Unit) {
+            if (!isHardwareSupport(context))
+                onAuthListener.invoke(false, "当前设备不支持指纹识别")
+            else if (!hasEnrolledFingerprints(context))
+                onAuthListener.invoke(false, "当前设备暂无指纹信息")
+            else {
+                FingerprintManager(context, onAuthListener).show()
+            }
+        }
+    }
 
     private val cancellationSignal: CancellationSignal by lazy { CancellationSignal() }
 
-    private val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-
     init {
+        setContentView(R.layout.dlg_fingerprint)
         setCancelable(false)
         setCanceledOnTouchOutside(false)
-        setContentView(R.layout.dlg_fingerprint)
+
+        window?.let {
+            it.attributes = it.attributes.apply {
+                width = context.screenWidth / 2
+            }
+        }
 
         action_cancel.setOnClickListener {
             dismiss()
@@ -65,7 +97,6 @@ class FingerprintAuthDialog(context: Context, onAuthListener: (success: Boolean,
         override fun onAuthenticationSucceeded(result: FingerprintManagerCompat.AuthenticationResult?) {
             super.onAuthenticationSucceeded(result)
             //指纹验证成功
-            vibrator.vibrate(VibrationEffect.createOneShot(30, VibrationEffect.DEFAULT_AMPLITUDE))
             onAuthListener.invoke(true, null)
             dismiss()
         }
@@ -73,7 +104,6 @@ class FingerprintAuthDialog(context: Context, onAuthListener: (success: Boolean,
         override fun onAuthenticationFailed() {
             super.onAuthenticationFailed()
             //指纹验证失败，指纹识别失败，可再验，该指纹不是系统录入的指纹。
-            vibrator.vibrate(VibrationEffect.createOneShot(30, VibrationEffect.DEFAULT_AMPLITUDE))
             validation_hint.text = context.getString(R.string.validation_finger_print_failed)
             validation_hint.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
         }

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.android.rely.ext
+package com.android.rely.common
 
 import android.util.Base64
 import com.android.rely.common.hexToByteArray
