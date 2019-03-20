@@ -1,5 +1,5 @@
 ![](https://img.shields.io/badge/platform-Android-lightgrey.svg) ![](https://img.shields.io/badge/language-Kotlin-orange.svg) [![](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0) [![](https://jitpack.io/v/timordu/Rely.svg)](https://jitpack.io/#timordu/Rely)
-# Rely
+# Rely [说明文档](https://github.com/timordu/Rely/wiki)
 
 一款基于Kotlin开发的Android开发框架
 
@@ -38,10 +38,28 @@ dependencies {
     implementation "com.github.timordu.Rely:mvvm:$rely"
     //添加mvc开发框架(默认依赖了公共库和核心库)
     //implementation "com.github.timordu.Rely:mvc:$rely"
-    //添加组件库
-    implementation "com.github.timordu.Rely:widget:$rely"
 }
 ```
+
+3. 配置项目
+
+   + 新增Application继承自BaseApp, 然后在`AndroidManifest.xml`文件中注册
+
+```kotlin
+class MyApp : BaseApp() {
+   override val isDebugModel: Boolean get() = BuildConfig.DEBUG
+}
+```
+
+   + 修改AppTheme继承自BaseAppTheme(可选)
+
+```xml
+<style name="AppTheme" parent="@style/BaseAppTheme">
+
+</style>
+```
+
+
 
 Copyright
 ---------
