@@ -43,7 +43,6 @@
     </style>
 
     <style name="Dialog.Loading" parent="@style/Dialog.Default">
-        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 </resources>

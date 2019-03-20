@@ -106,8 +106,7 @@ fun Context.getSignatureSHA256(format: Boolean = true): String {
 
 @TargetApi(Build.VERSION_CODES.P)
 private fun Context.getSignature(): Array<Signature> =
-        packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES)
-                .signingInfo.apkContentsSigners
+        packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES).signingInfo.apkContentsSigners
 
 
 /**

@@ -16,11 +16,16 @@
 
 package com.android.rely.demo.ui.activity
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.widget.LinearLayout
+import android.widget.NumberPicker
 import com.android.rely.common.setOnSeekBarChangeListener
 import com.android.rely.demo.R
 import com.android.rely.mvvm.base.BaseActivity
 import com.android.rely.mvvm.ext.initToolBar
-import kotlinx.android.synthetic.main.act_widget.*
+import kotlinx.android.synthetic.main.part_number_progressbar.*
+
 
 class WidgetActivity : BaseActivity() {
     override val layoutResId: Int = R.layout.act_widget
@@ -34,9 +39,13 @@ class WidgetActivity : BaseActivity() {
             }
         }
 
+
+
     }
 
     override fun initObserve() {
 
     }
+
+
 }

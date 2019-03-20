@@ -55,8 +55,8 @@ fun Context.getRaw(@RawRes id: Int): InputStream =
 fun Context.getRaw(@RawRes id: Int, value: TypedValue): InputStream =
         resources.openRawResource(id, value)
 
-fun Context.getRes(resName: String, resType: String = "mipmap"):Int =
-        resources.getIdentifier(resName, resType, packageName)
+fun Context.getRes(resName: String, resType: String = "mipmap", defPackage: String = packageName): Int =
+        resources.getIdentifier(resName, resType, defPackage)
 
 fun Context.getAsset(fileName: String, accessMode: Int = AssetManager.ACCESS_STREAMING): InputStream =
         assets.open(fileName, accessMode)

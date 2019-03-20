@@ -17,9 +17,8 @@
 
 <resources>
 
-    <style name="Dialog.Fingerprint" parent="@style/Dialog.Default">
-        <item name="android:windowBackground">@android:color/transparent</item>
-    </style>
+    <style name="Dialog.Fingerprint" parent="@style/Dialog.Default"/>
+
 
     <style name="NumberProgressBar_Default">
         <item name="android:layout_height">wrap_content</item>

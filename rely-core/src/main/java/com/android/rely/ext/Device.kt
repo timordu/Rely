@@ -49,7 +49,6 @@ val MY_DEVICE_NAME: String = Build.MANUFACTURER + " " + Build.MODEL
 /**
  * 获取设备ABI列表
  */
-@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 val MY_DEVICE_ABIS: Array<String> = Build.SUPPORTED_ABIS
 
 /**
