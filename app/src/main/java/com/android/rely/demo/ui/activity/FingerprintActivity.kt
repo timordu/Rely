@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.android.rely.demo.ui.activity.fingerprint
+package com.android.rely.demo.ui.activity
 
 import com.android.rely.common.getSP
 import com.android.rely.common.md5

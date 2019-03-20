@@ -15,6 +15,7 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -31,17 +32,23 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/fingerprint"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="指纹识别" />
+                android:padding="@dimen/dp_10"
+                android:text="NumberProgressBar测试" />
 
-            <Button
-                android:id="@+id/widget"
-                android:layout_width="match_parent"
+            <com.android.rely.widget.NumberProgressBar
+                android:id="@+id/numberProgressBar"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="自定义组件测试" />
+                android:padding="@dimen/dp_10" />
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

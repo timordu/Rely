@@ -15,7 +15,7 @@
  *
  */
 
-package com.android.rely.widget.listview
+package com.android.rely.common.listview
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.android.rely.widget.recyclerview
+package com.android.rely.common.recyclerview
 
 import android.content.Context
 import android.graphics.Canvas
@@ -27,9 +27,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.android.rely.common.R
 import com.android.rely.common.getCompatColor
 import com.android.rely.common.getDimensionPixelSize
-import com.android.rely.widget.R
 
 /**
  * create by dugang on 2018/12/13. RecyclerView通用分割线

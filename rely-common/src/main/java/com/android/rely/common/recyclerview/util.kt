@@ -15,23 +15,14 @@
  *
  */
 
-package com.android.rely.widget.recyclerview
+package com.android.rely.common.recyclerview
 
-import android.view.View
 import androidx.recyclerview.widget.*
 import java.util.*
 
 /**
  * Created by dugang on 2018/12/12.
  */
-
-interface OnItemClickListener {
-    fun onItemClick(view: View, position: Int)
-}
-
-interface OnItemLongClickListener {
-    fun onItemLongClick(view: View, position: Int): Boolean
-}
 
 @Suppress("unused")
 fun RecyclerView.setLinearLayoutManager(@RecyclerView.Orientation orientation: Int = RecyclerView.VERTICAL, reverseLayout: Boolean = false) {

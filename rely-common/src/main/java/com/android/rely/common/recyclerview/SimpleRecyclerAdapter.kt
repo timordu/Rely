@@ -15,7 +15,7 @@
  *
  */
 
-package com.android.rely.widget.recyclerview
+package com.android.rely.common.recyclerview
 
 import android.content.Context
 import android.view.View

@@ -44,6 +44,7 @@ class SideIndexBar @JvmOverloads constructor(context: Context, attrs: AttributeS
     private var mChoose = -1// 选中的字母是第几个
     private var mPaint: Paint //画笔
 
+
     //显示当前索引字母的对话框
     private var mTextDialog: TextView? = null
     //默认字符

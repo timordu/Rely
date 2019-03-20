@@ -35,7 +35,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activity.fingerprint.FingerprintActivity" />
+        <activity android:name=".ui.activity.FingerprintActivity" />
+        <activity android:name=".ui.activity.WidgetActivity" />
     </application>
 
 </manifest>

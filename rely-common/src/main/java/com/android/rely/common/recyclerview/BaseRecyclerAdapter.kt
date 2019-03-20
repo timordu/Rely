@@ -15,7 +15,7 @@
  *
  */
 
-package com.android.rely.widget.recyclerview
+package com.android.rely.common.recyclerview
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -31,8 +31,8 @@ abstract class BaseRecyclerAdapter<T, K : BaseRecyclerAdapter.ViewHolder>(var co
     val mList = mutableListOf<T>()
 
     private var emptyView: View? = null
-    private var onItemClickListener: OnItemClickListener? = null
-    private var onItemLongClickListener: OnItemLongClickListener? = null
+    private var onItemClickListener: ((view: View, position: Int) -> Unit)? = null
+    private var onItemLongClickListener: ((view: View, position: Int) -> Boolean)? = null
 
     init {
         this.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
@@ -57,12 +57,12 @@ abstract class BaseRecyclerAdapter<T, K : BaseRecyclerAdapter.ViewHolder>(var co
         this.emptyView = view
     }
 
-    fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
-        this.onItemClickListener = onItemClickListener
+    fun setOnItemClickListener(onItemClick: (view: View, position: Int) -> Unit) {
+        this.onItemClickListener = onItemClick
     }
 
-    fun setOnItemLongClickListener(onItemLongClickListener: OnItemLongClickListener) {
-        this.onItemLongClickListener = onItemLongClickListener
+    fun setOnItemLongClickListener(onItemLongClick: (view: View, position: Int) -> Boolean) {
+        this.onItemLongClickListener = onItemLongClick
     }
 
     fun addItem(data: T, position: Int = 0) {
@@ -90,7 +90,7 @@ abstract class BaseRecyclerAdapter<T, K : BaseRecyclerAdapter.ViewHolder>(var co
         notifyItemRangeChanged(position, mList.size - position)
     }
 
-    open fun setData(list: List<T>, loadMore: Boolean = false) {
+    open fun updateData(list: List<T>, loadMore: Boolean = false) {
         if (!loadMore) mList.clear()
         mList.addAll(list)
         notifyDataSetChanged()
@@ -103,10 +103,10 @@ abstract class BaseRecyclerAdapter<T, K : BaseRecyclerAdapter.ViewHolder>(var co
     override fun onBindViewHolder(holder: K, position: Int) {
         holder.initData(position)
         holder.itemView.setOnClickListener { view ->
-            onItemClickListener?.onItemClick(view, position)
+            onItemClickListener?.invoke(view, position)
         }
         holder.itemView.setOnLongClickListener { view ->
-            onItemLongClickListener?.onItemLongClick(view, position) ?: false
+            onItemLongClickListener?.invoke(view, position) ?: false
         }
     }
 

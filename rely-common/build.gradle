@@ -64,6 +64,8 @@ dependencies {
 
     api 'androidx.appcompat:appcompat:1.0.2'
 
+    api 'androidx.recyclerview:recyclerview:1.0.0'
+
     //https://github.com/Blankj/ALog
     api 'com.blankj:alog:1.9.1'
 }

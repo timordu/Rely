@@ -24,28 +24,29 @@ import androidx.viewpager.widget.ViewPager
 class OnPageChangeListener : ViewPager.OnPageChangeListener {
     private var _onPageScrollStateChanged: ((state: Int) -> Unit)? = null
 
+    private var _onPageScrolled: ((position: Int, positionOffset: Float, positionOffsetPixels: Int) -> Unit)? = null
+
+    private var _onPageSelected: ((position: Int) -> Unit)? = null
+
+
     fun onPageScrollStateChanged(func: ((state: Int) -> Unit)) {
         _onPageScrollStateChanged = func
+    }
+
+    fun onPageScrolled(func: ((position: Int, positionOffset: Float, positionOffsetPixels: Int) -> Unit)) {
+        _onPageScrolled = func
+    }
+
+    fun onPageSelected(func: ((position: Int) -> Unit)) {
+        _onPageSelected = func
     }
 
     override fun onPageScrollStateChanged(state: Int) {
         _onPageScrollStateChanged?.invoke(state)
     }
 
-    private var _onPageScrolled: ((position: Int, positionOffset: Float, positionOffsetPixels: Int) -> Unit)? = null
-
-    fun onPageScrolled(func: ((position: Int, positionOffset: Float, positionOffsetPixels: Int) -> Unit)) {
-        _onPageScrolled = func
-    }
-
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
         _onPageScrolled?.invoke(position, positionOffset, positionOffsetPixels)
-    }
-
-    private var _onPageSelected: ((position: Int) -> Unit)? = null
-
-    fun onPageSelected(func: ((position: Int) -> Unit)) {
-        _onPageSelected = func
     }
 
     override fun onPageSelected(position: Int) {

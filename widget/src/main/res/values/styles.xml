@@ -26,7 +26,7 @@
         <item name="android:layout_width">match_parent</item>
 
         <item name="max">100</item>
-        <item name="progressValue">0</item>
+        <item name="progress">0</item>
 
         <item name="unreached_color">#CCCCCC</item>
         <item name="unreached_bar_height">0.75dp</item>
@@ -36,5 +36,8 @@
 
         <item name="text_size">10sp</item>
         <item name="text_color">#3498DB</item>
+
+        <item name="text_prefix">""</item>
+        <item name="text_suffix">"%"</item>
     </style>
 </resources>

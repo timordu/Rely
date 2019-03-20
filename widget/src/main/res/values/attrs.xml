@@ -23,7 +23,7 @@
     </declare-styleable>
 
     <declare-styleable name="NumberProgressBar">
-        <attr name="progressValue" format="integer" />
+        <attr name="progress" format="integer" />
         <attr name="max" format="integer" />
 
         <attr name="reached_color" format="color" />
@@ -35,6 +35,8 @@
         <attr name="text_size" format="dimension" />
         <attr name="text_color" format="color" />
         <attr name="text_offset" format="dimension" />
+        <attr name="text_suffix" format="string" />
+        <attr name="text_prefix" format="string" />
     </declare-styleable>
 
     <declare-styleable name="PwdInputView">

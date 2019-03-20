@@ -16,27 +16,27 @@
 
 package com.android.rely.demo.ui.activity
 
+import com.android.rely.common.setOnSeekBarChangeListener
 import com.android.rely.demo.R
-import com.android.rely.ext.skipToActivity
 import com.android.rely.mvvm.base.BaseActivity
 import com.android.rely.mvvm.ext.initToolBar
-import kotlinx.android.synthetic.main.act_main.*
+import kotlinx.android.synthetic.main.act_widget.*
 
-class MainActivity : BaseActivity() {
-    override val layoutResId: Int = R.layout.act_main
-
+class WidgetActivity : BaseActivity() {
+    override val layoutResId: Int = R.layout.act_widget
 
     override fun initView() {
-        initToolBar("功能测试")
+        initToolBar("自定义组件测试", R.mipmap.icon_back)
 
-        fingerprint.setOnClickListener {
-            skipToActivity(FingerprintActivity::class.java)
+        seekBar.setOnSeekBarChangeListener {
+            onProgressChanged { _, progress, _ ->
+                numberProgressBar.setProgress(progress)
+            }
         }
-        widget.setOnClickListener {
-            skipToActivity(WidgetActivity::class.java)
-        }
+
     }
 
+    override fun initObserve() {
 
-    override fun initObserve() {}
+    }
 }

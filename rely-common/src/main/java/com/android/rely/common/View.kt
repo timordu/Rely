@@ -24,9 +24,11 @@ import android.text.method.ReplacementTransformationMethod
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
 import com.android.rely.common.utils.OnPageChangeListener
+import com.android.rely.common.utils.OnSeekBarChangeListener
 import com.android.rely.common.utils.TextWatcher
 import java.util.*
 
@@ -44,18 +46,10 @@ fun View.hideSoftInput() {
 fun View.isSoftInputActive(): Boolean = context.inputMethodManager.isActive
 
 
-/*
- *---------- TextView ----------
- */
-
 // 给TextView添加内容改变监听
 fun TextView.addTextChangedListener(func: (TextWatcher.() -> Unit)) =
         addTextChangedListener(TextWatcher().apply(func))
 
-
-/*
- *---------- EditText ----------
- */
 
 //给EditText添加小数限制器,默认两位小数
 fun EditText.addMoneyFilter(digits: Int = 2) {
@@ -96,9 +90,9 @@ fun EditText.addCapTransformation(needCap: Boolean = true) {
     }
 }
 
-/*
- *---------- ViewPager ----------
- */
 
 fun ViewPager.addOnPageChangeListener(func: (OnPageChangeListener.() -> Unit)) =
         addOnPageChangeListener(OnPageChangeListener().apply(func))
+
+fun SeekBar.setOnSeekBarChangeListener(func: (OnSeekBarChangeListener.() -> Unit)) =
+        setOnSeekBarChangeListener(OnSeekBarChangeListener().apply(func))

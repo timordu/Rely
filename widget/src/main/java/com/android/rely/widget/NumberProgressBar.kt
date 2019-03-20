@@ -53,8 +53,8 @@ class NumberProgressBar @JvmOverloads constructor(context: Context, attrs: Attri
     private var mTextColor: Int
     private var mTextSize: Float
     private val mTextOffset: Float
-    private var suffix: String? = "%"
-    private var prefix: String? = ""
+    private var mPrefix: String
+    private var mSuffix: String
 
     private var mTextPaint: Paint
     private var mDrawTextWidth: Float = 0f
@@ -63,14 +63,14 @@ class NumberProgressBar @JvmOverloads constructor(context: Context, attrs: Attri
     private var mCurrentDrawText: String? = null
 
 
-    private var mListener: OnProgressBarListener? = null
+    private var mListener: ((current: Int, max: Int) -> Unit)? = null
 
 
     init {
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.NumberProgressBar, defStyleAttr, 0)
 
         max = attributes.getInt(R.styleable.NumberProgressBar_max, 100)
-        progress = attributes.getInt(R.styleable.NumberProgressBar_progressValue, 0)
+        progress = attributes.getInt(R.styleable.NumberProgressBar_progress, 0)
 
         mReachedBarHeight = attributes.getDimension(R.styleable.NumberProgressBar_reached_bar_height, context.dp2px(1.5f))
         mReachedBarColor = attributes.getColor(R.styleable.NumberProgressBar_reached_color, Color.parseColor("#3498DB"))
@@ -83,6 +83,11 @@ class NumberProgressBar @JvmOverloads constructor(context: Context, attrs: Attri
         mTextColor = attributes.getColor(R.styleable.NumberProgressBar_text_color, Color.parseColor("#3498DB"))
         mTextSize = attributes.getDimension(R.styleable.NumberProgressBar_text_size, context.sp2px(10f))
         mTextOffset = attributes.getDimension(R.styleable.NumberProgressBar_text_offset, context.dp2px(3f))
+
+        mPrefix = attributes.getString(R.styleable.NumberProgressBar_text_prefix) ?: ""
+        mSuffix = attributes.getString(R.styleable.NumberProgressBar_text_suffix) ?: "%"
+
+
         mTextPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = mTextColor
             textSize = mTextSize
@@ -137,7 +142,7 @@ class NumberProgressBar @JvmOverloads constructor(context: Context, attrs: Attri
 
     private fun calculateDrawRectF() {
         mCurrentDrawText = String.format("%d", progress * 100 / max)
-        mCurrentDrawText = prefix + mCurrentDrawText + suffix
+        mCurrentDrawText = mPrefix + mCurrentDrawText + mSuffix
         mDrawTextWidth = mTextPaint.measureText(mCurrentDrawText)
 
         if (progress == 0) {
@@ -191,8 +196,8 @@ class NumberProgressBar @JvmOverloads constructor(context: Context, attrs: Attri
 
         bundle.putInt(INSTANCE_TEXT_COLOR, mTextColor)
         bundle.putFloat(INSTANCE_TEXT_SIZE, mTextSize)
-        bundle.putString(INSTANCE_SUFFIX, suffix)
-        bundle.putString(INSTANCE_PREFIX, prefix)
+        bundle.putString(INSTANCE_SUFFIX, mSuffix)
+        bundle.putString(INSTANCE_PREFIX, mPrefix)
 
         bundle.putInt(INSTANCE_REACHED_BAR_COLOR, mReachedBarColor)
         bundle.putFloat(INSTANCE_REACHED_BAR_HEIGHT, mReachedBarHeight)
@@ -225,8 +230,8 @@ class NumberProgressBar @JvmOverloads constructor(context: Context, attrs: Attri
 
         max = bundle.getInt(INSTANCE_MAX)
         progress = bundle.getInt(INSTANCE_PROGRESS)
-        prefix = bundle.getString(INSTANCE_PREFIX)
-        suffix = bundle.getString(INSTANCE_SUFFIX)
+        mPrefix = bundle.getString(INSTANCE_PREFIX) ?: ""
+        mSuffix = bundle.getString(INSTANCE_SUFFIX) ?: "%"
 
         super.onRestoreInstanceState(bundle.getParcelable(INSTANCE_STATE))
     }
@@ -235,15 +240,11 @@ class NumberProgressBar @JvmOverloads constructor(context: Context, attrs: Attri
         if (progress in 0..max) {
             this.progress = progress
             invalidate()
-            mListener?.onProgressChange(progress, max)
+            mListener?.invoke(progress, max)
         }
     }
 
-    fun setOnProgressBarListener(listener: OnProgressBarListener) {
+    fun setOnProgressBarListener(listener: (current: Int, max: Int) -> Unit) {
         mListener = listener
-    }
-
-    interface OnProgressBarListener {
-        fun onProgressChange(current: Int, max: Int)
     }
 }
