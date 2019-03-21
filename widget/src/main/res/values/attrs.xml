@@ -38,28 +38,4 @@
         <attr name="text_suffix" format="string" />
         <attr name="text_prefix" format="string" />
     </declare-styleable>
-
-    <declare-styleable name="PwdInputView">
-        <attr name="maxCount" format="integer" />
-        <!-- 内容类型 -->
-        <attr name="contentType" format="enum">
-            <enum name="pwd" value="0" />
-            <enum name="number" value="1" />
-        </attr>
-        <!-- 密码圆点半径和颜色 -->
-        <attr name="pwdRadius" format="dimension" />
-        <attr name="pwdColor" format="color" />
-        <!-- 边界类型 -->
-        <attr name="borderType" format="enum">
-            <enum name="frame" value="0" />
-            <enum name="singleFrame" value="2" />
-            <enum name="underLine" value="1" />
-        </attr>
-        <attr name="borderColor" format="color" />
-        <attr name="secondBorderColor" format="color" />
-        <attr name="borderWidth" format="dimension" />
-        <attr name="borderAngle" format="dimension" />
-        <attr name="numberSize" format="dimension" />
-        <attr name="numberColor" format="color" />
-    </declare-styleable>
 </resources>

@@ -14,22 +14,24 @@
  *    limitations under the License.
  */
 
-package com.android.rely.widget
+package com.android.rely.widget.edittext
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
-import androidx.annotation.RequiresApi
 import com.android.rely.common.getCompatDrawable
+import com.android.rely.widget.R
 
-@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+/**
+ * 如果需要使用自己的删除图标,可在项目目录中存放名为"icon_delete"图片即可.
+ */
+@Suppress("unused")
 class ClearEditText(context: Context, attrs: AttributeSet? = null) : EditText(context, attrs), View.OnFocusChangeListener, TextWatcher {
 
     private var mClearDrawable: Drawable? = context.getCompatDrawable(R.mipmap.icon_delete)
@@ -46,26 +48,20 @@ class ClearEditText(context: Context, attrs: AttributeSet? = null) : EditText(co
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (event.action == MotionEvent.ACTION_UP) {
-            if (compoundDrawables[2] != null) {
-                val available = event.x > width - totalPaddingRight && event.x < width - paddingRight
-                if (available) setText("")
-            }
-        }
+        if (event.action == MotionEvent.ACTION_UP)
+            if (compoundDrawablesRelative[2] != null)
+                if (event.x > width - totalPaddingRight && event.x < width - paddingRight)
+                    setText("")
         return super.onTouchEvent(event)
     }
 
     override fun onFocusChange(v: View, hasFocus: Boolean) {
         this.hasFocus = hasFocus
-        if (hasFocus && text.isNotEmpty())
-            setDrawableVisible(true)
-        else
-            setDrawableVisible(false)
+        setDrawableVisible(hasFocus && text.isNotEmpty())
     }
 
     override fun onTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-        if (hasFocus) setDrawableVisible(s.isNotEmpty())
-
+        setDrawableVisible(hasFocus && s.isNotEmpty())
     }
 
     override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
@@ -74,6 +70,7 @@ class ClearEditText(context: Context, attrs: AttributeSet? = null) : EditText(co
 
     private fun setDrawableVisible(visible: Boolean) {
         val right = if (visible) mClearDrawable else null
-        setCompoundDrawables(compoundDrawables[0], compoundDrawables[1], right, compoundDrawables[3])
+        setCompoundDrawablesRelative(compoundDrawablesRelative[0], compoundDrawablesRelative[1], right, compoundDrawablesRelative[3])
     }
+
 }

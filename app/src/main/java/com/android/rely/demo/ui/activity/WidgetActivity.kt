@@ -22,6 +22,7 @@ import com.android.rely.demo.R
 import com.android.rely.mvvm.base.BaseActivity
 import com.android.rely.mvvm.ext.initToolBar
 import com.android.rely.widget.datetime.DateTimePicker
+import kotlinx.android.synthetic.main.act_widget.*
 import kotlinx.android.synthetic.main.part_datetime.*
 import kotlinx.android.synthetic.main.part_number_progressbar.*
 
@@ -56,7 +57,6 @@ class WidgetActivity : BaseActivity() {
                 showToast(it)
             }
         }
-
 
     }
 

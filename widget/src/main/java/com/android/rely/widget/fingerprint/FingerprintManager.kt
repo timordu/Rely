@@ -71,7 +71,7 @@ class FingerprintManager(context: Context, onAuthListener: (success: Boolean, me
 
         window?.let {
             it.attributes = it.attributes.apply {
-                width = context.screenWidth / 2
+                width = context.screenWidth * 2 / 3
             }
         }
 
