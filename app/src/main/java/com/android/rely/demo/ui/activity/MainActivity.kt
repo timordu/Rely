@@ -34,8 +34,7 @@ class MainActivity : BaseActivity() {
             skipToActivity(FingerprintActivity::class.java)
         }
         widget.setOnClickListener {
-//            skipToActivity(WidgetActivity::class.java)
-            DateTimePicker(mContext).show()
+            skipToActivity(WidgetActivity::class.java)
         }
     }
 

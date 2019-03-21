@@ -22,54 +22,85 @@
     android:background="@drawable/dlg_datetime_bg"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/datetime_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="@dimen/dp_15"
-        android:textSize="@dimen/sp_16"
-        tools:text="2019年3月20日星期三15点29分" />
+        android:orientation="vertical"
+        android:visibility="gone">
 
-    <View style="@style/style_divider_horizontal" />
+        <TextView
+            android:id="@+id/datetime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/dp_15"
+            android:textSize="@dimen/sp_16"
+            tools:text="2019年3月20日星期三15点29分" />
+
+        <View style="@style/style_divider_horizontal" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
-        <NumberPicker
-            android:id="@+id/year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <NumberPicker
-            android:id="@+id/month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <NumberPicker
-            android:id="@+id/day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <NumberPicker
-            android:id="@+id/hour"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_width="@dimen/dp_20"
+        <LinearLayout
+            android:id="@+id/date_layout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text=":"
-            android:textSize="@dimen/sp_14"
-            tools:ignore="HardcodedText" />
+            android:orientation="horizontal"
+            android:visibility="visible">
 
-        <NumberPicker
-            android:id="@+id/minute"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <NumberPicker
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <NumberPicker
+                android:id="@+id/month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40" />
+
+            <NumberPicker
+                android:id="@+id/day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_40" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/time_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <NumberPicker
+                android:id="@+id/hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=":"
+                android:textSize="@dimen/sp_14"
+                tools:ignore="HardcodedText" />
+
+            <NumberPicker
+                android:id="@+id/minute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
 
     <View style="@style/style_divider_horizontal" />
@@ -80,11 +111,12 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="@dimen/dp_13"
+            android:padding="@dimen/dp_10"
             android:text="取消"
             android:textSize="@dimen/sp_14"
             tools:ignore="HardcodedText" />
@@ -92,11 +124,12 @@
         <View style="@style/style_divider_vertical" />
 
         <TextView
+            android:id="@+id/confirm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="@dimen/dp_13"
+            android:padding="@dimen/dp_10"
             android:text="确定"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/sp_14"

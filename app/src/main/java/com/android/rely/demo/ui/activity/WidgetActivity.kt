@@ -16,14 +16,13 @@
 
 package com.android.rely.demo.ui.activity
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.widget.LinearLayout
-import android.widget.NumberPicker
 import com.android.rely.common.setOnSeekBarChangeListener
+import com.android.rely.common.showToast
 import com.android.rely.demo.R
 import com.android.rely.mvvm.base.BaseActivity
 import com.android.rely.mvvm.ext.initToolBar
+import com.android.rely.widget.datetime.DateTimePicker
+import kotlinx.android.synthetic.main.part_datetime.*
 import kotlinx.android.synthetic.main.part_number_progressbar.*
 
 
@@ -39,6 +38,24 @@ class WidgetActivity : BaseActivity() {
             }
         }
 
+
+        date.setOnClickListener {
+            DateTimePicker.selectDate(mContext){
+                showToast(it)
+            }
+        }
+
+        time.setOnClickListener {
+            DateTimePicker.selectTime(mContext){
+                showToast(it)
+            }
+        }
+
+        datetime.setOnClickListener {
+            DateTimePicker.selectDateTime(mContext){
+                showToast(it)
+            }
+        }
 
 
     }

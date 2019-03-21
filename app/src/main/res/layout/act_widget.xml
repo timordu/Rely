@@ -34,6 +34,9 @@
 
             <include layout="@layout/part_number_progressbar" />
 
+
+            <include layout="@layout/part_datetime" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

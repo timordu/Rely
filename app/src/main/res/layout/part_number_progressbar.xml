@@ -25,7 +25,7 @@
         android:padding="@dimen/dp_10"
         android:text="NumberProgressBar测试" />
 
-    <com.android.rely.widget.NumberProgressBar
+    <com.android.rely.widget.progressbar.NumberProgressBar
         android:id="@+id/numberProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

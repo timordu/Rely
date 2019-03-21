@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.android.rely.widget
+package com.android.rely.widget.progressbar
 
 import android.content.Context
 import android.graphics.Canvas
@@ -26,6 +26,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.android.rely.common.dp2px
 import com.android.rely.common.sp2px
+import com.android.rely.widget.R
 
 /**
  * Created by dugang on 2018/12/14.数字进度条
