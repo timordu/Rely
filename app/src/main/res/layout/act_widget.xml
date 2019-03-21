@@ -37,29 +37,13 @@
 
             <include layout="@layout/part_datetime" />
 
-            <TextView
+            <include layout="@layout/part_editext" />
+
+            <Button
+                android:id="@+id/sideIndexBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_20"
-                android:padding="@dimen/dp_10"
-                android:text="自定义EditText测试" />
-
-            <com.android.rely.widget.edittext.ClearEditText
-                android:id="@+id/account"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@mipmap/ic_account"
-                android:drawablePadding="@dimen/dp_10"
-                android:padding="@dimen/dp_10" />
-
-            <com.android.rely.widget.edittext.PasswordEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@mipmap/ic_pwd"
-                android:drawablePadding="@dimen/dp_10"
-                android:padding="@dimen/dp_10" />
-
-
+                android:text="Side_Index_Bar Demo" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

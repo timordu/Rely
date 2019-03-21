@@ -19,6 +19,8 @@ package com.android.rely.demo.ui.activity
 import com.android.rely.common.setOnSeekBarChangeListener
 import com.android.rely.common.showToast
 import com.android.rely.demo.R
+import com.android.rely.demo.ui.activity.widget.SideIndexBarDemoActivity
+import com.android.rely.ext.skipToActivity
 import com.android.rely.mvvm.base.BaseActivity
 import com.android.rely.mvvm.ext.initToolBar
 import com.android.rely.widget.datetime.DateTimePicker
@@ -41,23 +43,27 @@ class WidgetActivity : BaseActivity() {
 
 
         date.setOnClickListener {
-            DateTimePicker.selectDate(mContext){
+            DateTimePicker.selectDate(mContext) {
                 showToast(it)
             }
         }
 
         time.setOnClickListener {
-            DateTimePicker.selectTime(mContext){
+            DateTimePicker.selectTime(mContext) {
                 showToast(it)
             }
         }
 
         datetime.setOnClickListener {
-            DateTimePicker.selectDateTime(mContext){
+            DateTimePicker.selectDateTime(mContext) {
                 showToast(it)
             }
         }
 
+
+        sideIndexBar.setOnClickListener {
+            skipToActivity(SideIndexBarDemoActivity::class.java)
+        }
     }
 
     override fun initObserve() {

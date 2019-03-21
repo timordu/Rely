@@ -50,7 +50,7 @@ class SideIndexBar @JvmOverloads constructor(context: Context, attrs: AttributeS
     //默认字符
     private var mLetters = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     // 触摸字母改变事件
-    private var mLetterChangedListener: OnLetterChangedListener? = null
+    private var mLetterChangedListener: ((str: String) -> Unit)? = null
 
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.SideIndexBar, defStyleAttr, 0)
@@ -107,7 +107,7 @@ class SideIndexBar @JvmOverloads constructor(context: Context, attrs: AttributeS
             }
             else ->
                 if (oldChoose != mChoose && mChoose != -1) {
-                    mLetterChangedListener?.onChanged(mLetters.substring(mChoose, mChoose + 1))
+                    mLetterChangedListener?.invoke(mLetters.substring(mChoose, mChoose + 1))
                     mTextDialog?.text = mLetters.substring(mChoose, mChoose + 1)
                     mTextDialog?.visibility = View.VISIBLE
 
@@ -136,14 +136,8 @@ class SideIndexBar @JvmOverloads constructor(context: Context, attrs: AttributeS
     /**
      * 设置监听器
      */
-    fun setOnLetterChangedListener(letterChangedListener: OnLetterChangedListener) {
-        mLetterChangedListener = letterChangedListener
+    fun setOnLetterChangedListener(onChanged: (str: String) -> Unit) {
+        mLetterChangedListener = onChanged
     }
 
-    /**
-     * 选中监听器
-     */
-    interface OnLetterChangedListener {
-        fun onChanged(str: String)
-    }
 }
