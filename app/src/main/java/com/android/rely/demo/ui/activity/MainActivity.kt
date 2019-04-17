@@ -20,7 +20,6 @@ import com.android.rely.demo.R
 import com.android.rely.ext.skipToActivity
 import com.android.rely.mvvm.base.BaseActivity
 import com.android.rely.mvvm.ext.initToolBar
-import com.android.rely.widget.datetime.DateTimePicker
 import kotlinx.android.synthetic.main.act_main.*
 
 class MainActivity : BaseActivity() {
