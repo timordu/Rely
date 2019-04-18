@@ -120,8 +120,10 @@ private fun encryptOrDecrypt(raw: Key, byteArray: ByteArray, transformation: Str
     val cipher = Cipher.getInstance(algorithm)
 
     val model = if (isEncrypt) Cipher.ENCRYPT_MODE else Cipher.DECRYPT_MODE
-    val aps =
-        if (algorithm == "DES") IvParameterSpec("01020304".toByteArray()) else IvParameterSpec(ByteArray(cipher.blockSize))
+    val aps = if (algorithm == "DES")
+        IvParameterSpec("01020304".toByteArray())
+    else
+        IvParameterSpec(ByteArray(cipher.blockSize))
 
     cipher.init(model, raw, aps)
     return cipher.doFinal(byteArray)
