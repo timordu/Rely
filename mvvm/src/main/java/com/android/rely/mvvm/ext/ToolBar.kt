@@ -16,6 +16,7 @@
 
 package com.android.rely.mvvm.ext
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.DrawableRes
@@ -47,11 +48,12 @@ fun BaseActivity.initToolBar(title: String, @DrawableRes backRes: Int = 0) {
     toolbarTitle.text = title
 }
 
-fun BaseFragment.initToolBar(view: View, @StringRes title: Int, @DrawableRes backRes: Int = 0, @MenuRes menu: Int = 0) {
-    initToolBar(view, getString(title), backRes, menu)
+@SuppressLint("ResourceType")
+fun BaseFragment.initToolBar(view: View, @StringRes title: Int, @DrawableRes backRes: Int = 0, @MenuRes menuId: Int = 0) {
+    initToolBar(view, getString(title), backRes, menuId)
 }
 
-fun BaseFragment.initToolBar(view: View, title: String, @DrawableRes backRes: Int = 0, @MenuRes menu: Int = 0) {
+fun BaseFragment.initToolBar(view: View, title: String, @DrawableRes backRes: Int = 0, @MenuRes menuId: Int = 0) {
     val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
     toolbar.title = ""
     if (backRes != 0) {
@@ -63,6 +65,8 @@ fun BaseFragment.initToolBar(view: View, title: String, @DrawableRes backRes: In
 
     val toolbarTitle = view.findViewById<TextView>(R.id.toolbar_title)
     toolbarTitle.text = title
-    if (menu != 0) toolbar.inflateMenu(menu)
-    toolbar.setOnMenuItemClickListener(this)
+    if (menuId != 0) {
+        toolbar.inflateMenu(menuId)
+        toolbar.setOnMenuItemClickListener(this)
+    }
 }

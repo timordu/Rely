@@ -24,7 +24,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.android.rely.Rely
 import com.android.rely.common.showToast
 import com.android.rely.eventbus.MsgEvent
-import com.android.rely.mvvm.widget.LoadingDialog
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -35,7 +34,6 @@ import org.greenrobot.eventbus.ThreadMode
 @Suppress("unused")
 abstract class BaseActivity : AppCompatActivity(), LifecycleOwner {
     protected open val mContext get() = this
-    protected val mLoadingDialog: LoadingDialog by lazy { LoadingDialog(mContext) }
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,12 +45,11 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner {
 
     protected abstract val layoutResId: Int
 
-    protected fun <VM : BaseViewModel> initViewModel(clazz: Class<VM>): VM {
-        val viewModel = ViewModelProviders.of(this).get(clazz)
-        lifecycle.addObserver(viewModel)
-        return viewModel
+    protected fun <VM : BaseViewModel> getViewModel(clazz: Class<VM>): VM {
+        return ViewModelProviders.of(this).get(clazz).apply {
+            lifecycle.addObserver(this)
+        }
     }
-
 
     abstract fun initView()
 

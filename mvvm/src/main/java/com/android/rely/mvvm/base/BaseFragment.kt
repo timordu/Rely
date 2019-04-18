@@ -40,7 +40,6 @@ import org.greenrobot.eventbus.ThreadMode
 @Suppress("unused")
 abstract class BaseFragment : Fragment(), LifecycleOwner, Toolbar.OnMenuItemClickListener {
     protected open val mContext get() = activity as Context
-    protected val mLoadingDialog: LoadingDialog by lazy { LoadingDialog(mContext) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,9 +65,9 @@ abstract class BaseFragment : Fragment(), LifecycleOwner, Toolbar.OnMenuItemClic
     }
 
     protected fun <VM : BaseViewModel> initViewModel(clazz: Class<VM>): VM {
-        val viewModel = ViewModelProviders.of(this).get(clazz)
-        lifecycle.addObserver(viewModel)
-        return viewModel
+        return ViewModelProviders.of(this).get(clazz).apply {
+            lifecycle.addObserver(this)
+        }
     }
 
     abstract fun initObserve()

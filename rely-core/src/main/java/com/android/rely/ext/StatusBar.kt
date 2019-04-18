@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.android.rely.library.ext
+package com.android.rely.ext
 
 import android.annotation.TargetApi
 import android.app.Activity
@@ -26,7 +26,6 @@ import android.view.WindowManager
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
-import com.android.rely.ext.isFlymeV4OrAbove
 
 
 /*
