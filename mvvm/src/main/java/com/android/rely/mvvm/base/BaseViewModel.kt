@@ -17,76 +17,53 @@
 package com.android.rely.mvvm.base
 
 import android.content.Intent
+import android.os.Bundle
 import androidx.lifecycle.*
 import com.android.rely.eventbus.MsgEvent
-import com.uber.autodispose.lifecycle.CorrespondingEventsFunction
-import com.uber.autodispose.lifecycle.LifecycleEndedException
-import com.uber.autodispose.lifecycle.LifecycleScopeProvider
-import io.reactivex.Observable
-import io.reactivex.subjects.BehaviorSubject
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 @Suppress("unused")
-abstract class BaseViewModel : ViewModel(), LifecycleObserver, LifecycleScopeProvider<Lifecycle.Event> {
-    private val lifecycleEvents = BehaviorSubject.createDefault(Lifecycle.Event.ON_CREATE)
+abstract class BaseViewModel : ViewModel(), LifecycleObserver {
+    val isShowLoading: MutableLiveData<Boolean> = MutableLiveData()
+    protected open lateinit var mLifecycleOwner: LifecycleOwner
 
-    val showLoading: MutableLiveData<Boolean> = MutableLiveData()
+    fun initLifecycleOwner(lifecycleOwner: LifecycleOwner) {
+        this.mLifecycleOwner = lifecycleOwner
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate() {
+    open fun onCreate() {
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResume() {
+    open fun onResume() {
         EventBus.getDefault().register(this)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun onStart() {
+    open fun onStart() {
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    fun onPause() {
+    open fun onPause() {
         EventBus.getDefault().unregister(this)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    fun onStop() {
+    open fun onStop() {
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy() {
+    open fun onDestroy() {
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
     open fun onLifecycleChanged(owner: LifecycleOwner, event: Lifecycle.Event) {
     }
 
-
-    override fun lifecycle(): Observable<Lifecycle.Event> = lifecycleEvents.hide()
-
-    override fun correspondingEvents(): CorrespondingEventsFunction<Lifecycle.Event> {
-        return CorrespondingEventsFunction { lastEvent ->
-            return@CorrespondingEventsFunction when (lastEvent) {
-                Lifecycle.Event.ON_CREATE -> Lifecycle.Event.ON_DESTROY
-                Lifecycle.Event.ON_START -> Lifecycle.Event.ON_STOP
-                Lifecycle.Event.ON_RESUME -> Lifecycle.Event.ON_PAUSE
-                Lifecycle.Event.ON_PAUSE -> Lifecycle.Event.ON_STOP
-                else ->
-                    throw LifecycleEndedException("Lifecycle has ended! Last event was $lastEvent")
-            }
-        }
-    }
-
-
-    override fun peekLifecycle(): Lifecycle.Event? = lifecycleEvents.value
-
-
-    override fun onCleared() {
-        lifecycleEvents.onNext(Lifecycle.Event.ON_DESTROY)
-        super.onCleared()
+    open fun onSaveInstanceState(outState: Bundle?) {
 
     }
 

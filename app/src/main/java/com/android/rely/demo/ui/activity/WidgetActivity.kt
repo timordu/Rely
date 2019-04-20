@@ -20,6 +20,7 @@ import com.android.rely.common.setOnSeekBarChangeListener
 import com.android.rely.common.showToast
 import com.android.rely.demo.R
 import com.android.rely.demo.ui.activity.widget.SideIndexBarDemoActivity
+import com.android.rely.demo.ui.parent.MyBaseActivity
 import com.android.rely.ext.skipToActivity
 import com.android.rely.mvvm.base.BaseActivity
 import com.android.rely.mvvm.ext.initToolBar
@@ -29,7 +30,7 @@ import kotlinx.android.synthetic.main.part_datetime.*
 import kotlinx.android.synthetic.main.part_number_progressbar.*
 
 
-class WidgetActivity : BaseActivity() {
+class WidgetActivity : MyBaseActivity() {
     override val layoutResId: Int = R.layout.act_widget
 
     override fun initView() {

@@ -25,10 +25,10 @@ import com.android.rely.mvvm.R
 /**
  * Created by dugang on 2017/4/17. 加载Dialog
  */
-class LoadingDialog(context: Context, @LayoutRes layoutId: Int = R.layout.dlg_loading) : Dialog(context, R.style.Dialog_Loading) {
+class LoadingDialog(context: Context) : Dialog(context, R.style.Dialog_Loading) {
 
     init {
-        setContentView(layoutId)
+        setContentView(R.layout.dlg_loading)
         setCanceledOnTouchOutside(false)
     }
 }

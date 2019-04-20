@@ -25,6 +25,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.android.rely.Rely
 import com.android.rely.common.showToast
@@ -38,7 +39,7 @@ import org.greenrobot.eventbus.ThreadMode
  * Created by dugang on 2017/7/26.Fragment基类
  */
 @Suppress("unused")
-abstract class BaseFragment : Fragment(), LifecycleOwner, Toolbar.OnMenuItemClickListener {
+abstract class BaseFragment : Fragment(), LifecycleOwner,BaseView, Toolbar.OnMenuItemClickListener {
     protected open val mContext get() = activity as Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,18 +60,23 @@ abstract class BaseFragment : Fragment(), LifecycleOwner, Toolbar.OnMenuItemClic
 
     abstract fun initView(view: View, savedInstanceState: Bundle?)
 
-    override fun onMenuItemClick(item: MenuItem?): Boolean {
 
-        return false
-    }
 
     protected fun <VM : BaseViewModel> initViewModel(clazz: Class<VM>): VM {
         return ViewModelProviders.of(this).get(clazz).apply {
+            initLifecycleOwner(this@BaseFragment)
+            isShowLoading.observe(this@BaseFragment, Observer {
+                if (it) showLoadingDialog() else dismissLoadingDialog()
+            })
             lifecycle.addObserver(this)
         }
     }
 
-    abstract fun initObserve()
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+
+        return false
+    }
 
     override fun onResume() {
         super.onResume()
@@ -82,6 +88,7 @@ abstract class BaseFragment : Fragment(), LifecycleOwner, Toolbar.OnMenuItemClic
         super.onPause()
         EventBus.getDefault().unregister(this)
     }
+
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)

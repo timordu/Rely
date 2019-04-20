@@ -16,7 +16,7 @@
 
 <resources>
 
-    <!-- Base application theme. -->
+    <!-- BaseView application theme. -->
     <style name="AppTheme" parent="@style/BaseAppTheme">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>

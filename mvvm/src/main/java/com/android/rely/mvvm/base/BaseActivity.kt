@@ -20,6 +20,7 @@ import android.os.Bundle
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.android.rely.Rely
 import com.android.rely.common.showToast
@@ -47,6 +48,10 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner {
 
     protected fun <VM : BaseViewModel> getViewModel(clazz: Class<VM>): VM {
         return ViewModelProviders.of(this).get(clazz).apply {
+            initLifecycleOwner(this@BaseActivity)
+            isShowLoading.observe(this@BaseActivity, Observer {
+                if (it) showLoadingDialog() else dismissLoadingDialog()
+            })
             lifecycle.addObserver(this)
         }
     }
@@ -54,6 +59,14 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner {
     abstract fun initView()
 
     abstract fun initObserve()
+
+    open fun showLoadingDialog() {
+
+    }
+
+    open fun dismissLoadingDialog() {
+
+    }
 
     override fun onResume() {
         super.onResume()

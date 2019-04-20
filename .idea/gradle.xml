@@ -9,7 +9,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/mvc" />
             <option value="$PROJECT_DIR$/mvvm" />
             <option value="$PROJECT_DIR$/rely-common" />
             <option value="$PROJECT_DIR$/rely-core" />

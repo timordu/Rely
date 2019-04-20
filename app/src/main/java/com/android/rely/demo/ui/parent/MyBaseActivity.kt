@@ -14,21 +14,18 @@
  *    limitations under the License.
  */
 
-package com.android.rely.mvc.widget
+package com.android.rely.demo.ui.parent
 
-import android.app.Dialog
-import android.content.Context
-import androidx.annotation.LayoutRes
-import com.android.rely.mvc.R
-
+import com.android.rely.mvvm.base.BaseActivity
 
 /**
- * Created by dugang on 2017/4/17. 加载Dialog
+ * Created by dugang on 2019-04-21.
  */
-class LoadingDialog(context: Context, @LayoutRes layoutId: Int = R.layout.dlg_loading) : Dialog(context, R.style.Dialog_Loading) {
+abstract class MyBaseActivity:BaseActivity (){
+    override fun showLoadingDialog() {
 
-    init {
-        setContentView(layoutId)
-        setCanceledOnTouchOutside(false)
+    }
+
+    override fun dismissLoadingDialog() {
     }
 }

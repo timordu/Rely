@@ -17,10 +17,11 @@
 package com.android.rely.demo.ui.activity.widget
 
 import com.android.rely.demo.R
+import com.android.rely.demo.ui.parent.MyBaseActivity
 import com.android.rely.mvvm.base.BaseActivity
 import kotlinx.android.synthetic.main.act_side_index_bar.*
 
-class SideIndexBarDemoActivity : BaseActivity() {
+class SideIndexBarDemoActivity : MyBaseActivity() {
     override val layoutResId: Int = R.layout.act_side_index_bar
 
     override fun initView() {

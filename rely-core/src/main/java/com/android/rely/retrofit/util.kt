@@ -16,9 +16,15 @@
 
 package com.android.rely.retrofit
 
+import android.app.Dialog
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import com.rxjava.rxlife.ObservableLife
+import com.rxjava.rxlife.RxLife
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -32,3 +38,23 @@ fun <T> Observable<T>.applySchedulers(): Observable<T> {
             .observeOn(AndroidSchedulers.mainThread())
 }
 
+fun <T> Observable<T>.applySchedulers(lifecycleOwner: LifecycleOwner): ObservableLife<T>? {
+    return `as`(RxLife.asOnMain(lifecycleOwner))
+}
+
+fun <T> Observable<T>.applySchedulers(lifecycleOwner: LifecycleOwner, isShowLoading: MutableLiveData<Boolean>, delay: Long = 1): ObservableLife<T>? {
+    return delay(delay, TimeUnit.SECONDS)
+            .doOnSubscribe { isShowLoading.postValue(true) }
+            .doOnTerminate { isShowLoading.postValue(false) }
+            .`as`(RxLife.asOnMain(lifecycleOwner))
+}
+
+fun <T> Observable<T>.applySchedulers(lifecycleOwner: LifecycleOwner, dialog: Dialog, delay: Long = 1): ObservableLife<T>? {
+    return delay(delay, TimeUnit.SECONDS)
+            .doOnSubscribe { disposable ->
+                dialog.setOnCancelListener { disposable.dispose() }
+                dialog.show()
+            }
+            .doOnTerminate { dialog.dismiss() }
+            .`as`(RxLife.asOnMain(lifecycleOwner))
+}

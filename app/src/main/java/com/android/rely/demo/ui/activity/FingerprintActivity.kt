@@ -21,12 +21,13 @@ import com.android.rely.common.md5
 import com.android.rely.common.setSP
 import com.android.rely.common.showToast
 import com.android.rely.demo.R
+import com.android.rely.demo.ui.parent.MyBaseActivity
 import com.android.rely.mvvm.base.BaseActivity
 import com.android.rely.mvvm.ext.initToolBar
 import com.android.rely.widget.fingerprint.FingerprintManager
 import kotlinx.android.synthetic.main.act_fingerprint.*
 
-class FingerprintActivity : BaseActivity() {
+class FingerprintActivity : MyBaseActivity() {
     override val layoutResId: Int = R.layout.act_fingerprint
 
     override fun initView() {
