@@ -24,6 +24,7 @@ import com.google.gson.JsonSyntaxException
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import org.greenrobot.eventbus.EventBus
+import retrofit2.HttpException
 import java.io.EOFException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
@@ -51,14 +52,20 @@ abstract class ResultObserver<T> : Observer<Result<T>> {
     abstract fun handlerSuccess(data: T)
 
     override fun onError(throwable: Throwable) {
-        handlerError(Rely.NET_CODE_ERROR, when (throwable) {
+        var code = Rely.NET_CODE_ERROR
+        val msg = when (throwable) {
             is SocketTimeoutException -> Rely.SOCKET_TIMEOUT_EXCEPTION
             is ConnectException -> Rely.CONNECT_EXCEPTION
             is UnknownHostException -> Rely.UNKNOWN_HOST_EXCEPTION
             is EOFException -> Rely.EMPTY_RESPONSE_EXCEPTION
             is JsonSyntaxException -> Rely.JSON_SYNTAX_EXCEPTION
+            is HttpException -> {
+                code = throwable.code()
+                throwable.message()
+            }
             else -> throwable.message ?: Rely.UNKNOWN_EXCEPTION
-        })
+        }
+        handlerError(code, msg)
     }
 
     open fun handlerError(code: Int, msg: String) {
