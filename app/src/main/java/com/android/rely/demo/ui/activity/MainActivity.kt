@@ -21,6 +21,7 @@ import com.android.rely.demo.ui.parent.MyBaseActivity
 import com.android.rely.demo.ui.viewmodel.TestViewModel
 import com.android.rely.ext.skipToActivity
 import com.android.rely.mvvm.ext.initToolBar
+import com.android.rely.mvvm.widget.LoadingDialog
 import kotlinx.android.synthetic.main.act_main.*
 
 class MainActivity : MyBaseActivity() {
@@ -30,6 +31,12 @@ class MainActivity : MyBaseActivity() {
 
     override fun initView() {
         initToolBar("功能测试")
+        network_test.setOnClickListener {
+            //传入自定义的LoadingDialog,可以手动取消请求
+            testViewModel.login("", "", LoadingDialog(mContext))
+            //通过MyBaseActivity中定义的show和dismiss方法来控制全局的LoadingDialog
+//            testViewModel.login("","")
+        }
 
         fingerprint.setOnClickListener {
             skipToActivity(FingerprintActivity::class.java)

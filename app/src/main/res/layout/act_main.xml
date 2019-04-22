@@ -32,6 +32,12 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/network_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="网络请求测试" />
+
+            <Button
                 android:id="@+id/fingerprint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,6 +48,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="自定义组件测试" />
+
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

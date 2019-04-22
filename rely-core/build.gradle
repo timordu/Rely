@@ -93,6 +93,6 @@ dependencies {
     implementation 'com.jakewharton:disklrucache:2.0.2'
 
     // https://muyangmin.github.io/glide-docs-cn/
-    api 'com.github.bumptech.glide:glide:4.8.0'
-    kapt 'com.github.bumptech.glide:compiler:4.8.0'
+    api 'com.github.bumptech.glide:glide:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
 }

@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.dlg_fingerprint.*
 /**
  * Created by dugang on 2018/10/26.指纹验证弹窗
  */
+@Suppress("DEPRECATION")
 class FingerprintManager(context: Context, onAuthListener: (success: Boolean, message: String?) -> Unit) :
         Dialog(context, R.style.Dialog_Fingerprint) {
 

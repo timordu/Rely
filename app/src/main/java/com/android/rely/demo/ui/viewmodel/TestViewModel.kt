@@ -16,9 +16,11 @@
 
 package com.android.rely.demo.ui.viewmodel
 
+import android.app.Dialog
 import com.android.rely.demo.model.bean.User
 import com.android.rely.demo.model.remote.RemoteRepo
 import com.android.rely.mvvm.base.BaseViewModel
+import com.android.rely.mvvm.widget.LoadingDialog
 import com.android.rely.retrofit.applySchedulers
 import com.android.rely.retrofit.result.ResultObserver
 
@@ -28,13 +30,25 @@ import com.android.rely.retrofit.result.ResultObserver
 class TestViewModel : BaseViewModel() {
 
     fun login(userName: String, password: String) {
+//        RemoteRepo.getUser()
+//                .login(userName, password)
+//                .applySchedulers(mLifecycleOwner, isShowLoading)
+//                ?.subscribe(object : ResultObserver<User>() {
+//                    override fun handlerSuccess(data: User) {
+//
+//                    }
+//                })
+    }
+
+    fun login(userName: String, password: String, loadingDialog: Dialog) {
         RemoteRepo.getUser()
                 .login(userName, password)
-                .applySchedulers(mLifecycleOwner, isShowLoading)
-                ?.subscribe(object : ResultObserver<User>() {
+                .applySchedulers()
+                .subscribe(object : ResultObserver<User>() {
                     override fun handlerSuccess(data: User) {
 
                     }
                 })
+
     }
 }

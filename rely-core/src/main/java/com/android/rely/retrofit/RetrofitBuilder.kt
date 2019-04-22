@@ -75,7 +75,7 @@ class RetrofitBuilder {
 
     private var authenticator: Authenticator? = null
 
-    private var intercepters = ArrayList<Interceptor>()
+    private var interceptors = ArrayList<Interceptor>()
     private var networkInterceptors = ArrayList<Interceptor>()
 
     /**
@@ -203,7 +203,7 @@ class RetrofitBuilder {
      * 添加Interceptor
      */
     fun addInterceptor(interceptor: Interceptor): RetrofitBuilder {
-        this.intercepters.add(interceptor)
+        this.interceptors.add(interceptor)
         return this
     }
 
@@ -251,7 +251,7 @@ class RetrofitBuilder {
         //设置Authentication
         if (authenticator != null) okHttpBuilder.authenticator(authenticator)
 
-        intercepters.forEach { okHttpBuilder.addInterceptor(it) }
+        interceptors.forEach { okHttpBuilder.addInterceptor(it) }
         networkInterceptors.forEach { okHttpBuilder.addNetworkInterceptor(it) }
 
         return Retrofit.Builder()

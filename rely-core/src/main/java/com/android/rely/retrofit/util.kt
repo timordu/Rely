@@ -39,22 +39,29 @@ fun <T> Observable<T>.applySchedulers(): Observable<T> {
 }
 
 fun <T> Observable<T>.applySchedulers(lifecycleOwner: LifecycleOwner): ObservableLife<T>? {
-    return `as`(RxLife.asOnMain(lifecycleOwner))
+    return subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .`as`(RxLife.`as`(lifecycleOwner))
 }
 
-fun <T> Observable<T>.applySchedulers(lifecycleOwner: LifecycleOwner, isShowLoading: MutableLiveData<Boolean>, delay: Long = 1): ObservableLife<T>? {
+fun <T> Observable<T>.applySchedulers(lifecycleOwner: LifecycleOwner, isShowLoading: MutableLiveData<Boolean>, delay: Long = 1
+): ObservableLife<T>? {
     return delay(delay, TimeUnit.SECONDS)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { isShowLoading.postValue(true) }
             .doOnTerminate { isShowLoading.postValue(false) }
-            .`as`(RxLife.asOnMain(lifecycleOwner))
+            .`as`(RxLife.`as`(lifecycleOwner))
 }
 
-fun <T> Observable<T>.applySchedulers(lifecycleOwner: LifecycleOwner, dialog: Dialog, delay: Long = 1): ObservableLife<T>? {
+fun <T> Observable<T>.applySchedulers(lifecycleOwner: LifecycleOwner, dialog: Dialog?, delay: Long = 1): ObservableLife<T>? {
     return delay(delay, TimeUnit.SECONDS)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { disposable ->
-                dialog.setOnCancelListener { disposable.dispose() }
-                dialog.show()
+                dialog?.setOnCancelListener { disposable.dispose() }
+                dialog?.show()
             }
-            .doOnTerminate { dialog.dismiss() }
-            .`as`(RxLife.asOnMain(lifecycleOwner))
+            .doOnTerminate { dialog?.dismiss() }
+            .`as`(RxLife.`as`(lifecycleOwner))
 }

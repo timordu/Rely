@@ -30,7 +30,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.android.rely.Rely
 import com.android.rely.common.showToast
 import com.android.rely.eventbus.MsgEvent
-import com.android.rely.mvvm.widget.LoadingDialog
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -39,7 +38,7 @@ import org.greenrobot.eventbus.ThreadMode
  * Created by dugang on 2017/7/26.Fragment基类
  */
 @Suppress("unused")
-abstract class BaseFragment : Fragment(), LifecycleOwner,BaseView, Toolbar.OnMenuItemClickListener {
+abstract class BaseFragment : Fragment(), LifecycleOwner, Toolbar.OnMenuItemClickListener {
     protected open val mContext get() = activity as Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +59,11 @@ abstract class BaseFragment : Fragment(), LifecycleOwner,BaseView, Toolbar.OnMen
 
     abstract fun initView(view: View, savedInstanceState: Bundle?)
 
+    abstract fun initObserve()
 
+    open fun showLoadingDialog() {}
+
+    open fun dismissLoadingDialog() {}
 
     protected fun <VM : BaseViewModel> initViewModel(clazz: Class<VM>): VM {
         return ViewModelProviders.of(this).get(clazz).apply {
@@ -88,7 +91,6 @@ abstract class BaseFragment : Fragment(), LifecycleOwner,BaseView, Toolbar.OnMen
         super.onPause()
         EventBus.getDefault().unregister(this)
     }
-
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)

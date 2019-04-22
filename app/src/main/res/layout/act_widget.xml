@@ -37,7 +37,7 @@
 
             <include layout="@layout/part_datetime" />
 
-            <include layout="@layout/part_editext" />
+            <include layout="@layout/part_edittext" />
 
             <Button
                 android:id="@+id/sideIndexBar"

@@ -17,12 +17,12 @@
 package com.android.rely.demo.model.remote
 
 import com.android.rely.demo.model.bean.User
+import com.android.rely.retrofit.Result
 import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
-import com.android.rely.retrofit.Result
 
 
 /**
@@ -32,6 +32,7 @@ interface IUser {
     /**
      * 刷新token
      */
+
     @FormUrlEncoded
     @POST("api/user/refreshToken")
     fun refreshToken(@Field("refresh_token") refreshToken: String): Call<Result<String>>
