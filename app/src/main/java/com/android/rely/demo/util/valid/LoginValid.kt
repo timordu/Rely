@@ -14,20 +14,19 @@
  *    limitations under the License.
  */
 
-package com.android.rely.demo
+package com.android.rely.demo.util.valid
 
-/**
- * Created by dugang on 2017/8/4.
- */
-object Contains {
-    const val NET_CODE_TOKEN_EXPIRE = -100
+import android.app.Activity
+import android.content.Context
+import com.android.rely.conditionSkip.Valid
+import com.android.rely.demo.Contains
+import com.android.rely.demo.ui.activity.conditionskip.LoginActivity
+import com.android.rely.ext.skipToActivity
 
-    const val KEY_REFRESH_TOKEN = "key_refresh_token"
-    const val KEY_ACCESS_TOKEN = "key_access_token"
+class LoginValid(context: Context):Valid(context) {
+    override fun check(): Boolean = Contains.isLogin
 
-
-    var isLogin = false
-    var isLogin2 = false
-
-
+    override fun doValid() {
+        (context as Activity).skipToActivity(LoginActivity::class.java)
+    }
 }

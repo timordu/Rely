@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.android.rely.demo.ui.activity
+package com.android.rely.demo.ui.activity.widget
 
 import com.android.rely.common.getSP
 import com.android.rely.common.md5

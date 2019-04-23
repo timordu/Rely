@@ -15,7 +15,7 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -31,19 +31,113 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <!-- 指纹识别 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
+                android:text="指纹识别测试" />
 
-            <include layout="@layout/part_number_progressbar" />
+            <Button
+                android:id="@+id/fingerprint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="指纹识别" />
 
 
-            <include layout="@layout/part_datetime" />
+            <!-- NumberProgressBar测试 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
+                android:text="NumberProgressBar测试" />
 
-            <include layout="@layout/part_edittext" />
+            <com.android.rely.widget.progressbar.NumberProgressBar
+                android:id="@+id/numberProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10" />
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- DateTimePicker测试 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:padding="@dimen/dp_10"
+                android:text="DateTimePicker测试" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="日期"
+                    tools:ignore="ButtonStyle" />
+
+                <Button
+                    android:id="@+id/time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="时间"
+                    tools:ignore="ButtonStyle" />
+
+                <Button
+                    android:id="@+id/datetime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="日期+时间"
+                    tools:ignore="ButtonStyle" />
+            </LinearLayout>
+
+            <!-- 自定义EditText测试 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:padding="@dimen/dp_10"
+                android:text="自定义EditText测试" />
+
+            <com.android.rely.widget.edittext.ClearEditText
+                android:id="@+id/account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/ic_account"
+                android:drawablePadding="@dimen/dp_10"
+                android:padding="@dimen/dp_10" />
+
+            <com.android.rely.widget.edittext.PasswordEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@mipmap/ic_pwd"
+                android:drawablePadding="@dimen/dp_10"
+                android:padding="@dimen/dp_10" />
+
+            <!-- 自定义IndexBar测试 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
+                android:text="SideIndexBar测试" />
 
             <Button
                 android:id="@+id/sideIndexBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Side_Index_Bar Demo" />
+
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

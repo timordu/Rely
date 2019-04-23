@@ -19,15 +19,13 @@ package com.android.rely.demo.ui.activity
 import com.android.rely.common.setOnSeekBarChangeListener
 import com.android.rely.common.showToast
 import com.android.rely.demo.R
+import com.android.rely.demo.ui.activity.widget.FingerprintActivity
 import com.android.rely.demo.ui.activity.widget.SideIndexBarDemoActivity
 import com.android.rely.demo.ui.parent.MyBaseActivity
 import com.android.rely.ext.skipToActivity
-import com.android.rely.mvvm.base.BaseActivity
 import com.android.rely.mvvm.ext.initToolBar
 import com.android.rely.widget.datetime.DateTimePicker
 import kotlinx.android.synthetic.main.act_widget.*
-import kotlinx.android.synthetic.main.part_datetime.*
-import kotlinx.android.synthetic.main.part_number_progressbar.*
 
 
 class WidgetActivity : MyBaseActivity() {
@@ -35,6 +33,10 @@ class WidgetActivity : MyBaseActivity() {
 
     override fun initView() {
         initToolBar("自定义组件测试", R.mipmap.icon_back)
+
+        fingerprint.setOnClickListener {
+            skipToActivity(FingerprintActivity::class.java)
+        }
 
         seekBar.setOnSeekBarChangeListener {
             onProgressChanged { _, progress, _ ->

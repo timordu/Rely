@@ -14,20 +14,23 @@
  *    limitations under the License.
  */
 
-package com.android.rely.demo
+package com.android.rely.conditionSkip
+
+import android.content.Context
+import androidx.annotation.IntRange
 
 /**
- * Created by dugang on 2017/8/4.
+ * 验证条件,优先级数值越高优先级越高
  */
-object Contains {
-    const val NET_CODE_TOKEN_EXPIRE = -100
+abstract class Valid(val context: Context, @IntRange(from = 1, to = 10) val priority: Int = 5) : Comparable<Valid> {
 
-    const val KEY_REFRESH_TOKEN = "key_refresh_token"
-    const val KEY_ACCESS_TOKEN = "key_access_token"
+    override fun compareTo(other: Valid): Int = when {
+        this.priority > other.priority -> -1
+        this.priority < other.priority -> 1
+        else -> 0
+    }
 
+    abstract fun check(): Boolean
 
-    var isLogin = false
-    var isLogin2 = false
-
-
+    abstract fun doValid()
 }

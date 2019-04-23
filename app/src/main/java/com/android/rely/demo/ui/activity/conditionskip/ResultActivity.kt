@@ -14,20 +14,19 @@
  *    limitations under the License.
  */
 
-package com.android.rely.demo
+package com.android.rely.demo.ui.activity.conditionskip
 
-/**
- * Created by dugang on 2017/8/4.
- */
-object Contains {
-    const val NET_CODE_TOKEN_EXPIRE = -100
+import com.android.rely.demo.R
+import com.android.rely.mvvm.base.BaseActivity
+import com.android.rely.mvvm.ext.initToolBar
 
-    const val KEY_REFRESH_TOKEN = "key_refresh_token"
-    const val KEY_ACCESS_TOKEN = "key_access_token"
+class ResultActivity : BaseActivity() {
+    override val layoutResId = R.layout.act_condition_skip
 
+    override fun initView() {
+        initToolBar("跳转结果", R.mipmap.icon_back)
+    }
 
-    var isLogin = false
-    var isLogin2 = false
-
-
+    override fun initObserve() {
+    }
 }

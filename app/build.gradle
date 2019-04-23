@@ -76,4 +76,6 @@ dependencies {
     //    implementation "org.permissionsdispatcher:permissionsdispatcher:4.3.0"
     //    kapt "org.permissionsdispatcher:permissionsdispatcher-processor:4.3.0"
 
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }
