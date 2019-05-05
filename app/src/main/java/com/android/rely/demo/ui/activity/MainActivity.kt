@@ -33,7 +33,7 @@ import kotlinx.android.synthetic.main.act_main.*
 class MainActivity : MyBaseActivity() {
     override val layoutResId: Int = R.layout.act_main
 
-    private val testViewModel: TestViewModel by lazy { getViewModel(TestViewModel::class.java) }
+    private val testViewModel: TestViewModel by lazy { getViewModel<TestViewModel>() }
 
     override fun initView() {
         initToolBar("功能测试")

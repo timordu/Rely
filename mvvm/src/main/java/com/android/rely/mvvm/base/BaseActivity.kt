@@ -46,8 +46,8 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner {
 
     abstract val layoutResId: Int
 
-    protected fun <VM : BaseViewModel> getViewModel(clazz: Class<VM>): VM {
-        return ViewModelProviders.of(this).get(clazz).apply {
+    inline fun <reified VM : BaseViewModel> getViewModel(): VM {
+        return ViewModelProviders.of(this).get(VM::class.java).apply {
             initLifecycleOwner(this@BaseActivity)
             isShowLoading.observe(this@BaseActivity, Observer {
                 if (it) showLoadingDialog() else dismissLoadingDialog()
