@@ -36,8 +36,6 @@ dependencies {
 
     //添加mvvm开发框架(默认依赖了公共库和核心库)
     implementation "com.github.timordu.Rely:mvvm:$rely"
-    //添加mvc开发框架(默认依赖了公共库和核心库)
-    //implementation "com.github.timordu.Rely:mvc:$rely"
 }
 ```
 
@@ -59,6 +57,11 @@ class MyApp : BaseApp() {
 </style>
 ```
 
+Todo List
+---------
+
+1. 多媒体功能的基类(拍照, 选择照片, 拍摄视频, 选择文件,图片压缩,视频压缩)
+2. 图片预览优化
 
 
 Copyright
