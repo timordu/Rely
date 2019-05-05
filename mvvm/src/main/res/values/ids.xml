@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~    Copyright (c) 2017-2019 dugang
   ~
@@ -14,19 +15,6 @@
   ~    limitations under the License.
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.rely.mvvm">
-
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.hardware.camera.autofocus" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
-
-    <application>
-        <activity
-            android:name=".widget.image.ImagePreview"
-            android:configChanges="keyboardHidden|orientation"
-            android:theme="@style/AppTheme.ImagePreview"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-    </application>
-</manifest>
+<resources>
+    <item type="id" name="tag_id"/>
+</resources>

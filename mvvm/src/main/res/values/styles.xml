@@ -33,6 +33,13 @@
         <item name="android:textSize">@dimen/toolbar_menu_text_size</item>
     </style>
 
+    <style name="AppTheme.ImagePreview" parent="@style/Dialog.Default">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
     <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
         <item name="contentInsetStart">0dp</item>
         <item name="contentInsetLeft">0dp</item>

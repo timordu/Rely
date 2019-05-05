@@ -67,4 +67,7 @@ dependencies {
 
     implementation "org.permissionsdispatcher:permissionsdispatcher:4.3.1"
     kapt "org.permissionsdispatcher:permissionsdispatcher-processor:4.3.1"
+
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+    implementation 'com.nineoldandroids:library:2.4.0'
 }
