@@ -38,6 +38,12 @@
                 android:text="自定义组件测试" />
 
             <Button
+                android:id="@+id/media"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="拍照,选择照片,拍摄视频测试" />
+
+            <Button
                 android:id="@+id/condition_skip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

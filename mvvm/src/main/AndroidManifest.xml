@@ -15,4 +15,8 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.android.rely.mvvm"/>
+          package="com.android.rely.mvvm">
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.hardware.camera.autofocus"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+</manifest>

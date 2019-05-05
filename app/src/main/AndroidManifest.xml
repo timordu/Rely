@@ -25,6 +25,7 @@
         <activity android:name=".ui.activity.conditionskip.LoginActivity"/>
         <activity android:name=".ui.activity.conditionskip.Login2Activity"/>
         <activity android:name=".ui.activity.conditionskip.ResultActivity"/>
+        <activity android:name=".ui.activity.MediaActivity"/>
     </application>
 
 </manifest>

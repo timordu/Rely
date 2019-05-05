@@ -27,6 +27,6 @@ class LoginValid(context: Context):Valid(context) {
     override fun check(): Boolean = Contains.isLogin
 
     override fun doValid() {
-        (context as Activity).skipToActivity(LoginActivity::class.java)
+        (context as Activity).skipToActivity<LoginActivity>()
     }
 }

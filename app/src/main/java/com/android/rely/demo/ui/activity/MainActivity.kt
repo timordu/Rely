@@ -39,7 +39,11 @@ class MainActivity : MyBaseActivity() {
         initToolBar("功能测试")
 
         widget.setOnClickListener {
-            skipToActivity(WidgetActivity::class.java)
+            skipToActivity<WidgetActivity>()
+        }
+
+        media.setOnClickListener {
+            skipToActivity<MediaActivity>()
         }
 
         condition_skip.setOnClickListener {
@@ -49,11 +53,11 @@ class MainActivity : MyBaseActivity() {
                         override fun check(): Boolean = Contains.isLogin2
 
                         override fun doValid() {
-                            skipToActivity(Login2Activity::class.java)
+                            skipToActivity<Login2Activity>()
                         }
                     })
                     .validComplete {
-                        skipToActivity(ResultActivity::class.java)
+                        skipToActivity<Login2Activity>()
                     }
                     .doCall()
         }

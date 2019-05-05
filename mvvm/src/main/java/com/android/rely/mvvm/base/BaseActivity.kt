@@ -34,7 +34,7 @@ import org.greenrobot.eventbus.ThreadMode
  */
 @Suppress("unused")
 abstract class BaseActivity : AppCompatActivity(), LifecycleOwner {
-    protected open val mContext get() = this
+    open val mContext get() = this
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner {
         initObserve()
     }
 
-    protected abstract val layoutResId: Int
+    abstract val layoutResId: Int
 
     protected fun <VM : BaseViewModel> getViewModel(clazz: Class<VM>): VM {
         return ViewModelProviders.of(this).get(clazz).apply {

@@ -35,8 +35,8 @@ import com.android.rely.common.windowManager
 /**
  * 跳转到指定的Activity
  */
-fun Activity.skipToActivity(clazz: Class<out Activity>, bundle: Bundle? = null) {
-    val intent = Intent(this, clazz).apply {
+inline fun <reified T : Activity> Activity.skipToActivity(bundle: Bundle? = null) {
+    val intent = Intent(this, T::class.java).apply {
         putExtras(Bundle().apply { bundle?.let { putAll(it) } })
     }
     startActivity(intent)
@@ -45,8 +45,8 @@ fun Activity.skipToActivity(clazz: Class<out Activity>, bundle: Bundle? = null) 
 /**
  * 带返回的跳转到指定的Activity
  */
-fun Activity.skipToActivityForResult(clazz: Class<out Activity>, requestCode: Int, bundle: Bundle? = null) {
-    val intent = Intent(this, clazz).apply {
+inline fun <reified T : Activity> Activity.skipToActivityForResult(requestCode: Int, bundle: Bundle? = null) {
+    val intent = Intent(this, T::class.java).apply {
         putExtras(Bundle().apply { bundle?.let { putAll(it) } })
     }
     startActivityForResult(intent, requestCode)
@@ -55,8 +55,8 @@ fun Activity.skipToActivityForResult(clazz: Class<out Activity>, requestCode: In
 /**
  * 跳转到指定的Activity并结束当前Activity
  */
-fun Activity.skipToActivityAndFinish(clazz: Class<out Activity>, bundle: Bundle? = null) {
-    val intent = Intent(this, clazz).apply {
+inline fun <reified T : Activity> Activity.skipToActivityAndFinish(bundle: Bundle? = null) {
+    val intent = Intent(this, T::class.java).apply {
         putExtras(Bundle().apply { bundle?.let { putAll(it) } })
     }
     startActivity(intent)
@@ -66,8 +66,8 @@ fun Activity.skipToActivityAndFinish(clazz: Class<out Activity>, bundle: Bundle?
 /**
  * 从新线程启动指定的Activity
  */
-fun Activity.skipToActivityWithNewTask(clazz: Class<out Activity>, bundle: Bundle? = null) {
-    val intent = Intent(this, clazz).apply {
+inline fun <reified T : Activity> Activity.skipToActivityWithNewTask(bundle: Bundle? = null) {
+    val intent = Intent(this, T::class.java).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         putExtras(Bundle().apply { bundle?.let { putAll(it) } })
     }

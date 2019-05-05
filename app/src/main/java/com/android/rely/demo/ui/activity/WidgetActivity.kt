@@ -35,7 +35,7 @@ class WidgetActivity : MyBaseActivity() {
         initToolBar("自定义组件测试", R.mipmap.icon_back)
 
         fingerprint.setOnClickListener {
-            skipToActivity(FingerprintActivity::class.java)
+            skipToActivity<FingerprintActivity>()
         }
 
         seekBar.setOnSeekBarChangeListener {
@@ -65,7 +65,7 @@ class WidgetActivity : MyBaseActivity() {
 
 
         sideIndexBar.setOnClickListener {
-            skipToActivity(SideIndexBarDemoActivity::class.java)
+            skipToActivity<SideIndexBarDemoActivity>()
         }
     }
 

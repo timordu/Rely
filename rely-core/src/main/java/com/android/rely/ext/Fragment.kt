@@ -31,29 +31,29 @@ import androidx.fragment.app.FragmentTransaction
 /**
  * 跳转到指定的Activity
  */
-fun Fragment.skipToActivity(clazz: Class<out Activity>, bundle: Bundle? = null) {
-    activity?.skipToActivity(clazz, bundle)
+inline fun <reified T : Activity> Fragment.skipToActivity(bundle: Bundle? = null) {
+    activity?.skipToActivity<T>(bundle)
 }
 
 /**
  * 带返回的跳转到指定的Activity
  */
-fun Fragment.skipToActivityForResult(clazz: Class<out Activity>, requestCode: Int, bundle: Bundle? = null) {
-    activity?.skipToActivityForResult(clazz, requestCode, bundle)
+inline fun <reified T : Activity> Fragment.skipToActivityForResult(requestCode: Int, bundle: Bundle? = null) {
+    activity?.skipToActivityForResult<T>(requestCode, bundle)
 }
 
 /**
  * 跳转到指定的Activity并结束当前Activity
  */
-fun Fragment.skipToActivityAndFinish(clazz: Class<out Activity>, bundle: Bundle? = null) {
-    activity?.skipToActivityAndFinish(clazz, bundle)
+inline fun <reified T : Activity> Fragment.skipToActivityAndFinish(bundle: Bundle? = null) {
+    activity?.skipToActivityAndFinish<T>(bundle)
 }
 
 /**
  * 从新线程启动指定的Activity
  */
-fun Fragment.skipToActivityWithNewTask(clazz: Class<out Activity>, bundle: Bundle? = null) {
-    activity?.skipToActivityWithNewTask(clazz, bundle)
+inline fun <reified T : Activity> Fragment.skipToActivityWithNewTask(bundle: Bundle? = null) {
+    activity?.skipToActivityWithNewTask<T>(bundle)
 }
 
 /**
