@@ -16,22 +16,33 @@
 
 package com.android.rely.demo.ui.activity
 
+import android.content.Intent
+import androidx.lifecycle.Observer
+import com.android.rely.common.listview.SimpleAdapter
 import com.android.rely.common.setOnSeekBarChangeListener
 import com.android.rely.common.showToast
 import com.android.rely.demo.R
 import com.android.rely.demo.ui.activity.widget.FingerprintActivity
 import com.android.rely.demo.ui.activity.widget.SideIndexBarDemoActivity
 import com.android.rely.demo.ui.parent.MyBaseActivity
-import com.android.rely.ext.skipToActivity
-import com.android.rely.mvvm.ext.initToolBar
+import com.android.rely.demo.ui.viewmodel.WidgetViewModel
+import com.android.rely.ext.loadImage
+import com.android.rely.common.skipToActivity
+import com.android.rely.common.smoothSwitchScreen
+import com.android.rely.common.initToolBar
+import com.android.rely.widget.image.ImagePreview
 import com.android.rely.widget.datetime.DateTimePicker
 import kotlinx.android.synthetic.main.act_widget.*
+import kotlinx.android.synthetic.main.item_widget.view.*
 
 
 class WidgetActivity : MyBaseActivity() {
     override val layoutResId: Int = R.layout.act_widget
 
+    private val viewModel: WidgetViewModel by lazy { getViewModel<WidgetViewModel>() }
+
     override fun initView() {
+        smoothSwitchScreen()
         initToolBar("自定义组件测试", R.mipmap.icon_back)
 
         fingerprint.setOnClickListener {
@@ -70,7 +81,26 @@ class WidgetActivity : MyBaseActivity() {
     }
 
     override fun initObserve() {
+        viewModel.singleImage.observe(this, Observer { url ->
+            single_image.loadImage(url)
+            single_image.setOnClickListener {
+                ImagePreview.show(this, single_image, arrayListOf(url))
+            }
+        })
+        viewModel.multiImage.observe(this, Observer { urlList ->
+            val adapter = SimpleAdapter(this, R.layout.item_widget, urlList) { view, data ->
+                view.imageView.loadImage(data)
+            }
+            multi_image.adapter = adapter
+            multi_image.setOnItemClickListener { _, _, position, _ ->
+                ImagePreview.show(this, multi_image.getChildAt(position).imageView, urlList, position)
+            }
+        })
+    }
 
+    override fun onActivityReenter(resultCode: Int, data: Intent?) {
+        super.onActivityReenter(resultCode, data)
+        ImagePreview.onActivityReenter(this, data, multi_image)
     }
 
 

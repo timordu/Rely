@@ -15,6 +15,10 @@
   -->
 
 <resources>
+    <dimen name="toolbar_height">@dimen/dp_48</dimen>
+    <dimen name="toolbar_text_size">@dimen/sp_18</dimen>
+    <dimen name="toolbar_menu_text_size">@dimen/sp_14</dimen>
+
     <!-- 字体大小 -->
     <dimen name="sp_10">10sp</dimen>
     <dimen name="sp_11">11sp</dimen>

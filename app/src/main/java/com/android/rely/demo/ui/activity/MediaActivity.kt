@@ -18,10 +18,10 @@ package com.android.rely.demo.ui.activity
 
 import com.android.rely.common.showToast
 import com.android.rely.demo.R
-import com.android.rely.mvvm.media.BaseActivity
+import com.android.rely.base.MediaActivity
 import kotlinx.android.synthetic.main.act_media.*
 
-class MediaActivity : BaseActivity() {
+class MediaActivity : MediaActivity() {
     override val layoutResId: Int = R.layout.act_media
 
     override fun initView() {

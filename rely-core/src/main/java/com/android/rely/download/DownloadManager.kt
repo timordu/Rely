@@ -21,7 +21,7 @@ import android.os.Handler
 import android.os.Message
 import com.android.rely.Rely
 import com.android.rely.common.*
-import com.android.rely.ext.wifiConnected
+import com.android.rely.common.wifiConnected
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File

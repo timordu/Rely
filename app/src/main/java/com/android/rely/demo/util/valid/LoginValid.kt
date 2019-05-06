@@ -21,7 +21,7 @@ import android.content.Context
 import com.android.rely.conditionSkip.Valid
 import com.android.rely.demo.Contains
 import com.android.rely.demo.ui.activity.conditionskip.LoginActivity
-import com.android.rely.ext.skipToActivity
+import com.android.rely.common.skipToActivity
 
 class LoginValid(context: Context):Valid(context) {
     override fun check(): Boolean = Contains.isLogin

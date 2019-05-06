@@ -61,8 +61,8 @@ def rely = '28a1d04052'
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation project(':mvvm')
-    implementation project(':widget')
+    implementation project(':rely-core')
+    implementation project(':rely-widget')
 
     //添加全部依赖
 //        implementation "com.github.timordu:Rely:$rely"

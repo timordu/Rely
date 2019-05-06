@@ -19,6 +19,11 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AppTheme.Toolbar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="actionMenuTextColor">@color/toolbar_menu_color</item>
+        <item name="android:textSize">@dimen/toolbar_menu_text_size</item>
+    </style>
+
     <style name="Dialog.Default" parent="android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>

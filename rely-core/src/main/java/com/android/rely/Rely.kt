@@ -45,8 +45,16 @@ object Rely {
         ALog.init(context).setLogSwitch(debug)
     }
 
+    /**
+     * 重置网络请求的状态码
+     */
     fun initNetCode(success: Int = 0, error: Int = -1) {
         NET_CODE_SUCCESS = success
         NET_CODE_ERROR = error
     }
+
+    /**
+     * 获取应用包名
+     */
+    fun getPackageName(): String = appContext.packageName
 }

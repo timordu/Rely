@@ -29,7 +29,7 @@ import androidx.annotation.LayoutRes
  */
 @Suppress("unused")
 class SimpleAdapter<T>(private val context: Context,
-                       @LayoutRes private val id: Int,
+                       @LayoutRes private val layoutId: Int,
                        private val list: List<T>, val callBack: (view: View, data: T) -> Unit) : BaseAdapter() {
 
     override fun getItem(p0: Int): T = list[p0]
@@ -39,7 +39,7 @@ class SimpleAdapter<T>(private val context: Context,
     override fun getCount(): Int = list.size
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = convertView ?: LayoutInflater.from(context).inflate(id, parent, false)
+        val view = convertView ?: LayoutInflater.from(context).inflate(layoutId, parent, false)
         if (view.tag == null) view.tag = ViewHolder(view)
         (view.tag as SimpleAdapter<*>.ViewHolder).initData(position)
         return view

@@ -20,20 +20,16 @@ import com.android.rely.conditionSkip.ConditionSkip
 import com.android.rely.conditionSkip.Valid
 import com.android.rely.demo.Contains
 import com.android.rely.demo.R
-import com.android.rely.demo.ui.activity.conditionskip.ResultActivity
 import com.android.rely.demo.ui.activity.conditionskip.Login2Activity
 import com.android.rely.demo.ui.parent.MyBaseActivity
-import com.android.rely.demo.ui.viewmodel.TestViewModel
 import com.android.rely.demo.util.valid.LoginValid
-import com.android.rely.ext.skipToActivity
-import com.android.rely.mvvm.ext.initToolBar
-import com.android.rely.mvvm.widget.LoadingDialog
+import com.android.rely.common.skipToActivity
+import com.android.rely.common.initToolBar
 import kotlinx.android.synthetic.main.act_main.*
 
 class MainActivity : MyBaseActivity() {
     override val layoutResId: Int = R.layout.act_main
 
-    private val testViewModel: TestViewModel by lazy { getViewModel<TestViewModel>() }
 
     override fun initView() {
         initToolBar("功能测试")
@@ -64,7 +60,7 @@ class MainActivity : MyBaseActivity() {
 
         network_test.setOnClickListener {
             //传入自定义的LoadingDialog,可以手动取消请求
-            testViewModel.login("", "", LoadingDialog(mContext))
+//            testViewModel.login("", "", LoadingDialog(mContext))
             //通过MyBaseActivity中定义的show和dismiss方法来控制全局的LoadingDialog
 //            testViewModel.login("","")
         }

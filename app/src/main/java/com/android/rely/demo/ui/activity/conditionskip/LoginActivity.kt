@@ -19,9 +19,9 @@ package com.android.rely.demo.ui.activity.conditionskip
 import com.android.rely.conditionSkip.ConditionSkip
 import com.android.rely.demo.Contains
 import com.android.rely.demo.R
-import com.android.rely.ext.closeActivity
-import com.android.rely.mvvm.base.BaseActivity
-import com.android.rely.mvvm.ext.initToolBar
+import com.android.rely.common.closeActivity
+import com.android.rely.base.BaseActivity
+import com.android.rely.common.initToolBar
 import kotlinx.android.synthetic.main.act_login.*
 
 class LoginActivity : BaseActivity() {
