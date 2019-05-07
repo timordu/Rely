@@ -26,13 +26,12 @@
 
     <ImageView
         android:id="@+id/save_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dp_28"
+        android:layout_height="@dimen/dp_28"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/dp_20"
         android:contentDescription="@null"
-        android:padding="10dp"
         android:src="@mipmap/icon_download" />
 
     <TextView
@@ -40,8 +39,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="25dp"
-        android:padding="10dp"
+        android:layout_margin="@dimen/dp_20"
         android:textColor="@android:color/white"
-        tools:ignore="RelativeOverlap" />
+        tools:ignore="RelativeOverlap"
+        android:textSize="@dimen/sp_14"
+        tools:text="9/10" />
 </RelativeLayout>

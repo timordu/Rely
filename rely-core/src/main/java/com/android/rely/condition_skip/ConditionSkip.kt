@@ -14,12 +14,9 @@
  *    limitations under the License.
  */
 
-package com.android.rely.conditionSkip
+package com.android.rely.condition_skip
 
 import android.util.ArrayMap
-import android.util.Log
-import com.blankj.ALog
-import java.util.*
 import java.util.concurrent.PriorityBlockingQueue
 
 class ConditionSkip(private val action: String) {

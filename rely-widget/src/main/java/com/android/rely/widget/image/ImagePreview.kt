@@ -17,11 +17,13 @@
 package com.android.rely.widget.image
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Environment
 import android.view.View
 import android.view.ViewTreeObserver
+import android.widget.AbsListView
 import android.widget.GridView
 import android.widget.ImageView
 import android.widget.Toast
@@ -29,8 +31,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.app.SharedElementCallback
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.android.rely.base.BaseActivity
+import com.android.rely.common.EXTERNAL_DIR_ROOT
+import com.android.rely.common.PUBLIC_DOWNLOAD_DIR
+import com.android.rely.common.showToast
 import com.android.rely.widget.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.Target
@@ -52,13 +58,9 @@ class ImagePreview : BaseActivity() {
         private const val KEY_INDEX = "index"
         private const val KEY_URLS = "urls"
 
-
         fun show(activity: AppCompatActivity, imageView: ImageView, urls: ArrayList<String>, index: Int = 0) {
             activity.setExitSharedElementCallback(object : SharedElementCallback() {
-                override fun onMapSharedElements(
-                    names: MutableList<String>?,
-                    sharedElements: MutableMap<String, View>?
-                ) {
+                override fun onMapSharedElements(names: MutableList<String>?, sharedElements: MutableMap<String, View>?) {
                     sharedElements?.clear()
                     sharedElements?.put("image", imageView)
                 }
@@ -73,15 +75,15 @@ class ImagePreview : BaseActivity() {
             ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle())
         }
 
-        fun onActivityReenter(activity: AppCompatActivity, data: Intent?, gridView: GridView) {
+        fun onActivityReenter(activity: AppCompatActivity, data: Intent?, absListView: AbsListView) {
             data?.extras?.let {
                 val currentPosition = it.getInt(KEY_INDEX, 0)
-                gridView.smoothScrollToPosition(currentPosition)
+                absListView.smoothScrollToPosition(currentPosition)
                 ActivityCompat.postponeEnterTransition(activity)
-                gridView.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+                absListView.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
                     override fun onPreDraw(): Boolean {
-                        gridView.viewTreeObserver.removeOnPreDrawListener(this)
-                        gridView.requestLayout()
+                        absListView.viewTreeObserver.removeOnPreDrawListener(this)
+                        absListView.requestLayout()
                         ActivityCompat.startPostponedEnterTransition(activity)
                         return true
                     }
@@ -95,6 +97,7 @@ class ImagePreview : BaseActivity() {
     private lateinit var mAdapter: ImagePreviewAdapter
 
     override val layoutResId: Int = R.layout.act_image_preview
+
     override fun initView() {
         val list = intent.getStringArrayListExtra(KEY_URLS)
         index_view.visibility = if (list.size > 1) View.VISIBLE else View.GONE
@@ -112,17 +115,13 @@ class ImagePreview : BaseActivity() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             }
 
+            @SuppressLint("SetTextI18n")
             override fun onPageSelected(position: Int) {
                 index_view.text = "${position + 1}/${viewList.size}"
             }
         })
-        viewPager.setOnReleaseListener(object : DragViewPager.OnReleaseListener {
-            override fun onRelease() {
-                finishActivity()
-            }
-        })
+        viewPager.setOnReleaseListener { finishActivity() }
         viewPager.currentItem = intent.getIntExtra(KEY_INDEX, 0)
-
 
         setEnterSharedElementCallback(object : SharedElementCallback() {
             override fun onMapSharedElements(names: MutableList<String>?, sharedElements: MutableMap<String, View>?) {
@@ -132,7 +131,7 @@ class ImagePreview : BaseActivity() {
         })
 
         save_image.setOnClickListener {
-            writeExternalStorageWithPermissionCheck()
+            saveImageWithPermissionCheck()
         }
     }
 
@@ -141,29 +140,22 @@ class ImagePreview : BaseActivity() {
 
     @Suppress("DEPRECATION")
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    fun writeExternalStorage() {
+    fun saveImage() {
         thread {
             val path = viewList[viewPager.currentItem].getTag(R.id.tag_id) as String
             val file = Glide.with(this).load(path).downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get()
             val fis = FileInputStream(file)
-            val newFile = File(
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                path.substring(path.lastIndexOf("/") + 1, path.length)
-            ).apply { createNewFile() }
+            val newFile = File(PUBLIC_DOWNLOAD_DIR, path.substring(path.lastIndexOf("/") + 1, path.length)).apply { createNewFile() }
             val fos = FileOutputStream(newFile)
             val buffer = ByteArray(1024)
             do {
                 val length = fis.read(buffer)
-                if (length != -1) {
-                    fos.write(buffer, 0, length)
-                } else {
-                    break
-                }
+                if (length != -1) fos.write(buffer, 0, length) else break
             } while (true)
             fos.close()
             fis.close()
             runOnUiThread {
-                Toast.makeText(this, "保存成功,位置:${newFile.absoluteFile}", Toast.LENGTH_SHORT).show()
+                showToast("保存成功,位置:${newFile.absolutePath.replace(EXTERNAL_DIR_ROOT, "")}")
             }
         }
     }

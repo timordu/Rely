@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.android.rely.conditionSkip
+package com.android.rely.condition_skip
 
 import android.content.Context
 import androidx.annotation.IntRange

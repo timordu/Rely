@@ -16,8 +16,8 @@
 
 package com.android.rely.demo.ui.activity
 
-import com.android.rely.conditionSkip.ConditionSkip
-import com.android.rely.conditionSkip.Valid
+import com.android.rely.condition_skip.ConditionSkip
+import com.android.rely.condition_skip.Valid
 import com.android.rely.demo.Contains
 import com.android.rely.demo.R
 import com.android.rely.demo.ui.activity.conditionskip.Login2Activity
@@ -25,6 +25,7 @@ import com.android.rely.demo.ui.parent.MyBaseActivity
 import com.android.rely.demo.util.valid.LoginValid
 import com.android.rely.common.skipToActivity
 import com.android.rely.common.initToolBar
+import com.android.rely.demo.ui.activity.conditionskip.ResultActivity
 import kotlinx.android.synthetic.main.act_main.*
 
 class MainActivity : MyBaseActivity() {
@@ -53,7 +54,7 @@ class MainActivity : MyBaseActivity() {
                         }
                     })
                     .validComplete {
-                        skipToActivity<Login2Activity>()
+                        skipToActivity<ResultActivity>()
                     }
                     .doCall()
         }

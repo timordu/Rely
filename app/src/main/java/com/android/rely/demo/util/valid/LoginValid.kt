@@ -18,7 +18,7 @@ package com.android.rely.demo.util.valid
 
 import android.app.Activity
 import android.content.Context
-import com.android.rely.conditionSkip.Valid
+import com.android.rely.condition_skip.Valid
 import com.android.rely.demo.Contains
 import com.android.rely.demo.ui.activity.conditionskip.LoginActivity
 import com.android.rely.common.skipToActivity

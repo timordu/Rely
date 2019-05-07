@@ -25,6 +25,7 @@ import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.WindowManager
 import androidx.viewpager.widget.ViewPager
+import com.blankj.ALog
 import com.nineoldandroids.view.ViewHelper
 
 
@@ -32,17 +33,20 @@ import com.nineoldandroids.view.ViewHelper
  * Created by dugang on 2018/10/17.可下拉的ViewPager
  */
 class DragViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context, attrs) {
-    private val DRAG_PX: Int = 50
-    private val STATUS_NORMAL = 0
-    private val STATUS_MOVING = 1
-    private val STATUS_RESET = 2
+    companion object {
+        private const val DRAG_PX = 50
+        private const val STATUS_NORMAL = 0
+        private const val STATUS_MOVING = 1
+        private const val STATUS_RESET = 2
+    }
+
     private val screenHeight: Int
 
     private var currentPageStatus = SCROLL_STATE_IDLE
     private var currentStatus = STATUS_NORMAL
     private var mDownX: Float = 0F
     private var mDownY: Float = 0F
-    private var onReleaseListener: OnReleaseListener? = null
+    private var onReleaseListener: (() -> Unit)? = null
 
 
     init {
@@ -65,19 +69,17 @@ class DragViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context,
         screenHeight = outMetrics.heightPixels
     }
 
-    interface OnReleaseListener {
-        fun onRelease()
-    }
 
-    fun setOnReleaseListener(onReleaseListener: OnReleaseListener) {
+    fun setOnReleaseListener(onReleaseListener: () -> Unit) {
         this.onReleaseListener = onReleaseListener
     }
 
     /**
      * 拦截ViewPager的下滑事件
      */
-    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
-        when (ev?.action) {
+    @Suppress("DEPRECATION")
+    override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
+        when (ev.action) {
             MotionEvent.ACTION_DOWN -> {
                 mDownX = ev.x
                 mDownY = ev.y
@@ -92,15 +94,15 @@ class DragViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context,
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    override fun onTouchEvent(ev: MotionEvent?): Boolean {
-        when (ev?.action) {
+    override fun onTouchEvent(ev: MotionEvent): Boolean {
+        when (ev.action) {
             MotionEvent.ACTION_DOWN -> {
                 mDownX = ev.rawX
                 mDownY = ev.rawY
             }
             MotionEvent.ACTION_MOVE -> {
                 val deltaY = ev.rawY - mDownY
-                if (currentPageStatus != ViewPager.SCROLL_STATE_DRAGGING) {
+                if (currentPageStatus != SCROLL_STATE_DRAGGING) {
                     if (deltaY > DRAG_PX || currentStatus == STATUS_MOVING) {
                         moveView(ev.rawX, ev.rawY - DRAG_PX)
                         return true
@@ -114,7 +116,7 @@ class DragViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context,
                 val mUpY = ev.rawY
                 //下滑距离超过屏幕1/4退出当前 Activity
                 if (Math.abs(mUpY - mDownY) > screenHeight / 4) {
-                    onReleaseListener?.onRelease()
+                    onReleaseListener?.invoke()
                 }
                 //还原原来图片的大小和ViewPager的背景色
                 else {

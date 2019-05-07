@@ -16,7 +16,7 @@
 
 package com.android.rely.demo.ui.activity.conditionskip
 
-import com.android.rely.conditionSkip.ConditionSkip
+import com.android.rely.condition_skip.ConditionSkip
 import com.android.rely.demo.Contains
 import com.android.rely.demo.R
 import com.android.rely.common.closeActivity
