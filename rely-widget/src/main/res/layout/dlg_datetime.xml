@@ -19,7 +19,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dp_5"
-    android:background="@drawable/dlg_datetime_bg"
+    android:background="@drawable/dlg_bg_datetime"
     android:orientation="vertical">
 
     <LinearLayout

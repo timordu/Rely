@@ -26,5 +26,9 @@
             android:configChanges="keyboardHidden|orientation"
             android:theme="@style/AppTheme.ImagePreview"
             android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name="com.android.rely.widget.file_explorer.FileExplorer"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
     </application>
 </manifest>

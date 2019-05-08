@@ -17,6 +17,7 @@
 package com.android.rely.demo.ui.activity
 
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.Observer
 import com.android.rely.common.listview.SimpleAdapter
 import com.android.rely.common.setOnSeekBarChangeListener
@@ -32,8 +33,10 @@ import com.android.rely.common.smoothSwitchScreen
 import com.android.rely.common.initToolBar
 import com.android.rely.widget.image.ImagePreview
 import com.android.rely.widget.datetime.DateTimePicker
+import com.android.rely.widget.file_explorer.FileExplorer
 import kotlinx.android.synthetic.main.act_widget.*
 import kotlinx.android.synthetic.main.item_widget.view.*
+import java.io.File
 
 
 class WidgetActivity : MyBaseActivity() {
@@ -78,13 +81,20 @@ class WidgetActivity : MyBaseActivity() {
         sideIndexBar.setOnClickListener {
             skipToActivity<SideIndexBarDemoActivity>()
         }
+
+        file_explorer.setOnClickListener {
+            FileExplorer.open(this)
+        }
+        file_explorer_multi.setOnClickListener {
+            FileExplorer.open(this, false)
+        }
     }
 
     override fun initObserve() {
         viewModel.singleImage.observe(this, Observer { url ->
             single_image.loadImage(url)
             single_image.setOnClickListener {
-                ImagePreview.show(this, single_image, arrayListOf(url))
+                //                ImagePreview.show(this, single_image, arrayListOf(url))
             }
         })
         viewModel.multiImage.observe(this, Observer { urlList ->
@@ -93,7 +103,7 @@ class WidgetActivity : MyBaseActivity() {
             }
             multi_image.adapter = adapter
             multi_image.setOnItemClickListener { _, _, position, _ ->
-                ImagePreview.show(this, multi_image.getChildAt(position).imageView, urlList, position)
+                ImagePreview.show(this, multi_image, urlList, position)
             }
         })
     }
@@ -101,6 +111,14 @@ class WidgetActivity : MyBaseActivity() {
     override fun onActivityReenter(resultCode: Int, data: Intent?) {
         super.onActivityReenter(resultCode, data)
         ImagePreview.onActivityReenter(this, data, multi_image)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val list = FileExplorer.onActivityResult(requestCode, resultCode, data)
+        list?.forEach {
+            Log.d("file_explorer", it.absolutePath)
+        }
     }
 
 

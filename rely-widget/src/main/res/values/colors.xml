@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~    Copyright (c) 2017-2019 dugang
   ~
@@ -15,16 +16,5 @@
   -->
 
 <resources>
-    <string name="app_name">Widget</string>
-
-    <string name="action_cancel">取消</string>
-
-    <string name="validation_finger_print">请验证指纹</string>
-    <string name="validation_finger_print_failed">验证失败</string>
-
-    <!-- File Explorer -->
-    <string name="file_explorer_storage">内部存储设备</string>
-    <string name="file_explorer_split">|</string>
-    <string name="file_explorer_search">搜索</string>
-    <string name="file_explorer_menu">确定</string>
+    <color name="color_9">#999999</color>
 </resources>
