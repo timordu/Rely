@@ -14,6 +14,8 @@
  *    limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.android.rely.widget.fingerprint
 
 import android.annotation.TargetApi

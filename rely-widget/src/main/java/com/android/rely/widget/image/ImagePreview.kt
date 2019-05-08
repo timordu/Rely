@@ -20,6 +20,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.os.Bundle
 import android.os.Environment
 import android.view.View
 import android.view.ViewTreeObserver
@@ -48,6 +49,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import kotlin.concurrent.thread
+import kotlin.math.abs
 
 /**
  * Created by dugang on 2018/10/15.
@@ -57,16 +59,24 @@ class ImagePreview : BaseActivity() {
     companion object {
         private const val KEY_INDEX = "index"
         private const val KEY_URLS = "urls"
+        private var bundle: Bundle? = null
 
-        fun show(activity: AppCompatActivity, imageView: ImageView, urls: ArrayList<String>, index: Int = 0) {
+        fun show(activity: AppCompatActivity, absListView: AbsListView, urls: ArrayList<String>, index: Int = 0) {
+            val imageView: ImageView = absListView.getChildAt(index).findViewById(R.id.tag_id)
+            imageView.transitionName = "image"
+
             activity.setExitSharedElementCallback(object : SharedElementCallback() {
                 override fun onMapSharedElements(names: MutableList<String>?, sharedElements: MutableMap<String, View>?) {
-                    sharedElements?.clear()
-                    sharedElements?.put("image", imageView)
+                    if (bundle != null) {
+                        names?.clear()
+                        sharedElements?.clear()
+                        val currentPosition = bundle?.getInt(KEY_INDEX) ?: 0
+                        sharedElements?.put("image", absListView.getChildAt(currentPosition).findViewById(R.id.tag_id))
+                        bundle = null
+                    }
                 }
             })
 
-            imageView.transitionName = "image"
             val intent = Intent(activity, ImagePreview::class.java).apply {
                 putExtra(KEY_INDEX, index)
                 putExtra(KEY_URLS, urls)
@@ -76,7 +86,8 @@ class ImagePreview : BaseActivity() {
         }
 
         fun onActivityReenter(activity: AppCompatActivity, data: Intent?, absListView: AbsListView) {
-            data?.extras?.let {
+            bundle = data?.extras
+            bundle?.let {
                 val currentPosition = it.getInt(KEY_INDEX, 0)
                 absListView.smoothScrollToPosition(currentPosition)
                 ActivityCompat.postponeEnterTransition(activity)
