@@ -20,25 +20,22 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
-import android.os.Environment
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.AbsListView
-import android.widget.GridView
 import android.widget.ImageView
-import android.widget.Toast
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.app.SharedElementCallback
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.android.rely.base.BaseActivity
 import com.android.rely.common.EXTERNAL_DIR_ROOT
 import com.android.rely.common.PUBLIC_DOWNLOAD_DIR
 import com.android.rely.common.showToast
 import com.android.rely.widget.R
+import com.blankj.ALog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.Target
 import com.github.chrisbanes.photoview.PhotoView
@@ -49,7 +46,6 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import kotlin.concurrent.thread
-import kotlin.math.abs
 
 /**
  * Created by dugang on 2018/10/15.
@@ -59,50 +55,35 @@ class ImagePreview : BaseActivity() {
     companion object {
         private const val KEY_INDEX = "index"
         private const val KEY_URLS = "urls"
-        private var bundle: Bundle? = null
 
-        fun show(activity: AppCompatActivity, absListView: AbsListView, urls: ArrayList<String>, index: Int = 0) {
-            val imageView: ImageView = absListView.getChildAt(index).findViewById(R.id.tag_id)
-            imageView.transitionName = "image"
-
-            activity.setExitSharedElementCallback(object : SharedElementCallback() {
-                override fun onMapSharedElements(names: MutableList<String>?, sharedElements: MutableMap<String, View>?) {
-                    if (bundle != null) {
-                        names?.clear()
-                        sharedElements?.clear()
-                        val currentPosition = bundle?.getInt(KEY_INDEX) ?: 0
-                        sharedElements?.put("image", absListView.getChildAt(currentPosition).findViewById(R.id.tag_id))
-                        bundle = null
-                    }
-                }
-            })
-
+        fun show(activity: AppCompatActivity, imageView: ImageView, urls: ArrayList<String>, index: Int = 0) {
+            ALog.d("index:$index")
+            imageView.transitionName = "share_image"
             val intent = Intent(activity, ImagePreview::class.java).apply {
                 putExtra(KEY_INDEX, index)
                 putExtra(KEY_URLS, urls)
             }
             val optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, imageView, "image")
-            ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle())
+            activity.startActivity(intent, optionsCompat.toBundle())
         }
 
-        fun onActivityReenter(activity: AppCompatActivity, data: Intent?, absListView: AbsListView) {
-            bundle = data?.extras
-            bundle?.let {
-                val currentPosition = it.getInt(KEY_INDEX, 0)
+        fun onActivityReenter(activity: AppCompatActivity, data: Intent?, absListView: AbsListView, @IdRes imageView: Int) {
+            data?.extras?.let {
+                val currentPosition = it.getInt(KEY_INDEX, -1)
+                if (currentPosition == -1) return
                 absListView.smoothScrollToPosition(currentPosition)
-                ActivityCompat.postponeEnterTransition(activity)
-                absListView.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
-                    override fun onPreDraw(): Boolean {
-                        absListView.viewTreeObserver.removeOnPreDrawListener(this)
-                        absListView.requestLayout()
-                        ActivityCompat.startPostponedEnterTransition(activity)
-                        return true
+                activity.setExitSharedElementCallback(object : SharedElementCallback() {
+                    override fun onMapSharedElements(names: MutableList<String>?, sharedElements: MutableMap<String, View>?) {
+                        names?.clear()
+                        sharedElements?.clear()
+                        names?.add("share_image")
+                        sharedElements?.put("share_image", absListView.getChildAt(currentPosition).findViewById(imageView))
+
                     }
                 })
             }
         }
     }
-
 
     private val viewList = mutableListOf<PhotoView>()
     private lateinit var mAdapter: ImagePreviewAdapter
@@ -110,11 +91,15 @@ class ImagePreview : BaseActivity() {
     override val layoutResId: Int = R.layout.act_image_preview
 
     override fun initView() {
+        postponeEnterTransition()
         val list = intent.getStringArrayListExtra(KEY_URLS)
         index_view.visibility = if (list.size > 1) View.VISIBLE else View.GONE
 
-        list.forEach {
-            viewList.add(PhotoView(this).apply { setTag(R.id.tag_id, it) })
+        list.indices.forEach {
+            viewList.add(PhotoView(this).apply {
+                setTag(R.id.tag_id, list[it])
+                transitionName = "share_image"
+            })
         }
         mAdapter = ImagePreviewAdapter(viewList)
         viewPager.adapter = mAdapter
@@ -129,21 +114,16 @@ class ImagePreview : BaseActivity() {
             @SuppressLint("SetTextI18n")
             override fun onPageSelected(position: Int) {
                 index_view.text = "${position + 1}/${viewList.size}"
+                ALog.d("$position,${viewPager.currentItem}")
             }
         })
-        viewPager.setOnReleaseListener { finishActivity() }
+        viewPager.setOnReleaseListener { onBackPressed() }
         viewPager.currentItem = intent.getIntExtra(KEY_INDEX, 0)
-
-        setEnterSharedElementCallback(object : SharedElementCallback() {
-            override fun onMapSharedElements(names: MutableList<String>?, sharedElements: MutableMap<String, View>?) {
-                sharedElements?.clear()
-                sharedElements?.put("image", mAdapter.getItem(viewPager.currentItem))
-            }
-        })
 
         save_image.setOnClickListener {
             saveImageWithPermissionCheck()
         }
+        startPostponedEnterTransition()
     }
 
     override fun initObserve() {
@@ -176,15 +156,29 @@ class ImagePreview : BaseActivity() {
         onRequestPermissionsResult(requestCode, grantResults)
     }
 
-    private fun finishActivity() {
+    override fun finishAfterTransition() {
         val intent = Intent().apply {
-            putExtra(KEY_INDEX, viewPager.currentItem)
+            val enterPos = intent.getIntExtra(KEY_INDEX, 0)
+            val exitPos = viewPager.currentItem
+            putExtra(KEY_INDEX, if (enterPos == exitPos) -1 else exitPos)
         }
         setResult(Activity.RESULT_OK, intent)
-        ActivityCompat.finishAfterTransition(this)
+        super.finishAfterTransition()
     }
 
     override fun onBackPressed() {
-        finishActivity()
+        super.onBackPressed()
+        val enterPos = intent.getIntExtra(KEY_INDEX, 0)
+        val exitPos = viewPager.currentItem
+        if (enterPos != exitPos) {
+            setEnterSharedElementCallback(object : SharedElementCallback() {
+                override fun onMapSharedElements(names: MutableList<String>?, sharedElements: MutableMap<String, View>?) {
+                    names?.clear()
+                    sharedElements?.clear()
+                    names?.add("share_image")
+                    sharedElements?.put("share_image", mAdapter.getItem(viewPager.currentItem))
+                }
+            })
+        }
     }
 }

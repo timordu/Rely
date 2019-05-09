@@ -103,14 +103,14 @@ class WidgetActivity : MyBaseActivity() {
             }
             multi_image.adapter = adapter
             multi_image.setOnItemClickListener { _, _, position, _ ->
-                ImagePreview.show(this, multi_image, urlList, position)
+                ImagePreview.show(this, multi_image.getChildAt(position).imageView, urlList, position)
             }
         })
     }
 
     override fun onActivityReenter(resultCode: Int, data: Intent?) {
         super.onActivityReenter(resultCode, data)
-        ImagePreview.onActivityReenter(this, data, multi_image)
+        ImagePreview.onActivityReenter(this, data, multi_image, R.id.imageView)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
