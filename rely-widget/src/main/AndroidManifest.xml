@@ -22,7 +22,7 @@
 
     <application>
         <activity
-            android:name="com.android.rely.widget.image.ImagePreview"
+            android:name="com.android.rely.widget.image_viewer.ImagePreview"
             android:configChanges="keyboardHidden|orientation"
             android:theme="@style/AppTheme.ImagePreview"
             android:windowSoftInputMode="adjustPan|stateHidden" />

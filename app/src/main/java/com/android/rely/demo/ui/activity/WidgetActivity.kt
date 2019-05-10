@@ -31,12 +31,11 @@ import com.android.rely.ext.loadImage
 import com.android.rely.common.skipToActivity
 import com.android.rely.common.smoothSwitchScreen
 import com.android.rely.common.initToolBar
-import com.android.rely.widget.image.ImagePreview
+import com.android.rely.widget.image_viewer.ImagePreview
 import com.android.rely.widget.datetime.DateTimePicker
 import com.android.rely.widget.file_explorer.FileExplorer
 import kotlinx.android.synthetic.main.act_widget.*
 import kotlinx.android.synthetic.main.item_widget.view.*
-import java.io.File
 
 
 class WidgetActivity : MyBaseActivity() {

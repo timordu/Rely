@@ -19,7 +19,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.android.rely.widget.image.DragViewPager
+    <com.android.rely.widget.image_viewer.DragViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

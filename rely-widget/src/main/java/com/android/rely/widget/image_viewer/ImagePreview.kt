@@ -14,19 +14,17 @@
  *    limitations under the License.
  */
 
-package com.android.rely.widget.image
+package com.android.rely.widget.image_viewer
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.view.View
-import android.view.ViewTreeObserver
 import android.widget.AbsListView
 import android.widget.ImageView
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.app.SharedElementCallback
 import androidx.viewpager.widget.ViewPager
@@ -57,7 +55,6 @@ class ImagePreview : BaseActivity() {
         private const val KEY_URLS = "urls"
 
         fun show(activity: AppCompatActivity, imageView: ImageView, urls: ArrayList<String>, index: Int = 0) {
-            ALog.d("index:$index")
             imageView.transitionName = "share_image"
             val intent = Intent(activity, ImagePreview::class.java).apply {
                 putExtra(KEY_INDEX, index)

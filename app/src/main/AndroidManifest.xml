@@ -20,12 +20,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.widget.FingerprintActivity" />
-        <activity android:name=".ui.activity.WidgetActivity" />
+        <activity
+            android:name=".ui.activity.WidgetActivity"
+            android:theme="@style/AppTheme.ShareElement" />
         <activity android:name=".ui.activity.widget.SideIndexBarDemoActivity" />
-        <activity android:name=".ui.activity.conditionskip.LoginActivity"/>
-        <activity android:name=".ui.activity.conditionskip.Login2Activity"/>
-        <activity android:name=".ui.activity.conditionskip.ResultActivity"/>
-        <activity android:name=".ui.activity.MediaActivity"/>
+        <activity android:name=".ui.activity.conditionskip.LoginActivity" />
+        <activity android:name=".ui.activity.conditionskip.Login2Activity" />
+        <activity android:name=".ui.activity.conditionskip.ResultActivity" />
+        <activity android:name=".ui.activity.MediaActivity" />
     </application>
 
 </manifest>

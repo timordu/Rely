@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.android.rely.widget.image
+package com.android.rely.widget.image_viewer
 
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
@@ -25,7 +25,6 @@ import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.WindowManager
 import androidx.viewpager.widget.ViewPager
-import com.blankj.ALog
 import com.nineoldandroids.view.ViewHelper
 
 
