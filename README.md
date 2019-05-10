@@ -26,32 +26,26 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
-def rely = '2264737b88'
+
 dependencies {
     //添加全部依赖
-	//implementation "com.github.timordu:Rely:$rely"
+	implementation "com.github.timordu:Rely:$rely"
 	//添加公共库和核心库
 	//implementation "com.github.timordu.Rely:rely-common:$rely"
 	//implementation "com.github.timordu.Rely:rely-core:$rely"
-
-    //添加mvvm开发框架(默认依赖了公共库和核心库)
-    implementation "com.github.timordu.Rely:mvvm:$rely"
 }
 ```
 
 3. 配置项目
 
-   + 新增Application继承自BaseApp, 然后在`AndroidManifest.xml`文件中注册
+   - 新增Application继承自BaseApp, 然后在`AndroidManifest.xml`文件中注册
+   - 修改AppTheme继承自BaseAppTheme(可选)
 
 ```kotlin
 class MyApp : BaseApp() {
    override val isDebugModel: Boolean get() = BuildConfig.DEBUG
 }
-```
 
-   + 修改AppTheme继承自BaseAppTheme(可选)
-
-```xml
 <style name="AppTheme" parent="@style/BaseAppTheme">
 
 </style>
@@ -62,6 +56,7 @@ Todo List
 
 1. 多媒体功能的基类(拍照, 选择照片, 拍摄视频, 选择文件,图片压缩,视频压缩)
 2. 图片预览优化
+3. 文件选择器,支持单选和多选  √
 
 
 Copyright
