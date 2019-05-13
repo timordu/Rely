@@ -90,26 +90,15 @@ class WidgetActivity : MyBaseActivity() {
     }
 
     override fun initObserve() {
-        viewModel.singleImage.observe(this, Observer { url ->
-            single_image.loadImage(url)
-            single_image.setOnClickListener {
-                //                ImagePreview.show(this, single_image, arrayListOf(url))
-            }
-        })
         viewModel.multiImage.observe(this, Observer { urlList ->
             val adapter = SimpleAdapter(this, R.layout.item_widget, urlList) { view, data ->
                 view.imageView.loadImage(data)
             }
             multi_image.adapter = adapter
             multi_image.setOnItemClickListener { _, _, position, _ ->
-                ImagePreview.show(this, multi_image.getChildAt(position).imageView, urlList, position)
+                ImagePreview.show(this, urlList, position)
             }
         })
-    }
-
-    override fun onActivityReenter(resultCode: Int, data: Intent?) {
-        super.onActivityReenter(resultCode, data)
-        ImagePreview.onActivityReenter(this, data, multi_image, R.id.imageView)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

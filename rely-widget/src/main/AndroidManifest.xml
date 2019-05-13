@@ -23,8 +23,8 @@
     <application>
         <activity
             android:name="com.android.rely.widget.image_viewer.ImagePreview"
-            android:configChanges="keyboardHidden|orientation"
             android:theme="@style/AppTheme.ImagePreview"
+            android:configChanges="keyboardHidden|orientation"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name="com.android.rely.widget.file_explorer.FileExplorer"
