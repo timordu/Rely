@@ -18,6 +18,7 @@ package com.android.rely.demo.ui.activity
 
 import android.content.Intent
 import android.util.Log
+import android.widget.ImageView
 import androidx.lifecycle.Observer
 import com.android.rely.common.listview.SimpleAdapter
 import com.android.rely.common.setOnSeekBarChangeListener
@@ -34,6 +35,7 @@ import com.android.rely.common.initToolBar
 import com.android.rely.widget.image_viewer.ImagePreview
 import com.android.rely.widget.datetime.DateTimePicker
 import com.android.rely.widget.file_explorer.FileExplorer
+import com.wanglu.photoviewerlibrary.PhotoViewer
 import kotlinx.android.synthetic.main.act_widget.*
 import kotlinx.android.synthetic.main.item_widget.view.*
 
@@ -96,7 +98,15 @@ class WidgetActivity : MyBaseActivity() {
             }
             multi_image.adapter = adapter
             multi_image.setOnItemClickListener { _, _, position, _ ->
-                ImagePreview.show(this, urlList, position)
+                PhotoViewer.setData(urlList)
+                    .setCurrentPage(position)
+                    .setImgContainer(multi_image)
+                    .setShowImageViewInterface(object :PhotoViewer.ShowImageViewInterface{
+                        override fun show(iv: ImageView, url: String) {
+                            iv.loadImage(url)
+                        }
+                    })
+                    .start(this)
             }
         })
     }
