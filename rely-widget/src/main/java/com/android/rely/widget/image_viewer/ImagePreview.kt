@@ -18,21 +18,13 @@ package com.android.rely.widget.image_viewer
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.AbsListView
-import android.widget.ImageView
-import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.app.SharedElementCallback
 import androidx.viewpager.widget.ViewPager
 import com.android.rely.base.BaseActivity
 import com.android.rely.common.*
 import com.android.rely.widget.R
-import com.blankj.ALog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.Target
 import com.github.chrisbanes.photoview.PhotoView

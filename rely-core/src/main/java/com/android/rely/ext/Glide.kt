@@ -16,10 +16,19 @@
 
 package com.android.rely.ext
 
+import android.content.Context
 import android.widget.ImageView
+import com.android.rely.common.EXTERNAL_DIR_ROOT
+import com.android.rely.common.PUBLIC_DOWNLOAD_DIR
+import com.android.rely.common.showToast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import kotlin.concurrent.thread
 
 
 fun ImageView.loadImage(path: Any, options: RequestOptions = RequestOptions()) {
@@ -32,9 +41,31 @@ fun ImageView.loadCircleImage(path: Any, options: RequestOptions = RequestOption
 }
 
 fun ImageView.loadRoundCornerImage(path: Any, radius: Int = 20, options: RequestOptions = RequestOptions()) {
-    Glide.with(context).load(path).apply(RequestOptions.bitmapTransform(RoundedCorners(radius))).apply(options).into(this)
+    Glide.with(context).load(path).apply(RequestOptions.bitmapTransform(RoundedCorners(radius))).apply(options)
+            .into(this)
 }
 
 fun ImageView.loadClear() {
     Glide.with(context).clear(this)
+}
+
+fun Context.downloadImage(path: String, saveDir: String = PUBLIC_DOWNLOAD_DIR, resultListener: (path: String?) -> Unit) {
+    thread {
+        try {
+            val file = Glide.with(this).load(path).downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get()
+            val fis = FileInputStream(file)
+            val newFile = File(saveDir, path.substring(path.lastIndexOf("/") + 1, path.length)).apply { createNewFile() }
+            val fos = FileOutputStream(newFile)
+            val buffer = ByteArray(1024)
+            do {
+                val length = fis.read(buffer)
+                if (length != -1) fos.write(buffer, 0, length) else break
+            } while (true)
+            fos.close()
+            fis.close()
+            resultListener.invoke(newFile.absolutePath)
+        } catch (e: Exception) {
+            resultListener.invoke(null)
+        }
+    }
 }
