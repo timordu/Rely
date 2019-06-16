@@ -18,6 +18,7 @@ package com.android.rely.demo.ui.activity
 
 import android.content.Intent
 import android.util.Log
+import android.widget.ImageView
 import androidx.lifecycle.Observer
 import com.android.rely.common.listview.SimpleAdapter
 import com.android.rely.common.setOnSeekBarChangeListener
@@ -31,9 +32,9 @@ import com.android.rely.ext.loadImage
 import com.android.rely.common.skipToActivity
 import com.android.rely.common.smoothSwitchScreen
 import com.android.rely.common.initToolBar
-import com.android.rely.widget.image_viewer.ImagePreview
 import com.android.rely.widget.datetime.DateTimePicker
 import com.android.rely.widget.file_explorer.FileExplorer
+import com.wanglu.photoviewerlibrary.PhotoViewer
 import kotlinx.android.synthetic.main.act_widget.*
 import kotlinx.android.synthetic.main.item_widget.view.*
 
@@ -90,26 +91,23 @@ class WidgetActivity : MyBaseActivity() {
     }
 
     override fun initObserve() {
-        viewModel.singleImage.observe(this, Observer { url ->
-            single_image.loadImage(url)
-            single_image.setOnClickListener {
-                //                ImagePreview.show(this, single_image, arrayListOf(url))
-            }
-        })
         viewModel.multiImage.observe(this, Observer { urlList ->
             val adapter = SimpleAdapter(this, R.layout.item_widget, urlList) { view, data ->
                 view.imageView.loadImage(data)
             }
             multi_image.adapter = adapter
             multi_image.setOnItemClickListener { _, _, position, _ ->
-                ImagePreview.show(this, multi_image.getChildAt(position).imageView, urlList, position)
+                PhotoViewer.setData(urlList)
+                    .setCurrentPage(position)
+                    .setImgContainer(multi_image)
+                    .setShowImageViewInterface(object :PhotoViewer.ShowImageViewInterface{
+                        override fun show(iv: ImageView, url: String) {
+                            iv.loadImage(url)
+                        }
+                    })
+                    .start(this)
             }
         })
-    }
-
-    override fun onActivityReenter(resultCode: Int, data: Intent?) {
-        super.onActivityReenter(resultCode, data)
-        ImagePreview.onActivityReenter(this, data, multi_image, R.id.imageView)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

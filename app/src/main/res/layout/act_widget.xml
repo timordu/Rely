@@ -144,13 +144,6 @@
                 android:padding="@dimen/dp_10"
                 android:text="ImagePreview测试" />
 
-            <ImageView
-                android:id="@+id/single_image"
-                android:layout_width="@dimen/dp_100"
-                android:layout_height="@dimen/dp_100"
-                android:layout_margin="@dimen/dp_10"
-                android:scaleType="centerCrop" />
-
             <com.android.rely.common.listview.AllItemGridView
                 android:id="@+id/multi_image"
                 android:layout_width="match_parent"
