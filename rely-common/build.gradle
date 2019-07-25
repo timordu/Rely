@@ -62,9 +62,9 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-android-extensions-runtime:$kotlin_version"
     api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-    api 'androidx.appcompat:appcompat:1.1.0-beta01'
+    api 'androidx.appcompat:appcompat:1.1.0-rc01'
 
-    api 'androidx.recyclerview:recyclerview:1.1.0-alpha06'
+    api 'androidx.recyclerview:recyclerview:1.1.0-beta01'
 
     //https://github.com/Blankj/ALog
     api 'com.blankj:alog:1.9.1'

@@ -67,12 +67,12 @@ dependencies {
     api 'com.google.code.gson:gson:2.8.5'
 
     //https://github.com/square/retrofit
-    api 'com.squareup.retrofit2:retrofit:2.5.0'
-    api 'com.squareup.retrofit2:converter-gson:2.5.0'
-    api 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+    api 'com.squareup.retrofit2:retrofit:2.6.0'
+    api 'com.squareup.retrofit2:converter-gson:2.6.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
 
     //http://mvnrepository.com/artifact/com.squareup.okhttp3/logging-interceptor
-    api 'com.squareup.okhttp3:logging-interceptor:3.14.1'
+    api 'com.squareup.okhttp3:logging-interceptor:4.0.1'
 
     //https://github.com/ReactiveX/RxJava
     api 'io.reactivex.rxjava2:rxjava:2.2.8'
@@ -81,10 +81,10 @@ dependencies {
     api 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     //https://github.com/ReactiveX/RxKotlin
-    api 'io.reactivex.rxjava2:rxkotlin:2.3.0'
+    api 'io.reactivex.rxjava2:rxkotlin:2.4.0-RC3'
 
     //https://github.com/liujingxing/RxLife
-    api 'com.rxjava.rxlife:rxlife:1.0.4'
+    api 'com.rxjava.rxlife:rxlife-x:1.0.9'
 
     //https://github.com/greenrobot/EventBus
     api 'org.greenrobot:eventbus:3.1.1'
@@ -96,10 +96,10 @@ dependencies {
     api 'com.github.bumptech.glide:glide:4.9.0'
     kapt 'com.github.bumptech.glide:compiler:4.9.0'
 
-    api 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha01'
-    api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha01'
+    api 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02'
+    api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02'
 
     //https://github.com/permissions-dispatcher/PermissionsDispatcher
-    api "org.permissionsdispatcher:permissionsdispatcher:4.3.1"
-    kapt "org.permissionsdispatcher:permissionsdispatcher-processor:4.3.1"
+    api "org.permissionsdispatcher:permissionsdispatcher:4.5.0"
+    kapt "org.permissionsdispatcher:permissionsdispatcher-processor:4.5.0"
 }

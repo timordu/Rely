@@ -155,7 +155,7 @@ abstract class MediaActivity : BaseActivity() {
         if (ContentResolver.SCHEME_CONTENT == uri.scheme) {
             val cursor = mContext.contentResolver.query(uri, projection, null, null, null)
             cursor?.let {
-                if (cursor.moveToNext()) {
+                if (it.moveToNext()) {
                     val index = it.getColumnIndex(columnName)
                     if (index >= 0) return it.getString(index)
                 }
