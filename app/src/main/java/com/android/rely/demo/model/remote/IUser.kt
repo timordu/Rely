@@ -17,7 +17,7 @@
 package com.android.rely.demo.model.remote
 
 import com.android.rely.demo.model.bean.User
-import com.android.rely.retrofit.Result
+import com.dugang.rely.retrofit.Result
 import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.Field

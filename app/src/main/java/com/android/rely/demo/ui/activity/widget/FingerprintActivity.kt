@@ -16,14 +16,14 @@
 
 package com.android.rely.demo.ui.activity.widget
 
-import com.android.rely.common.getSP
-import com.android.rely.common.md5
-import com.android.rely.common.setSP
-import com.android.rely.common.showToast
+import com.dugang.rely.common.extension.getSP
+import com.dugang.rely.common.extension.md5
+import com.dugang.rely.common.extension.setSP
+import com.dugang.rely.common.extension.showToast
 import com.android.rely.demo.R
 import com.android.rely.demo.ui.parent.MyBaseActivity
-import com.android.rely.common.initToolBar
-import com.android.rely.widget.fingerprint.FingerprintManager
+import com.dugang.rely.common.extension.initToolBar
+import com.dugang.rely.widget.fingerprint.FingerprintManager
 import kotlinx.android.synthetic.main.act_fingerprint.*
 
 class FingerprintActivity : MyBaseActivity() {

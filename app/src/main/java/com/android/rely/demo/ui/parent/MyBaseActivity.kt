@@ -16,8 +16,8 @@
 
 package com.android.rely.demo.ui.parent
 
-import com.android.rely.base.BaseActivity
-import com.android.rely.widget.LoadingDialog
+import com.dugang.rely.base.BaseActivity
+import com.dugang.rely.widget.LoadingDialog
 
 /**
  * Created by dugang on 2019-04-21.

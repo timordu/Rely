@@ -16,9 +16,9 @@
 
 package com.android.rely.demo.ui.activity
 
-import com.android.rely.common.showToast
+import com.dugang.rely.common.extension.showToast
 import com.android.rely.demo.R
-import com.android.rely.base.MediaActivity
+import com.dugang.rely.base.MediaActivity
 import kotlinx.android.synthetic.main.act_media.*
 
 class MediaActivity : MediaActivity() {

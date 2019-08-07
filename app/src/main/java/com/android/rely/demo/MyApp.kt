@@ -17,7 +17,7 @@
 
 package com.android.rely.demo
 
-import com.android.rely.base.BaseApp
+import com.dugang.rely.base.BaseApp
 import com.tencent.bugly.Bugly
 
 /**

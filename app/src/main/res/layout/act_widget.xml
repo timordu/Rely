@@ -52,7 +52,7 @@
                 android:padding="@dimen/dp_10"
                 android:text="NumberProgressBar测试" />
 
-            <com.android.rely.widget.progressbar.NumberProgressBar
+            <com.dugang.rely.widget.progressbar.NumberProgressBar
                 android:id="@+id/numberProgressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
                 android:padding="@dimen/dp_10"
                 android:text="自定义EditText测试" />
 
-            <com.android.rely.widget.edittext.ClearEditText
+            <com.dugang.rely.widget.edittext.ClearEditText
                 android:id="@+id/account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
                 android:drawablePadding="@dimen/dp_10"
                 android:padding="@dimen/dp_10" />
 
-            <com.android.rely.widget.edittext.PasswordEditText
+            <com.dugang.rely.widget.edittext.PasswordEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@mipmap/ic_pwd"
@@ -144,7 +144,7 @@
                 android:padding="@dimen/dp_10"
                 android:text="ImagePreview测试" />
 
-            <com.android.rely.common.listview.AllItemGridView
+            <com.dugang.rely.common.listview.AllItemGridView
                 android:id="@+id/multi_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

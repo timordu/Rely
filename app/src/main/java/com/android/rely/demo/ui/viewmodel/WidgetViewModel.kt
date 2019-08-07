@@ -17,7 +17,7 @@
 package com.android.rely.demo.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.android.rely.base.BaseViewModel
+import com.dugang.rely.base.BaseViewModel
 
 /**
  * Created by dugang on 2019-04-21.

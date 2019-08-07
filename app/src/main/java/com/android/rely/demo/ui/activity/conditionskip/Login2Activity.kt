@@ -16,12 +16,12 @@
 
 package com.android.rely.demo.ui.activity.conditionskip
 
-import com.android.rely.condition_skip.ConditionSkip
+import com.dugang.rely.condition_skip.ConditionSkip
 import com.android.rely.demo.Contains
 import com.android.rely.demo.R
-import com.android.rely.common.closeActivity
-import com.android.rely.base.BaseActivity
-import com.android.rely.common.initToolBar
+import com.dugang.rely.common.extension.closeActivity
+import com.dugang.rely.base.BaseActivity
+import com.dugang.rely.common.extension.initToolBar
 import kotlinx.android.synthetic.main.act_login.*
 
 class Login2Activity : BaseActivity() {

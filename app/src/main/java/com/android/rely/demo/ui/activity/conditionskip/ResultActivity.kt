@@ -17,8 +17,8 @@
 package com.android.rely.demo.ui.activity.conditionskip
 
 import com.android.rely.demo.R
-import com.android.rely.base.BaseActivity
-import com.android.rely.common.initToolBar
+import com.dugang.rely.base.BaseActivity
+import com.dugang.rely.common.extension.initToolBar
 
 class ResultActivity : BaseActivity() {
     override val layoutResId = R.layout.act_condition_skip

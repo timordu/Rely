@@ -16,15 +16,15 @@
 
 package com.android.rely.demo.ui.activity
 
-import com.android.rely.condition_skip.ConditionSkip
-import com.android.rely.condition_skip.Valid
+import com.dugang.rely.condition_skip.ConditionSkip
+import com.dugang.rely.condition_skip.Valid
 import com.android.rely.demo.Contains
 import com.android.rely.demo.R
 import com.android.rely.demo.ui.activity.conditionskip.Login2Activity
 import com.android.rely.demo.ui.parent.MyBaseActivity
 import com.android.rely.demo.util.valid.LoginValid
-import com.android.rely.common.skipToActivity
-import com.android.rely.common.initToolBar
+import com.dugang.rely.common.extension.skipToActivity
+import com.dugang.rely.common.extension.initToolBar
 import com.android.rely.demo.ui.activity.conditionskip.ResultActivity
 import kotlinx.android.synthetic.main.act_main.*
 

@@ -17,10 +17,10 @@
 
 package com.android.rely.demo.model.remote
 
-import com.android.rely.Rely
-import com.android.rely.common.getRandomStr
+import com.dugang.rely.Rely
+import com.dugang.rely.common.extension.getRandomStr
 import com.android.rely.demo.util.TokenInterceptor
-import com.android.rely.retrofit.RetrofitBuilder
+import com.dugang.rely.retrofit.RetrofitBuilder
 
 /**
  * Created by dugang on 2017/10/13.Api

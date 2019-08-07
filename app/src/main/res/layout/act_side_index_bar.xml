@@ -20,7 +20,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.android.rely.widget.SideIndexBar
+    <com.dugang.rely.widget.SideIndexBar
         android:id="@+id/sideIndexBar"
         android:layout_width="@dimen/dp_36"
         android:layout_height="wrap_content"

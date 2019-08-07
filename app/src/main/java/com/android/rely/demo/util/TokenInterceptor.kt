@@ -20,8 +20,8 @@ package com.android.rely.demo.util
 import android.text.TextUtils
 import com.android.rely.demo.Contains
 import com.android.rely.demo.model.remote.RemoteRepo
-import com.android.rely.ext.getSP
-import com.android.rely.ext.setSP
+import com.dugang.rely.extension.getSP
+import com.dugang.rely.extension.setSP
 import com.blankj.ALog
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -37,8 +37,8 @@ class TokenInterceptor : Interceptor {
         val originalRequest = chain.request()
         val originalResponse = chain.proceed(originalRequest)
 
-        val contentType = originalResponse.body()?.contentType()
-        val result = originalResponse.body()?.string()
+        val contentType = originalResponse.body?.contentType()
+        val result = originalResponse.body?.string()
         val response = originalResponse.newBuilder().body(ResponseBody.create(contentType, result)).build()
 
         if (!TextUtils.isEmpty(result)) {
@@ -53,7 +53,7 @@ class TokenInterceptor : Interceptor {
                     }
 
                     newToken?.let {
-                        setSP(Contains.KEY_ACCESS_TOKEN,it)
+                        setSP(Contains.KEY_ACCESS_TOKEN, it)
                         val requestBuilder = originalRequest.newBuilder().header("Authentication", it).build()
                         return chain.proceed(requestBuilder)
                     }
