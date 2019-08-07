@@ -144,7 +144,7 @@
                 android:padding="@dimen/dp_10"
                 android:text="ImagePreview测试" />
 
-            <com.dugang.rely.common.listview.AllItemGridView
+            <com.dugang.rely.common.view.listview.AllItemGridView
                 android:id="@+id/multi_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

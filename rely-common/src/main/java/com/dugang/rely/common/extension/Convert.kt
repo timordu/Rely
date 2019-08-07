@@ -18,7 +18,34 @@ package com.dugang.rely.common.extension
 
 import android.net.Uri
 import android.util.ArrayMap
+import java.net.URLDecoder
+import java.net.URLEncoder
+import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.reflect.full.memberProperties
+
+fun String.urlEncode(charset: String = "UTF-8"): String = URLEncoder.encode(this, charset)
+
+fun String.urlDecode(charset: String = "UTF-8"): String = URLDecoder.decode(this, charset)
+
+fun Double.format(pattern: String = "#0.00"): Double = format2Str(pattern).toDouble()
+
+fun Double.format2Str(pattern: String = "#0.00"): String = DecimalFormat(pattern).format(this)
+
+
+//时间格式化成指定格式字符串
+fun Long.format2Str(format: String = "yyyy-MM-dd HH:mm:ss"): String = Date(this).format2Str(format)
+
+//日期格式化成指定格式字符串
+fun Date.format2Str(format: String = "yyyy-MM-dd HH:mm:ss"): String = SimpleDateFormat(format, Locale.getDefault()).format(this)
+
+//解析字符串成时间毫秒
+fun String.parseStr2Mills(format: String = "yyyy-MM-dd HH:mm:ss"): Long? = parseStr2Date(format)?.time
+
+//解析字符串成日期
+fun String.parseStr2Date(format: String = "yyyy-MM-dd HH:mm:ss"): Date? = SimpleDateFormat(format, Locale.getDefault()).parse(this)
+
 
 /**
  * ByteArray转换成16进制字符串

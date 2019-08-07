@@ -15,7 +15,7 @@
  *
  */
 
-package com.dugang.rely.common.listview
+package com.dugang.rely.common.view.listview
 
 import android.content.Context
 import android.view.LayoutInflater

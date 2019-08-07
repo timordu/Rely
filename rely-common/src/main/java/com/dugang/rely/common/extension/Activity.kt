@@ -29,6 +29,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.dugang.rely.common.view.hideSoftInput
 
 /**
  * 跳转到指定的Activity
@@ -129,53 +130,4 @@ fun Activity.hideSoftInput() {
     (currentFocus ?: window.decorView).hideSoftInput()
 }
 
-/**
- * 设置全屏显示
- */
-fun Activity.setFullScreen() {
-    window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-}
 
-/**
- * 退出全屏显示
- */
-fun Activity.setNonFullScreen() {
-    window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-}
-
-/**
- * 判断是否全屏显示
- */
-fun Activity.isFullScreen(): Boolean {
-    val fullScreenFlag = WindowManager.LayoutParams.FLAG_FULLSCREEN
-    return window.attributes.flags and fullScreenFlag == fullScreenFlag
-}
-
-/**
- * 设置横屏显示
- */
-fun Activity.setScreenLandscape() {
-    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-}
-
-/**
- * 设置竖屏显示
- */
-fun Activity.setScreenPortrait() {
-    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-}
-
-/**
- * 获取屏幕方向: 1-竖屏 2-横屏
- */
-fun Context.getScreenOrientation(): Int = resources.configuration.orientation
-
-/**
- * 获取屏幕旋转角度
- */
-fun Context.getScreenRotation(): Int = when (windowManager.defaultDisplay.rotation) {
-    Surface.ROTATION_90 -> 90
-    Surface.ROTATION_180 -> 180
-    Surface.ROTATION_270 -> 270
-    else -> 0
-}

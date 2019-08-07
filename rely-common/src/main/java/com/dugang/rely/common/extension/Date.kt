@@ -17,6 +17,7 @@
 package com.dugang.rely.common.extension
 
 import java.util.*
+import kotlin.math.abs
 
 
 //当前日期
@@ -32,17 +33,14 @@ fun dateInterval(date1: Long, date2: Long): Long = (date1 - date2) / (1000 * 360
 fun dateInterval(date1: Date, date2: Date): Long = dateInterval(date1.time, date2.time)
 
 fun dateInterval(date1: String, date2: String, format: String = "yyyy-MM-dd"): Long =
-    dateInterval(date1.parseStr2Mills(format), date2.parseStr2Mills(format))
+        dateInterval(date1.parseStr2Mills(format), date2.parseStr2Mills(format))
 
 //计算日期和当前日期比较结果
 fun Long.dateIntervalByNow(): String {
-    val interval = dateInterval(
-        format2Str("yyyy-MM-dd"),
-        currentTime.format2Str("yyyy-MM-dd")
-    )
+    val interval = dateInterval(format2Str("yyyy-MM-dd"), currentTime.format2Str("yyyy-MM-dd"))
     return when {
-        interval < 0 -> "${Math.abs(interval)}天前"
-        interval > 0 -> "${Math.abs(interval)}天后"
+        interval < 0 -> "${abs(interval)}天前"
+        interval > 0 -> "${abs(interval)}天后"
         else -> "今天"
     }
 }
@@ -55,12 +53,11 @@ fun String.dateIntervalByNow(format: String = "yyyy-MM-dd"): String = parseStr2M
 fun timeInterval(time1: Long, time2: Long): Long = (time1 - time2) / 1000
 
 fun timeInterval(time1: String, time2: String, format: String = "yyyy-MM-dd HH:mm:ss"): Long =
-    timeInterval(time1.parseStr2Mills(format), time2.parseStr2Mills(format))
+        timeInterval(time1.parseStr2Mills(format), time2.parseStr2Mills(format))
 
 //计算时间和当前时间比较结果,要求毫秒级
 fun Long.timeIntervalByNow(): String {
-    val interval = timeInterval(currentTime, this)
-    return when (interval) {
+    return when (val interval = timeInterval(currentTime, this)) {
         in 0..59 -> "刚刚"
         in 60..3599 -> "${interval / 60}分钟前"
         in 3600..3600 * 24 -> "${interval / 3600}小时前"

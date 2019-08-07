@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.dugang.rely.common.recyclerview
+package com.dugang.rely.common.view.recyclerview
 
 import android.content.Context
 import android.graphics.Canvas
@@ -27,14 +27,17 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.android.rely.common.R
+import com.dugang.rely.common.R
 import com.dugang.rely.common.extension.getCompatColor
 import com.dugang.rely.common.extension.getDimensionPixelSize
 
 /**
- * create by dugang on 2018/12/13. RecyclerView通用分割线
+ * @description RecyclerView通用分割线
+ *
+ * @author dugang.
+ * @email timor.du@hotmail.com
+ * @date  2019/8/7 17:15
  */
-@Suppress("unused")
 class RecyclerItemDecoration(context: Context,
                              @ColorRes color: Int = R.color.transparent,
                              @DimenRes hSpan: Int = R.dimen.dp_0,

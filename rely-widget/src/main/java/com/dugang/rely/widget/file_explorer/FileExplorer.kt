@@ -27,7 +27,7 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.dugang.rely.base.BaseActivity
 import com.dugang.rely.common.extension.*
-import com.dugang.rely.common.listview.BaseAdapter
+import com.dugang.rely.common.view.listview.BaseAdapter
 import com.dugang.rely.extension.loadImage
 import com.android.rely.widget.R
 import kotlinx.android.synthetic.main.act_file_explorer.*
@@ -68,7 +68,7 @@ class FileExplorer : BaseActivity() {
     override fun initView() {
         initToolBar("文件选择", R.mipmap.icon_nav_back)
         //搜索
-        et_search.addTextChangedListener {
+        com.dugang.rely.common.view.addTextChangedListener {
             afterTextChanged {
                 viewModel.search(it.toString())
             }

@@ -15,7 +15,7 @@
  *
  */
 
-package com.dugang.rely.common.recyclerview
+package com.dugang.rely.common.view.recyclerview
 
 import android.content.Context
 import android.view.View
@@ -23,9 +23,12 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 
 /**
- * Created by dugang on 2017/12/4.RecyclerView.Adapter
+ * @description RecyclerView.SimpleRecyclerAdapter
+ *
+ * @author dugang.
+ * @email timor.du@hotmail.com
+ * @date  2019/8/7 17:15
  */
-@Suppress("unused")
 class SimpleRecyclerAdapter<T>(context: Context,
                                @LayoutRes val layoutRes: Int,
                                val callBack: (view: View, data: T) -> Unit) : BaseRecyclerAdapter<T, BaseRecyclerAdapter.ViewHolder>(context) {

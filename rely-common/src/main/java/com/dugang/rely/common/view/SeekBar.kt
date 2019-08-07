@@ -14,9 +14,18 @@
  *    limitations under the License.
  */
 
-package com.dugang.rely.common.utils
+package com.dugang.rely.common.view
 
 import android.widget.SeekBar
+
+/**
+ * @description SeekBar的扩展函数
+ *
+ * @author dugang.
+ * @email timor.du@hotmail.com
+ * @date  2019/8/7 17:15
+ */
+fun SeekBar.setOnSeekBarChangeListener(func: (OnSeekBarChangeListener.() -> Unit)) = setOnSeekBarChangeListener(OnSeekBarChangeListener().apply(func))
 
 class OnSeekBarChangeListener : SeekBar.OnSeekBarChangeListener {
     private var _onProgressChanged: ((seekBar: SeekBar?, progress: Int, fromUser: Boolean) -> Unit)? = null

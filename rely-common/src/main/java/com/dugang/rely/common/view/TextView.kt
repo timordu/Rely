@@ -14,14 +14,26 @@
  *    limitations under the License.
  */
 
-package com.dugang.rely.common.utils
+package com.dugang.rely.common.view
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.TextView
 
 /**
- * Created by dugang on 2018/12/19.
+ * @description TextView的扩展函数
+ *
+ * @author dugang.
+ * @email timor.du@hotmail.com
+ * @date  2019/8/7 17:15
  */
+
+/**
+ * 给TextView添加内容改变监听
+ */
+fun TextView.addTextChangedListener(func: (TextWatcher.() -> Unit)) = addTextChangedListener(TextWatcher().apply(func))
+
+
 class TextWatcher : TextWatcher {
     //
     private var _afterTextChanged: ((s: Editable?) -> Unit)? = null

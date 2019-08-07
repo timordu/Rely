@@ -14,13 +14,20 @@
  *    limitations under the License.
  */
 
-package com.dugang.rely.common.utils
+package com.dugang.rely.common.view
 
 import androidx.viewpager.widget.ViewPager
 
 /**
- * Created by dugang on 2018/12/19.
+ * @description ViewPager的扩展函数
+ *
+ * @author dugang.
+ * @email timor.du@hotmail.com
+ * @date  2019/8/7 17:15
  */
+
+fun ViewPager.addOnPageChangeListener(func: (OnPageChangeListener.() -> Unit)) = addOnPageChangeListener(OnPageChangeListener().apply(func))
+
 class OnPageChangeListener : ViewPager.OnPageChangeListener {
     private var _onPageScrollStateChanged: ((state: Int) -> Unit)? = null
 

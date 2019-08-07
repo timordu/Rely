@@ -25,6 +25,7 @@ import android.net.Uri
 import android.os.Build
 import java.io.File
 import java.util.*
+import kotlin.system.exitProcess
 
 
 /**
@@ -36,7 +37,6 @@ val MY_PID: Int = android.os.Process.myPid()
  * 获取唯一的UUID
  */
 val MY_UUID: String = UUID.randomUUID().toString()
-
 
 
 /**
@@ -132,7 +132,7 @@ fun Context.uninstallApp() {
 fun Context.relaunchApp() {
     val intent = packageManager.getLaunchIntentForPackage(packageName) ?: return
     startActivity(Intent.makeRestartActivityTask(intent.component))
-    System.exit(0)
+    exitProcess(0)
 }
 
 /**

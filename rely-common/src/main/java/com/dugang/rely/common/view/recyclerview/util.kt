@@ -15,31 +15,30 @@
  *
  */
 
-package com.dugang.rely.common.recyclerview
+package com.dugang.rely.common.view.recyclerview
 
 import androidx.recyclerview.widget.*
 import java.util.*
 
 /**
- * Created by dugang on 2018/12/12.
+ * @description RecyclerView的扩展函数
+ *
+ * @author dugang.
+ * @email timor.du@hotmail.com
+ * @date  2019/8/7 17:15
  */
-
-@Suppress("unused")
 fun RecyclerView.setLinearLayoutManager(@RecyclerView.Orientation orientation: Int = RecyclerView.VERTICAL, reverseLayout: Boolean = false) {
     layoutManager = LinearLayoutManager(context, orientation, reverseLayout)
 }
 
-@Suppress("unused")
 fun RecyclerView.setGridLayoutManager(span: Int, @RecyclerView.Orientation orientation: Int = RecyclerView.VERTICAL, reverseLayout: Boolean = false) {
     layoutManager = GridLayoutManager(context, span, orientation, reverseLayout)
 }
 
-@Suppress("unused")
 fun RecyclerView.setStaggeredGridLayoutManager(span: Int, @RecyclerView.Orientation orientation: Int = RecyclerView.VERTICAL) {
     layoutManager = StaggeredGridLayoutManager(span, orientation)
 }
 
-@Suppress("unused")
 fun RecyclerView.addItemTouchHelper(adapter: BaseRecyclerAdapter<*, *>, swipeEnable: Boolean = false) {
     ItemTouchHelper(object : ItemTouchHelper.Callback() {
         override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {

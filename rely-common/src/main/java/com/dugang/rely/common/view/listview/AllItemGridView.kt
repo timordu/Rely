@@ -15,17 +15,17 @@
  *
  */
 
-package com.dugang.rely.common.listview
+package com.dugang.rely.common.view.listview
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.widget.ListView
+import android.widget.GridView
 
 /**
- * Created by dugang on 2016/12/06.显示全部item的ListView
+ * Created by dugang on 2016/12/06.显示全部item的GridView
  */
-class AllItemListView(context: Context, attrs: AttributeSet? = null) : ListView(context, attrs) {
+class AllItemGridView(context: Context, attrs: AttributeSet? = null) : GridView(context, attrs) {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val expandSpec = View.MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE shr 2, View.MeasureSpec.AT_MOST)

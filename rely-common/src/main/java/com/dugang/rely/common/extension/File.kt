@@ -31,7 +31,7 @@ import java.security.MessageDigest
 /**
  * 获取应用文件目录 ("/data/data/<包名>")
  */
-val Context.DATA_DIR_PATH: String
+val Context.DATA_DIR_PATH: String?
     get() = filesDir.parent
 
 /**
@@ -50,13 +50,13 @@ val Context.CACHE_DIR_PATH: String
  * 获取应用外置文件目录("/Android/data/<包名>/files")
  */
 val Context.EXTERNAL_FILE_DIR_PATH: String
-    get() = getExternalFilesDir(null).absolutePath
+    get() = getExternalFilesDir(null)!!.absolutePath
 
 /**
  * 获取应用外置缓存目录"/Android/data/<包名>/cache")
  */
 val Context.EXTERNAL_CACHE_DIR_PATH: String
-    get() = externalCacheDir.absolutePath
+    get() = externalCacheDir!!.absolutePath
 
 /**
  * 获取公共下载文件夹路径
@@ -149,17 +149,17 @@ fun File.getUri(context: Context, authority: String = context.packageName + ".fi
  * 创建目录. eg. /path or /path/path
  */
 fun String.createFolder(): String =
-    File(EXTERNAL_DIR_ROOT, this).apply {
-        if (!exists()) mkdirs()
-    }.absolutePath
+        File(EXTERNAL_DIR_ROOT, this).apply {
+            if (!exists()) mkdirs()
+        }.absolutePath
 
 /**
  * 根据路径创建文件的父级目录,并返回该路径的绝对路径
  */
 fun String.createParentFile(): String =
-    File(EXTERNAL_DIR_ROOT, this).apply {
-        if (!parentFile.exists()) parentFile.mkdirs()
-    }.absolutePath
+        File(EXTERNAL_DIR_ROOT, this).apply {
+            if (!parentFile.exists()) parentFile.mkdirs()
+        }.absolutePath
 
 
 /**
@@ -174,6 +174,15 @@ fun File.clearFolder() {
     }
 }
 
+// 文件大小格式化
+fun Long.formatFileLength(): String =
+        when {
+            this < 1024 -> String.format("%d B", this)
+            this < 1024 * 1024 -> String.format("%d KB", this / 1024)
+            this < 1024 * 1024 * 1024 -> String.format("%.1fMB", this.toDouble() / 1024 / 1024)
+            else -> String.format("%.1fGB", this.toDouble() / 1024 / 1024 / 1024)
+        }
+
 /**
  * 获取文件夹的大小
  */
@@ -181,10 +190,7 @@ fun File.getFolderSize(): Long {
     var size = 0L
     if (exists() && isDirectory) {
         listFiles().forEach {
-            if (it.isFile)
-                size += it.length()
-            else
-                it.getFolderSize()
+            if (it.isFile) size += it.length() else it.getFolderSize()
         }
     }
     return size

@@ -16,6 +16,7 @@
 
 package com.dugang.rely.common.extension
 
+import android.Manifest
 import android.accounts.AccountManager
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
@@ -56,6 +57,7 @@ import android.view.accessibility.AccessibilityManager
 import android.view.accessibility.CaptioningManager
 import android.view.inputmethod.InputMethodManager
 import android.view.textservice.TextServicesManager
+import androidx.annotation.RequiresPermission
 
 /*
   ---------- Context扩展函数-获取SystemService ----------

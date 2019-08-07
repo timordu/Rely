@@ -15,7 +15,7 @@
  *
  */
 
-package com.dugang.rely.common.recyclerview
+package com.dugang.rely.common.view.recyclerview
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -23,9 +23,12 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * Created by dugang on 2017/12/4.RecyclerView.Adapter
+ * @description RecyclerView.Adapter
+ *
+ * @author dugang.
+ * @email timor.du@hotmail.com
+ * @date  2019/8/7 17:15
  */
-@Suppress("unused")
 abstract class BaseRecyclerAdapter<T, K : BaseRecyclerAdapter.ViewHolder>(var context: Context) : RecyclerView.Adapter<K>() {
     val mInflater: LayoutInflater by lazy { LayoutInflater.from(context) }
     val mList = mutableListOf<T>()

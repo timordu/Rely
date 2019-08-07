@@ -20,7 +20,7 @@ import android.content.Intent
 import android.util.Log
 import android.widget.ImageView
 import androidx.lifecycle.Observer
-import com.dugang.rely.common.listview.SimpleAdapter
+import com.dugang.rely.common.view.listview.SimpleAdapter
 import com.dugang.rely.common.extension.setOnSeekBarChangeListener
 import com.dugang.rely.common.extension.showToast
 import com.android.rely.demo.R

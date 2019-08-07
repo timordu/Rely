@@ -28,70 +28,27 @@ import java.io.InputStream
 /*
   ---------- 获取资源(补充缺少) ----------
  */
-fun Context.getCompatColor(@ColorRes id: Int): Int =
-        ContextCompat.getColor(this, id)
+fun Context.getCompatColor(@ColorRes id: Int): Int = ContextCompat.getColor(this, id)
 
-fun Context.getCompatDrawable(@DrawableRes id: Int): Drawable? =
-        ContextCompat.getDrawable(this, id)
+fun Context.getCompatDrawable(@DrawableRes id: Int): Drawable? = ContextCompat.getDrawable(this, id)
 
-fun Context.getStringArray(@ArrayRes id: Int): Array<out String> =
-        resources.getStringArray(id)
+fun Context.getStringArray(@ArrayRes id: Int): Array<out String> = resources.getStringArray(id)
 
-fun Context.getIntArray(@ArrayRes id: Int): IntArray =
-        resources.getIntArray(id)
+fun Context.getIntArray(@ArrayRes id: Int): IntArray = resources.getIntArray(id)
 
-fun Context.getDimension(@DimenRes id: Int): Float =
-        resources.getDimension(id)
+fun Context.getDimension(@DimenRes id: Int): Float = resources.getDimension(id)
 
-fun Context.getDimensionPixelSize(@DimenRes id: Int): Int =
-        resources.getDimensionPixelSize(id)
+fun Context.getDimensionPixelSize(@DimenRes id: Int): Int = resources.getDimensionPixelSize(id)
 
-fun Context.getDimensionPixelOffset(@DimenRes id: Int): Int =
-        resources.getDimensionPixelOffset(id)
+fun Context.getDimensionPixelOffset(@DimenRes id: Int): Int = resources.getDimensionPixelOffset(id)
 
-fun Context.getRaw(@RawRes id: Int): InputStream =
-        resources.openRawResource(id)
+fun Context.getRaw(@RawRes id: Int): InputStream = resources.openRawResource(id)
 
-fun Context.getRaw(@RawRes id: Int, value: TypedValue): InputStream =
-        resources.openRawResource(id, value)
+fun Context.getRaw(@RawRes id: Int, value: TypedValue): InputStream = resources.openRawResource(id, value)
 
 fun Context.getRes(resName: String, resType: String = "mipmap", defPackage: String = packageName): Int =
         resources.getIdentifier(resName, resType, defPackage)
 
-fun Context.getAsset(fileName: String, accessMode: Int = AssetManager.ACCESS_STREAMING): InputStream =
-        assets.open(fileName, accessMode)
-
-/*
-  ---------- 屏幕尺寸及单位转换 ----------
- */
-val Context.screenWidth: Int
-    get() = resources.displayMetrics.widthPixels
-
-val Context.screenHeight: Int
-    get() = resources.displayMetrics.heightPixels
-
-val Context.density: Float
-    get() = resources.displayMetrics.density
-
-val Context.scaledDensity: Float
-    get() = resources.displayMetrics.scaledDensity
-
-fun Context.isTablet(): Boolean =
-        resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE
-
-fun Context.dp2px(value: Float): Float =
-        value * density + 0.5f
-
-fun Context.sp2px(value: Float): Float =
-        value * scaledDensity + 0.5f
-
-fun Context.px2dp(px: Int): Int =
-        (px / density + 0.5f).toInt()
-
-fun Context.px2sp(px: Int): Int =
-        (px / scaledDensity + 0.5f).toInt()
-
-fun Context.dimen2px(@DimenRes resource: Int): Int =
-        resources.getDimensionPixelSize(resource)
+fun Context.getAsset(fileName: String, accessMode: Int = AssetManager.ACCESS_STREAMING): InputStream = assets.open(fileName, accessMode)
 
 

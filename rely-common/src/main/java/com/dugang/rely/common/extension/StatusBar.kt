@@ -29,7 +29,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
-import com.android.rely.common.R
+import com.dugang.rely.common.R
 
 
 /*
