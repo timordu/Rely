@@ -26,7 +26,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import com.dugang.rely.common.extension.getCompatDrawable
-import com.android.rely.widget.R
+import com.dugang.rely.widget.R
 
 /**
  * 如果需要使用自己的删除图标,可在项目目录中存放名为"icon_delete"图片即可.

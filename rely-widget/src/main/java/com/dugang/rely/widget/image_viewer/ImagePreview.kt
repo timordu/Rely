@@ -24,9 +24,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.dugang.rely.base.BaseActivity
 import com.dugang.rely.common.extension.*
-import com.android.rely.widget.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.Target
+import com.dugang.rely.widget.R
 import com.github.chrisbanes.photoview.PhotoView
 import kotlinx.android.synthetic.main.act_image_preview.*
 import permissions.dispatcher.NeedsPermission

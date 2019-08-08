@@ -25,7 +25,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.widget.EditText
 import com.dugang.rely.common.extension.getCompatDrawable
-import com.android.rely.widget.R
+import com.dugang.rely.widget.R
 
 /**
  * 如果需要使用自己的图标,可在项目目录中存放名为"icon_eye_open"和"icon_eye_close"图片即可.

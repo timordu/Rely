@@ -25,7 +25,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
-import com.android.rely.widget.R
 import com.dugang.rely.common.extension.sp2px
 
 /**

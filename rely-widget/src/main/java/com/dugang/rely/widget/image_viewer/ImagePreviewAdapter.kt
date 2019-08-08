@@ -19,8 +19,8 @@ package com.dugang.rely.widget.image_viewer
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
-import com.android.rely.widget.R
 import com.bumptech.glide.Glide
+import com.dugang.rely.widget.R
 import com.github.chrisbanes.photoview.PhotoView
 
 /**

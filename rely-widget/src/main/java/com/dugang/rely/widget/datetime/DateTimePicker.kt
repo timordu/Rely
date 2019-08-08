@@ -27,7 +27,7 @@ import com.dugang.rely.common.extension.format2Str
 import com.dugang.rely.common.extension.getCompatColor
 import com.dugang.rely.common.extension.getDimensionPixelSize
 import com.dugang.rely.common.extension.parseStr2Date
-import com.android.rely.widget.R
+import com.dugang.rely.widget.R
 import kotlinx.android.synthetic.main.dlg_datetime.*
 import java.util.*
 

@@ -26,7 +26,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.dugang.rely.common.extension.dp2px
 import com.dugang.rely.common.extension.sp2px
-import com.android.rely.widget.R
+import com.dugang.rely.widget.R
 
 /**
  * Created by dugang on 2018/12/14.数字进度条

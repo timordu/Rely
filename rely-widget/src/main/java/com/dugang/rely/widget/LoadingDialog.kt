@@ -18,15 +18,11 @@ package com.dugang.rely.widget
 
 import android.app.Dialog
 import android.content.Context
-import com.android.rely.widget.R
-
 
 /**
  * Created by dugang on 2017/4/17. 加载Dialog
  */
-class LoadingDialog(context: Context, cancellable: Boolean = false) : Dialog(context,
-    R.style.Dialog_Loading
-) {
+class LoadingDialog(context: Context, cancellable: Boolean = false) : Dialog(context, R.style.Dialog_Loading) {
 
     init {
         setContentView(R.layout.dlg_loading)

@@ -26,7 +26,7 @@ import android.view.animation.AnimationUtils
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.core.os.CancellationSignal
 import com.dugang.rely.common.extension.screenWidth
-import com.android.rely.widget.R
+import com.dugang.rely.widget.R
 import kotlinx.android.synthetic.main.dlg_fingerprint.*
 
 /**
