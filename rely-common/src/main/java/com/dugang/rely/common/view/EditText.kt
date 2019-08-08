@@ -56,12 +56,6 @@ fun EditText.addMoneyFilter(digits: Int = 2) {
 }
 
 /**
- * 给EditText添加内容改变监听
- */
-fun EditText.addTextChangedListener(func: (TextWatcher.() -> Unit)) = addTextChangedListener(TextWatcher().apply(func))
-
-
-/**
  * 给EditText输入大小写字母转换,默认显示大写.注意:输入显示大写,不代表getText()获取的值也为大写
  */
 fun EditText.addCapTransformation(needCap: Boolean = true) {

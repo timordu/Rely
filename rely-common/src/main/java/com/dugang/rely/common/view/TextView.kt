@@ -31,10 +31,10 @@ import android.widget.TextView
 /**
  * 给TextView添加内容改变监听
  */
-fun TextView.addTextChangedListener(func: (TextWatcher.() -> Unit)) = addTextChangedListener(TextWatcher().apply(func))
+fun TextView.addTextChangedListener(func: (TextChangedListener.() -> Unit)) = addTextChangedListener(TextChangedListener().apply(func))
 
 
-class TextWatcher : TextWatcher {
+class TextChangedListener : TextWatcher {
     //
     private var _afterTextChanged: ((s: Editable?) -> Unit)? = null
 

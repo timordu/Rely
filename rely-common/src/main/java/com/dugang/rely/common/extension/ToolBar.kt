@@ -26,7 +26,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import com.android.rely.common.R
+import com.dugang.rely.common.R
 
 /**
  * Created by dugang on 2018/12/27.

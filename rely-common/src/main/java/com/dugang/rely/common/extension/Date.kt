@@ -67,4 +67,5 @@ fun Long.timeIntervalByNow(): String {
 
 fun Date.timeIntervalByNow(): String = time.timeIntervalByNow()
 
-fun String.timeIntervalByNow(format: String = "yyyy-MM-dd HH:mm:ss"): String = parseStr2Mills(format).timeIntervalByNow()
+fun String.timeIntervalByNow(format: String = "yyyy-MM-dd HH:mm:ss"): String =
+        parseStr2Mills(format).timeIntervalByNow()
