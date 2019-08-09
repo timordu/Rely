@@ -24,10 +24,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-@Suppress("unused")
+
 abstract class BaseViewModel : ViewModel(), LifecycleObserver {
     val isShowLoading: MutableLiveData<Boolean> = MutableLiveData()
-    protected open lateinit var mLifecycleOwner: LifecycleOwner
+    protected lateinit var mLifecycleOwner: LifecycleOwner
 
     fun initLifecycleOwner(lifecycleOwner: LifecycleOwner) {
         this.mLifecycleOwner = lifecycleOwner
@@ -63,14 +63,14 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
     open fun onLifecycleChanged(owner: LifecycleOwner, event: Lifecycle.Event) {
     }
 
-    open fun onSaveInstanceState(outState: Bundle?) {
-
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     open fun onMessageEvent(event: MsgEvent) {
     }
 
     open fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    }
+
+    open fun onSaveInstanceState(outState: Bundle) {
+
     }
 }

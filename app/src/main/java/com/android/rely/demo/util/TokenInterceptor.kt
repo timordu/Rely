@@ -26,6 +26,7 @@ import com.blankj.ALog
 import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.json.JSONObject
 
 /**
@@ -39,7 +40,7 @@ class TokenInterceptor : Interceptor {
 
         val contentType = originalResponse.body?.contentType()
         val result = originalResponse.body?.string()
-        val response = originalResponse.newBuilder().body(ResponseBody.create(contentType, result)).build()
+        val response = originalResponse.newBuilder().body(result!!.toResponseBody(contentType)).build()
 
         if (!TextUtils.isEmpty(result)) {
             try {

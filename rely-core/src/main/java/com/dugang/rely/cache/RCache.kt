@@ -22,7 +22,6 @@ import android.graphics.drawable.Drawable
 import android.os.Parcelable
 import com.dugang.rely.Rely
 import com.dugang.rely.common.extension.*
-import com.android.rely.extension.*
 import com.dugang.rely.extension.jsonToMap
 import com.dugang.rely.extension.jsonToObj
 import com.dugang.rely.extension.jsonToyList

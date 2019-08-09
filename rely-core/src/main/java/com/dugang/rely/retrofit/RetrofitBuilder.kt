@@ -24,16 +24,12 @@ import com.dugang.rely.common.extension.isNotNull
 import com.dugang.rely.retrofit.cookie.CookieJarImpl
 import com.dugang.rely.retrofit.cookie.CookieStore
 import com.dugang.rely.retrofit.cookie.CookieStoreImpl
-import com.dugang.rely.retrofit.intercepter.HeaderInterceptor
-import com.dugang.rely.retrofit.intercepter.ParamInterceptor
-import com.dugang.rely.retrofit.intercepter.RetryInterceptor
 import okhttp3.Authenticator
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -234,11 +230,11 @@ class RetrofitBuilder {
         //设置读超时
         okHttpBuilder.readTimeout(readTimeOut, TimeUnit.SECONDS)
         //设置重连
-        okHttpBuilder.addInterceptor(RetryInterceptor(retryCount, retryDelay))
+//        okHttpBuilder.addInterceptor(RetryInterceptor(retryCount, retryDelay))
         //设置公共请求头
-        okHttpBuilder.addInterceptor(HeaderInterceptor(headers))
+//        okHttpBuilder.addInterceptor(HeaderInterceptor(headers))
         //设置公共请求参数
-        okHttpBuilder.addInterceptor(ParamInterceptor(params))
+//        okHttpBuilder.addInterceptor(ParamInterceptor(params))
         //设置cookie管理
         okHttpBuilder.cookieJar(CookieJarImpl(cookieStore))
         //设置缓存
@@ -258,7 +254,6 @@ class RetrofitBuilder {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(okHttpBuilder.build())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

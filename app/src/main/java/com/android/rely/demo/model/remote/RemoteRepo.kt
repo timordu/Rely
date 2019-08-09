@@ -27,13 +27,13 @@ import com.dugang.rely.retrofit.RetrofitBuilder
  */
 object RemoteRepo {
     private const val release_url = "http://192.168.2.83/DriveCollect/"
-    private const val debug_url = "http://192.168.2.83/DriveCollect/"
+    private const val debug_url = "http://192.168.20.215:8000/"
 
     private val httpBuilder = RetrofitBuilder()
             .baseUrl(if (Rely.isDebug) debug_url else release_url)
             .addHeader("Authentication", getRandomStr())
             .addHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8")
-            .addInterceptor(TokenInterceptor())
+//            .addInterceptor(TokenInterceptor())
             .build()
 
 

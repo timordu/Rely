@@ -16,15 +16,22 @@
 
 package com.dugang.rely.retrofit
 
-import android.app.Dialog
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import com.rxjava.rxlife.ObservableLife
-import com.rxjava.rxlife.RxLife
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.dugang.rely.Rely
+import com.dugang.rely.eventbus.MsgEvent
+import com.dugang.rely.eventbus.post
+import com.google.gson.JsonSyntaxException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.greenrobot.eventbus.EventBus
+import retrofit2.HttpException
+import java.io.EOFException
+import java.net.ConnectException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
+import java.util.concurrent.TimeoutException
 
 
 /**
@@ -33,35 +40,38 @@ import java.util.concurrent.TimeUnit
 data class Result<T>(var code: Int, var msg: String, var data: T)
 
 
-fun <T> Observable<T>.applySchedulers(): Observable<T> {
-    return subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-}
-
-fun <T> Observable<T>.applySchedulers(lifecycleOwner: LifecycleOwner): ObservableLife<T>? {
-    return subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .`as`(RxLife.`as`(lifecycleOwner))
-}
-
-fun <T> Observable<T>.applySchedulers(lifecycleOwner: LifecycleOwner, isShowLoading: MutableLiveData<Boolean>, delay: Long = 1
-): ObservableLife<T>? {
-    return delay(delay, TimeUnit.SECONDS)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { isShowLoading.postValue(true) }
-            .doOnTerminate { isShowLoading.postValue(false) }
-            .`as`(RxLife.`as`(lifecycleOwner))
-}
-
-fun <T> Observable<T>.applySchedulers(lifecycleOwner: LifecycleOwner, dialog: Dialog?, delay: Long = 1): ObservableLife<T>? {
-    return delay(delay, TimeUnit.SECONDS)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { disposable ->
-                dialog?.setOnCancelListener { disposable.dispose() }
-                dialog?.show()
+fun <T> ViewModel.callApi(
+        onStart: (() -> Unit)? = null,
+        onRequest: suspend () -> T,
+        onSuccess: suspend (T) -> Unit,
+        onError: suspend (Int, String) -> Unit,
+        onComplete: (() -> Unit)? = null
+) {
+    viewModelScope.launch {
+        withContext(Dispatchers.Main) { onStart?.invoke() }
+        try {
+            val result = withContext(Dispatchers.IO) { return@withContext onRequest.invoke() }
+            withContext(Dispatchers.Main) { onSuccess.invoke(result) }
+        } catch (e: Exception) {
+            var code = Rely.NET_CODE_ERROR
+            val message = when (e) {
+                is SocketTimeoutException -> Rely.SOCKET_TIMEOUT_EXCEPTION
+                is ConnectException -> Rely.CONNECT_EXCEPTION
+                is UnknownHostException -> Rely.UNKNOWN_HOST_EXCEPTION
+                is EOFException -> Rely.EMPTY_RESPONSE_EXCEPTION
+                is JsonSyntaxException -> Rely.JSON_SYNTAX_EXCEPTION
+                is TimeoutException -> Rely.TIMEOUT_EXCEPTION
+                is HttpException -> {
+                    code = e.code()
+                    MsgEvent(code, e.message()).post()
+                    e.message()
+                }
+                else -> Rely.UNKNOWN_EXCEPTION
             }
-            .doOnTerminate { dialog?.dismiss() }
-            .`as`(RxLife.`as`(lifecycleOwner))
+            withContext(Dispatchers.Main) { onError.invoke(code, message) }
+        } finally {
+            withContext(Dispatchers.Main) { onComplete?.invoke() }
+        }
+
+    }
 }

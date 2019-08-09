@@ -21,7 +21,6 @@ import android.util.Log
 import android.widget.ImageView
 import androidx.lifecycle.Observer
 import com.dugang.rely.common.view.listview.SimpleAdapter
-import com.dugang.rely.common.extension.setOnSeekBarChangeListener
 import com.dugang.rely.common.extension.showToast
 import com.android.rely.demo.R
 import com.android.rely.demo.ui.activity.widget.FingerprintActivity
@@ -32,6 +31,7 @@ import com.dugang.rely.extension.loadImage
 import com.dugang.rely.common.extension.skipToActivity
 import com.dugang.rely.common.extension.smoothSwitchScreen
 import com.dugang.rely.common.extension.initToolBar
+import com.dugang.rely.common.view.setOnSeekBarChangeListener
 import com.dugang.rely.widget.datetime.DateTimePicker
 import com.dugang.rely.widget.file_explorer.FileExplorer
 import com.wanglu.photoviewerlibrary.PhotoViewer

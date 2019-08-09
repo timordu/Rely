@@ -26,10 +26,12 @@ import com.android.rely.demo.util.valid.LoginValid
 import com.dugang.rely.common.extension.skipToActivity
 import com.dugang.rely.common.extension.initToolBar
 import com.android.rely.demo.ui.activity.conditionskip.ResultActivity
+import com.android.rely.demo.ui.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.act_main.*
 
 class MainActivity : MyBaseActivity() {
     override val layoutResId: Int = R.layout.act_main
+    private val viewModel: MainViewModel by lazy { getViewModel<MainViewModel>() }
 
 
     override fun initView() {
@@ -60,10 +62,7 @@ class MainActivity : MyBaseActivity() {
         }
 
         network_test.setOnClickListener {
-            //传入自定义的LoadingDialog,可以手动取消请求
-//            testViewModel.login("", "", LoadingDialog(mContext))
-            //通过MyBaseActivity中定义的show和dismiss方法来控制全局的LoadingDialog
-//            testViewModel.login("","")
+            viewModel.testNetwork("123","4345")
         }
     }
 

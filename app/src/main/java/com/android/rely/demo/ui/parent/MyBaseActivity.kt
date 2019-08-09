@@ -23,11 +23,7 @@ import com.dugang.rely.widget.LoadingDialog
  * Created by dugang on 2019-04-21.
  */
 abstract class MyBaseActivity : BaseActivity() {
-    private val loadingDialog: LoadingDialog by lazy {
-        LoadingDialog(
-            mContext
-        )
-    }
+    private val loadingDialog: LoadingDialog by lazy { LoadingDialog(mContext) }
 
     override fun showLoadingDialog() {
         loadingDialog.show()

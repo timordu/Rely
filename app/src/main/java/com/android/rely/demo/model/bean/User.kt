@@ -24,7 +24,7 @@ import kotlinx.android.parcel.Parcelize
  * Created by dugang on 2018/8/8.
  */
 @Parcelize
-data class User(var userName: String, var sex: Int, var password: String) : Parcelable
+data class User(var userName: String, var password: String) : Parcelable
 
 data class DownloadBean(val url: String, var downloadId: Long = 0)
 

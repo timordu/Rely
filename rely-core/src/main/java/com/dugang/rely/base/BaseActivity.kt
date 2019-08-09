@@ -22,17 +22,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.dugang.rely.Rely
-import com.dugang.rely.common.extension.showToast
 import com.dugang.rely.eventbus.MsgEvent
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * Created by dugang on 2017/7/26.Activity基类
+ * @description Activity基类
+ *
+ * @author dugang.
+ * @email timor.du@hotmail.com
+ * @date  2019/8/7 17:15
  */
-@Suppress("unused")
 abstract class BaseActivity : AppCompatActivity(), LifecycleOwner {
     open val mContext get() = this
 
@@ -60,14 +61,6 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner {
 
     abstract fun initObserve()
 
-    open fun showLoadingDialog() {
-
-    }
-
-    open fun dismissLoadingDialog() {
-
-    }
-
     override fun onResume() {
         super.onResume()
         EventBus.getDefault().register(this)
@@ -80,11 +73,18 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner {
     }
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    open fun onMessageEvent(event: MsgEvent) {
-        if (event.code == Rely.NET_CODE_ERROR) showToast("${event.msg}")
+    open fun showLoadingDialog() {
+
     }
 
+    open fun dismissLoadingDialog() {
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    open fun onMessageEvent(event: MsgEvent) {
+
+    }
 }
 
 

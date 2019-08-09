@@ -22,7 +22,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
         //noinspection GradleDependency
@@ -46,9 +46,9 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-ext{
+ext {
     compileSdkVersion = 29
-    buildToolsVersion = '29.0.1'
+    buildToolsVersion = '29.0.2'
 
     minSdkVersion = 21
     targetSdkVersion = 29

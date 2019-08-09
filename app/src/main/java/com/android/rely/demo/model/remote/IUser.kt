@@ -18,7 +18,7 @@ package com.android.rely.demo.model.remote
 
 import com.android.rely.demo.model.bean.User
 import com.dugang.rely.retrofit.Result
-import io.reactivex.Observable
+import kotlinx.coroutines.Deferred
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -39,7 +39,15 @@ interface IUser {
 
     @FormUrlEncoded
     @POST("api/user/login")
-    fun login(@Field("userName") userName: String,
-              @Field("password") password: String): Observable<Result<User>>
+    suspend fun login(
+            @Field("username") userName: String,
+            @Field("password") password: String): User
+
+
+    @FormUrlEncoded
+    @POST("api/user/login")
+    suspend fun login2(
+            @Field("username") userName: String,
+            @Field("password") password: String): Result<User>
 
 }

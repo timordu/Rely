@@ -109,6 +109,17 @@
 #-------------------------------------------框架部分-------------------------------------------------
 -keep class com.android.rely.**{*;}
 
+# ServiceLoader support
+-keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+-keepnames class kotlinx.coroutines.android.AndroidExceptionPreHandler {}
+-keepnames class kotlinx.coroutines.android.AndroidDispatcherFactory {}
+
+# Most of volatile fields are updated with AFU and should not be mangled
+-keepclassmembernames class kotlinx.** {
+    volatile <fields>;
+}
+
 ## retrofit2 ##
 -dontnote retrofit2.Platform
 -dontwarn retrofit2.Platform$Java8
