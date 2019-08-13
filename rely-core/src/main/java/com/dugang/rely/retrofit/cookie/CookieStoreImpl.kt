@@ -41,8 +41,7 @@ class CookieStoreImpl : CookieStore {
     private var cookiesMap: MutableMap<String, ConcurrentHashMap<String, Cookie>> = mutableMapOf()
 
     init {
-        val all = getSP(COOKIE_PREFS)
-            .all
+        val all = getSP(COOKIE_PREFS).all
         all.keys.forEach { key ->
             if (!key.startsWith(COOKIE_NAME_PREFIX)) {
                 cookiesMap[key] = ConcurrentHashMap()
@@ -72,16 +71,8 @@ class CookieStoreImpl : CookieStore {
                 val cookieToken = getCookieToken(cookie)
                 cookiesMap[url.host]?.let {
                     it[cookieToken] = cookie
-                    setSP(
-                        url.host,
-                        TextUtils.join(",", it.keys),
-                        COOKIE_PREFS
-                    )
-                    setSP(
-                        COOKIE_NAME_PREFIX + cookieToken,
-                        cookie.toJson(),
-                        COOKIE_PREFS
-                    )
+                    setSP(url.host, TextUtils.join(",", it.keys), COOKIE_PREFS)
+                    setSP(COOKIE_NAME_PREFIX + cookieToken, cookie.toJson(), COOKIE_PREFS)
                 }
             }
         }
@@ -105,35 +96,21 @@ class CookieStoreImpl : CookieStore {
                 val cookieName = getCookieToken(cookie)
                 cookiesMap[host]?.let {
                     if (it.containsKey(cookieName)) {
-                        removeSP(
-                            COOKIE_NAME_PREFIX + cookieName,
-                            COOKIE_PREFS
-                        )
+                        removeSP(COOKIE_NAME_PREFIX + cookieName, COOKIE_PREFS)
                         it.remove(cookieName)
-                        setSP(
-                            host,
-                            TextUtils.join(",", it.keys),
-                            COOKIE_PREFS
-                        )
+                        setSP(host, TextUtils.join(",", it.keys), COOKIE_PREFS)
                     }
                 }
             } else {
                 //cookie为空,清除url对应的所有cookie缓存
                 //文件中的
                 cookiesMap[host]?.let { cookieMap ->
-                    cookieMap.keys().iterator()?.forEach { key ->
+                    cookieMap.keys().iterator().forEach { key ->
                         cookieMap[key]?.let {
-                            removeSP(
-                                COOKIE_NAME_PREFIX + getCookieToken(
-                                    it
-                                ), COOKIE_PREFS
-                            )
+                            removeSP(COOKIE_NAME_PREFIX + getCookieToken(it), COOKIE_PREFS)
                         }
                     }
-                    removeSP(
-                        host,
-                        COOKIE_PREFS
-                    )
+                    removeSP(host, COOKIE_PREFS)
                     //内存中的
                     cookiesMap.remove(host)
                 }

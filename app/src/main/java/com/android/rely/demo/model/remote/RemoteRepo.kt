@@ -33,6 +33,7 @@ object RemoteRepo {
             .baseUrl(if (Rely.isDebug) debug_url else release_url)
             .addHeader("Authentication", getRandomStr())
             .addHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8")
+            .addParam("auth", getRandomStr())
 //            .addInterceptor(TokenInterceptor())
             .build()
 

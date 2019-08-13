@@ -24,6 +24,9 @@ import com.dugang.rely.common.extension.isNotNull
 import com.dugang.rely.retrofit.cookie.CookieJarImpl
 import com.dugang.rely.retrofit.cookie.CookieStore
 import com.dugang.rely.retrofit.cookie.CookieStoreImpl
+import com.dugang.rely.retrofit.intercepter.HeaderInterceptor
+import com.dugang.rely.retrofit.intercepter.ParamInterceptor
+import com.dugang.rely.retrofit.intercepter.RetryInterceptor
 import okhttp3.Authenticator
 import okhttp3.Cache
 import okhttp3.Interceptor
@@ -55,7 +58,7 @@ class RetrofitBuilder {
     private var writeTimeout: Long = 10
 
     //重试次数
-    private var retryCount: Int = 1
+    private var retryCount: Int = 3
     //重连间隔
     private var retryDelay: Int = 5
     //缓存路径
@@ -63,8 +66,7 @@ class RetrofitBuilder {
     //缓存大小
     private var cacheSize: Long = 50
 
-    private var cookieStore: CookieStore =
-        CookieStoreImpl()
+    private var cookieStore: CookieStore = CookieStoreImpl()
 
     //Https证书
     private var sslSocketFactory: SSLSocketFactory? = null
@@ -230,11 +232,11 @@ class RetrofitBuilder {
         //设置读超时
         okHttpBuilder.readTimeout(readTimeOut, TimeUnit.SECONDS)
         //设置重连
-//        okHttpBuilder.addInterceptor(RetryInterceptor(retryCount, retryDelay))
+        okHttpBuilder.addInterceptor(RetryInterceptor(retryCount, retryDelay))
         //设置公共请求头
-//        okHttpBuilder.addInterceptor(HeaderInterceptor(headers))
+        okHttpBuilder.addInterceptor(HeaderInterceptor(headers))
         //设置公共请求参数
-//        okHttpBuilder.addInterceptor(ParamInterceptor(params))
+        okHttpBuilder.addInterceptor(ParamInterceptor(params))
         //设置cookie管理
         okHttpBuilder.cookieJar(CookieJarImpl(cookieStore))
         //设置缓存
@@ -252,10 +254,10 @@ class RetrofitBuilder {
         networkInterceptors.forEach { okHttpBuilder.addNetworkInterceptor(it) }
 
         return Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .client(okHttpBuilder.build())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+                .baseUrl(baseUrl)
+                .client(okHttpBuilder.build())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
     }
 
 }

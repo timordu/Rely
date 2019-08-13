@@ -23,12 +23,13 @@ import okhttp3.Response
  * Created by dugang on 2017/8/3.请求失败重试拦截器
  */
 class RetryInterceptor(private var retryCount: Int, private var retryDelay: Int) : Interceptor {
-    private var currentRetry = 0
 
     override fun intercept(chain: Interceptor.Chain): Response {
+        var currentRetry = 0
         var response = chain.proceed(chain.request())
         while (!response.isSuccessful && currentRetry < retryCount) {
             currentRetry++
+            response.close()
             Thread.sleep(retryDelay * 1000L)
             response = chain.proceed(chain.request())
         }
