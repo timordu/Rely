@@ -27,11 +27,6 @@ import org.greenrobot.eventbus.ThreadMode
 
 abstract class BaseViewModel : ViewModel(), LifecycleObserver {
     val isShowLoading: MutableLiveData<Boolean> = MutableLiveData()
-    protected lateinit var mLifecycleOwner: LifecycleOwner
-
-    fun initLifecycleOwner(lifecycleOwner: LifecycleOwner) {
-        this.mLifecycleOwner = lifecycleOwner
-    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     open fun onCreate() {

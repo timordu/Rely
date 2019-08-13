@@ -65,7 +65,6 @@ abstract class BaseFragment : Fragment(), LifecycleOwner {
 
     protected fun <VM : BaseViewModel> initViewModel(clazz: Class<VM>): VM {
         return ViewModelProviders.of(this).get(clazz).apply {
-            initLifecycleOwner(this@BaseFragment)
             isShowLoading.observe(this@BaseFragment, Observer {
                 if (it) showLoadingDialog() else dismissLoadingDialog()
             })

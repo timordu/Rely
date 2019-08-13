@@ -21,6 +21,7 @@ import com.blankj.ALog
 import com.dugang.rely.base.BaseViewModel
 import com.dugang.rely.extension.toJson
 import com.dugang.rely.retrofit.callApi
+import com.dugang.rely.retrofit.callApi2
 
 /**
  * Created by dugang on 2019-04-21.
@@ -29,42 +30,34 @@ class MainViewModel : BaseViewModel() {
 
     fun testNetwork(username: String, password: String) {
         callApi(
-                onStart = {
-                    ALog.d("call Api----->start")
-                },
-                onRequest = {
-                    ALog.d("call Api----->onRequest")
-                    RemoteRepo.getUser().login(username, password)
-                },
-                onSuccess = {
-                    ALog.d(it.toJson())
-                    ALog.d("call Api----->onSuccess")
-                },
-                onError = { code, message ->
-                    ALog.d("call Api----->onError $code,$message")
-                },
-                onComplete = {
-                    ALog.d("call Api----->onComplete")
-                })
+            onStart = {
+                isShowLoading.postValue(true)
+            },
+            onRequest = {
+                RemoteRepo.getUser().login(username, password)
+            },
+            onSuccess = {
+                ALog.d("callApi----->onSuccess   ${it.toJson()}")
+            },
+            onError = { code, message ->
+                ALog.d("callApi----->onError $code,$message")
+            },
+            onComplete = {
+                isShowLoading.postValue(false)
+            }
+        )
 
-        callApi(
-                onStart = {
-                    ALog.d("call Api----->start")
-                },
-                onRequest = {
-                    ALog.d("call Api----->onRequest")
-                    RemoteRepo.getUser().login2(username, password)
-                },
-                onSuccess = {
-                    ALog.d(it.toJson())
-                    ALog.d("call Api----->onSuccess")
-                },
-                onError = { code, message ->
-                    ALog.d("call Api----->onError $code,$message")
-                },
-                onComplete = {
-                    ALog.d("call Api----->onComplete")
-                })
+//        callApi2(
+//            onRequest = {
+//                RemoteRepo.getUser().login2(username, password)
+//            },
+//            onSuccess = {
+//                ALog.d("callApi2----->onSuccess  ${it.toJson()}")
+//            },
+//            onError = { code, message ->
+//                ALog.d("callApi2----->onError $code,$message")
+//            }
+//        )
 
     }
 
