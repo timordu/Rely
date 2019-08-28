@@ -38,11 +38,11 @@ data class Result<T>(var code: Int, var message: String, var data: T)
 
 
 fun <T> ViewModel.callApi(
-    onStart: (() -> Unit)? = null,
-    onRequest: suspend () -> T,
-    onSuccess: suspend (T) -> Unit,
-    onError: suspend (Int, String) -> Unit,
-    onComplete: (() -> Unit)? = null
+        onStart: (() -> Unit)? = null,
+        onRequest: suspend () -> T,
+        onSuccess: suspend (T) -> Unit,
+        onError: suspend (Int, String) -> Unit,
+        onComplete: (() -> Unit)? = null
 ) {
     viewModelScope.launch {
         withContext(Dispatchers.Main) { onStart?.invoke() }
@@ -74,12 +74,11 @@ fun <T> ViewModel.callApi(
 }
 
 fun <T> ViewModel.callApi2(
-    onStart: (() -> Unit)? = null,
-    onRequest: suspend () -> Result<T>,
-    onSuccess: suspend (T) -> Unit,
-    onError: suspend (Int, String) -> Unit,
-    onComplete: (() -> Unit)? = null
-) {
+        onStart: (() -> Unit)? = null,
+        onRequest: suspend () -> Result<T>,
+        onSuccess: suspend (T) -> Unit,
+        onError: suspend (Int, String) -> Unit,
+        onComplete: (() -> Unit)? = null) {
     viewModelScope.launch {
         withContext(Dispatchers.Main) { onStart?.invoke() }
         try {
@@ -111,6 +110,5 @@ fun <T> ViewModel.callApi2(
             kotlinx.coroutines.delay(1000)
             withContext(Dispatchers.Main) { onComplete?.invoke() }
         }
-
     }
 }
