@@ -25,9 +25,8 @@ class ConditionSkip(private val action: String) {
 
         fun get(action: String): ConditionSkip? = skipMap[action]
 
-        fun add(action: String): ConditionSkip = ConditionSkip(
-            action
-        ).apply { skipMap[action] = this }
+        fun add(action: String): ConditionSkip =
+            ConditionSkip(action).apply { skipMap[action] = this }
     }
 
     private val validQueue = PriorityBlockingQueue<Valid>()

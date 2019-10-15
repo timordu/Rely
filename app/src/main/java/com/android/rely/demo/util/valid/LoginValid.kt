@@ -23,10 +23,9 @@ import com.android.rely.demo.Contains
 import com.android.rely.demo.ui.activity.conditionskip.LoginActivity
 import com.dugang.rely.common.extension.skipToActivity
 
-class LoginValid(context: Context): Valid(context) {
+class LoginValid(context: Context) : Valid(context) {
     override fun check(): Boolean = Contains.isLogin
 
-    override fun doValid() {
-        (context as Activity).skipToActivity<LoginActivity>()
-    }
+    override fun doValid() = (context as Activity).skipToActivity<LoginActivity>()
+
 }

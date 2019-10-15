@@ -47,22 +47,21 @@ class MainActivity : MyBaseActivity() {
 
         condition_skip.setOnClickListener {
             ConditionSkip.add("skipToConditionSkipActivity")
-                    .addValid(LoginValid(mContext))
-                    .addValid(object : Valid(mContext, 6) {
-                        override fun check(): Boolean = Contains.isLogin2
+                .addValid(LoginValid(mContext))
+                .addValid(object : Valid(mContext, 6) {
+                    override fun check(): Boolean = Contains.isLogin2
 
-                        override fun doValid() {
-                            skipToActivity<Login2Activity>()
-                        }
-                    })
-                    .validComplete {
-                        skipToActivity<ResultActivity>()
-                    }
-                    .doCall()
+                    override fun doValid() = skipToActivity<Login2Activity>()
+
+                })
+                .validComplete {
+                    skipToActivity<ResultActivity>()
+                }
+                .doCall()
         }
 
         network_test.setOnClickListener {
-            viewModel.testNetwork("123","4345")
+            viewModel.testNetwork("123", "4345")
         }
     }
 
