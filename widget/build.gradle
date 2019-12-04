@@ -58,7 +58,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation project(':rely-core')
+    implementation project(':core')
     kapt "org.permissionsdispatcher:permissionsdispatcher-processor:4.3.1"
 
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'

@@ -14,4 +14,4 @@
  *    limitations under the License.
  */
 
-include ':app', ':rely-core', ':rely-common', ':rely-widget'
+include ':app', ':core', ':common', ':widget'
