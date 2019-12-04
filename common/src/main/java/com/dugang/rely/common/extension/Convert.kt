@@ -41,7 +41,7 @@ fun Long.format2Str(format: String = "yyyy-MM-dd HH:mm:ss"): String = Date(this)
 fun Date.format2Str(format: String = "yyyy-MM-dd HH:mm:ss"): String = SimpleDateFormat(format, Locale.getDefault()).format(this)
 
 //解析字符串成时间毫秒
-fun String.parseStr2Mills(format: String = "yyyy-MM-dd HH:mm:ss"): Long = parseStr2Date(format)!!.time
+fun String.parseStr2Mills(format: String = "yyyy-MM-dd HH:mm:ss"): Long? = parseStr2Date(format)?.time
 
 //解析字符串成日期
 fun String.parseStr2Date(format: String = "yyyy-MM-dd HH:mm:ss"): Date? = SimpleDateFormat(format, Locale.getDefault()).parse(this)

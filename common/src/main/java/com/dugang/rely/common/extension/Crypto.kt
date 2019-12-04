@@ -23,6 +23,7 @@ import java.nio.charset.Charset
 import java.security.*
 import java.security.spec.PKCS8EncodedKeySpec
 import java.security.spec.X509EncodedKeySpec
+import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.SecretKey
 import javax.crypto.SecretKeyFactory
@@ -34,21 +35,17 @@ import javax.crypto.spec.SecretKeySpec
   ---------- Base64编解码 ----------
  */
 
-fun String.base64Encode2Str(charset: Charset = Charsets.UTF_8, flags: Int = Base64.NO_WRAP): String =
-    String(base64Encode(flags), charset)
+fun String.base64Encode2Str(charset: Charset = Charsets.UTF_8, flags: Int = Base64.NO_WRAP): String = String(base64Encode(flags), charset)
 
-fun ByteArray.base64Encode2Str(charset: Charset = Charsets.UTF_8, flags: Int = Base64.NO_WRAP): String =
-    String(base64Encode(flags), charset)
+fun ByteArray.base64Encode2Str(charset: Charset = Charsets.UTF_8, flags: Int = Base64.NO_WRAP): String = String(base64Encode(flags), charset)
 
 fun String.base64Encode(flags: Int = Base64.NO_WRAP): ByteArray = Base64.encode(toByteArray(), flags)
 
 fun ByteArray.base64Encode(flags: Int = Base64.NO_WRAP): ByteArray = Base64.encode(this, flags)
 
-fun String.base64Decode2Str(charset: Charset = Charsets.UTF_8, flags: Int = Base64.NO_WRAP): String =
-    String(base64Decode(flags), charset)
+fun String.base64Decode2Str(charset: Charset = Charsets.UTF_8, flags: Int = Base64.NO_WRAP): String = String(base64Decode(flags), charset)
 
-fun ByteArray.base64Decode2Str(charset: Charset = Charsets.UTF_8, flags: Int = Base64.NO_WRAP): String =
-    String(base64Decode(flags), charset)
+fun ByteArray.base64Decode2Str(charset: Charset = Charsets.UTF_8, flags: Int = Base64.NO_WRAP): String = String(base64Decode(flags), charset)
 
 fun String.base64Decode(flags: Int = Base64.NO_WRAP): ByteArray = Base64.decode(this, flags)
 
@@ -114,7 +111,7 @@ private fun deriveKeyInsecurely(password: String, keySizeInBytes: Int, encryptTy
  * @param isEncrypt 是否是加密模式
  */
 private fun encryptOrDecrypt(raw: Key, byteArray: ByteArray, transformation: String, isEncrypt: Boolean): ByteArray {
-    val algorithm = transformation.substring(0, transformation.indexOf('/')).toUpperCase()
+    val algorithm = transformation.substring(0, transformation.indexOf('/')).toUpperCase(Locale.getDefault())
     val cipher = Cipher.getInstance(algorithm)
 
     val model = if (isEncrypt) Cipher.ENCRYPT_MODE else Cipher.DECRYPT_MODE
@@ -139,19 +136,19 @@ private fun encryptOrDecrypt(raw: Key, byteArray: ByteArray, transformation: Str
  * @param keySizeInBytes 密钥长度 需要*8  取值只能为 16 24 32 对应密钥长度为128、192、256
  */
 fun String.encryptByAES(
-    password: String,
-    type: Type = Type.TYPE_BASE64,
-    transformation: String = "AES/CBC/PKCS5Padding",
-    keySizeInBytes: Int = 32
+        password: String,
+        type: Type = Type.TYPE_BASE64,
+        transformation: String = "AES/CBC/PKCS5Padding",
+        keySizeInBytes: Int = 32
 ): String {
     val result = toByteArray().encryptByAES(password, transformation, keySizeInBytes)
     return if (type == Type.TYPE_HEX) result.toHex() else result.base64Encode2Str()
 }
 
 fun ByteArray.encryptByAES(
-    password: String,
-    transformation: String = "AES/CBC/PKCS5Padding",
-    keySizeInBytes: Int = 32
+        password: String,
+        transformation: String = "AES/CBC/PKCS5Padding",
+        keySizeInBytes: Int = 32
 ): ByteArray {
     val rawKey = deriveKeyInsecurely(password, keySizeInBytes, "AES")
     return encryptOrDecrypt(rawKey, this, transformation, true)
@@ -167,10 +164,10 @@ fun ByteArray.encryptByAES(
  * @param keySizeInBytes 密钥长度 需要*8  取值只能为 16 24 32 对应密钥长度为128、192、256
  */
 fun String.decryptByAES(
-    password: String,
-    type: Type = Type.TYPE_BASE64,
-    transformation: String = "AES/CBC/PKCS5Padding",
-    keySizeInBytes: Int = 32
+        password: String,
+        type: Type = Type.TYPE_BASE64,
+        transformation: String = "AES/CBC/PKCS5Padding",
+        keySizeInBytes: Int = 32
 ): String {
     val ba = if (type == Type.TYPE_HEX) hexToByteArray() else base64Decode()
     val result = ba.decryptByAES(password, transformation, keySizeInBytes)
@@ -178,9 +175,9 @@ fun String.decryptByAES(
 }
 
 fun ByteArray.decryptByAES(
-    password: String,
-    transformation: String = "AES/CBC/PKCS5Padding",
-    keySizeInBytes: Int = 32
+        password: String,
+        transformation: String = "AES/CBC/PKCS5Padding",
+        keySizeInBytes: Int = 32
 ): ByteArray {
     ALog.dTag("aes", "password: $password")
     val rawKey = deriveKeyInsecurely(password, keySizeInBytes, "AES")
@@ -198,9 +195,9 @@ fun ByteArray.decryptByAES(
  * @param transformation 加密填充方式
  */
 fun String.encryptByDES(
-    password: String,
-    type: Type = Type.TYPE_BASE64,
-    transformation: String = "DES/CBC/PKCS5Padding"
+        password: String,
+        type: Type = Type.TYPE_BASE64,
+        transformation: String = "DES/CBC/PKCS5Padding"
 ): String {
     val result = toByteArray().encryptByDES(password, transformation)
     return if (type == Type.TYPE_HEX) result.toHex() else result.base64Encode2Str()
@@ -219,9 +216,9 @@ fun ByteArray.encryptByDES(password: String, transformation: String = "DES/CBC/P
  * @param transformation 加密填充方式
  */
 fun String.decryptByDES(
-    password: String,
-    type: Type = Type.TYPE_BASE64,
-    transformation: String = "DES/CBC/PKCS5Padding"
+        password: String,
+        type: Type = Type.TYPE_BASE64,
+        transformation: String = "DES/CBC/PKCS5Padding"
 ): String {
     val ba = if (type == Type.TYPE_HEX) hexToByteArray() else base64Decode()
     val result = ba.decryptByDES(password, transformation)
@@ -241,7 +238,7 @@ fun ByteArray.decryptByDES(password: String, transformation: String = "DES/CBC/P
  * @param keyLength 密钥长度
  */
 fun generateRSAKeyPair(keyLength: Int = 2048): KeyPair =
-    KeyPairGenerator.getInstance("RSA").apply { initialize(keyLength) }.genKeyPair()
+        KeyPairGenerator.getInstance("RSA").apply { initialize(keyLength) }.genKeyPair()
 
 /**
  * 在生成的密钥对中获取公钥和私钥
@@ -249,7 +246,7 @@ fun generateRSAKeyPair(keyLength: Int = 2048): KeyPair =
  * @param isPublicKey true 公钥 false 私钥
  */
 fun KeyPair.getRSAKey(isPublicKey: Boolean): String =
-    (if (isPublicKey) public.encoded else private.encoded).base64Encode2Str()
+        (if (isPublicKey) public.encoded else private.encoded).base64Encode2Str()
 
 /**
  * 用私钥对信息生成数字签名
@@ -303,19 +300,19 @@ fun ByteArray.verifyRsaSign(publicKey: ByteArray, sign: String, algorithm: Strin
  * @param keyLength 密钥长度
  */
 fun String.encryptByRSA(
-    key: String,
-    isPublicKey: Boolean = true,
-    transformation: String = "RSA/ECB/PKCS1Padding",
-    keyLength: Int = 2048
+        key: String,
+        isPublicKey: Boolean = true,
+        transformation: String = "RSA/ECB/PKCS1Padding",
+        keyLength: Int = 2048
 ): String {
     return toByteArray().encryptByRSA(key.base64Decode(), isPublicKey, transformation, keyLength).base64Encode2Str()
 }
 
 fun ByteArray.encryptByRSA(
-    key: ByteArray,
-    isPublicKey: Boolean = true,
-    transformation: String = "RSA/ECB/PKCS1Padding",
-    keyLength: Int = 2048
+        key: ByteArray,
+        isPublicKey: Boolean = true,
+        transformation: String = "RSA/ECB/PKCS1Padding",
+        keyLength: Int = 2048
 ): ByteArray {
     val cleartextLen = keyLength / 8 - 11
     val keyLen = keyLength / 8
@@ -324,9 +321,9 @@ fun ByteArray.encryptByRSA(
 
     val keyFactory = KeyFactory.getInstance("RSA")
     val securityKey =
-        if (isPublicKey) keyFactory.generatePublic(X509EncodedKeySpec(key)) else keyFactory.generatePrivate(
-            PKCS8EncodedKeySpec(key)
-        )
+            if (isPublicKey) keyFactory.generatePublic(X509EncodedKeySpec(key)) else keyFactory.generatePrivate(
+                    PKCS8EncodedKeySpec(key)
+            )
     val cipher = Cipher.getInstance(transformation).apply { init(Cipher.ENCRYPT_MODE, securityKey) }
 
     outBuffer.use {
@@ -349,20 +346,20 @@ fun ByteArray.encryptByRSA(
  * @param keyLength 密钥长度
  */
 fun String.decryptByRSA(
-    key: String,
-    isPublicKey: Boolean = false,
-    transformation: String = "RSA/ECB/PKCS1Padding",
-    keyLength: Int = 2048
+        key: String,
+        isPublicKey: Boolean = false,
+        transformation: String = "RSA/ECB/PKCS1Padding",
+        keyLength: Int = 2048
 ): String {
     val decrypt = base64Decode().decryptByRSA(key.base64Decode(), isPublicKey, transformation, keyLength)
     return String(decrypt)
 }
 
 fun ByteArray.decryptByRSA(
-    key: ByteArray,
-    isPublicKey: Boolean = false,
-    transformation: String = "RSA/ECB/PKCS1Padding",
-    keyLength: Int = 2048
+        key: ByteArray,
+        isPublicKey: Boolean = false,
+        transformation: String = "RSA/ECB/PKCS1Padding",
+        keyLength: Int = 2048
 ): ByteArray {
     val cleartextLen = keyLength / 8 - 11
     val keyLen = keyLength / 8
@@ -371,9 +368,9 @@ fun ByteArray.decryptByRSA(
 
     val keyFactory = KeyFactory.getInstance("RSA")
     val securityKey =
-        if (isPublicKey) keyFactory.generatePublic(X509EncodedKeySpec(key)) else keyFactory.generatePrivate(
-            PKCS8EncodedKeySpec(key)
-        )
+            if (isPublicKey) keyFactory.generatePublic(X509EncodedKeySpec(key)) else keyFactory.generatePrivate(
+                    PKCS8EncodedKeySpec(key)
+            )
     val cipher = Cipher.getInstance(transformation).apply { init(Cipher.DECRYPT_MODE, securityKey) }
 
     outBuffer.use {

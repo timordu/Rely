@@ -67,8 +67,8 @@ fun Context.getSignatureMD5(format: Boolean = true): String {
     val signature = getSignature()[0].toByteArray().md5()
     return if (format) {
         val sb = StringBuilder()
-        for (i in 0 until signature.length step 2) sb.append(signature.substring(i, i + 2)).append(":")
-        sb.deleteCharAt(sb.length - 1).toString().toUpperCase()
+        for (i in signature.indices step 2) sb.append(signature.substring(i, i + 2)).append(":")
+        sb.deleteCharAt(sb.length - 1).toString().toUpperCase(Locale.getDefault())
     } else
         signature
 }
@@ -80,8 +80,8 @@ fun Context.getSignatureSHA1(format: Boolean = true): String {
     val signature = getSignature()[0].toByteArray().sha1()
     return if (format) {
         val sb = StringBuilder()
-        for (i in 0 until signature.length step 2) sb.append(signature.substring(i, i + 2)).append(":")
-        sb.deleteCharAt(sb.length - 1).toString().toUpperCase()
+        for (i in signature.indices step 2) sb.append(signature.substring(i, i + 2)).append(":")
+        sb.deleteCharAt(sb.length - 1).toString().toUpperCase(Locale.getDefault())
     } else
         signature
 }
@@ -93,8 +93,8 @@ fun Context.getSignatureSHA256(format: Boolean = true): String {
     val signature = getSignature()[0].toByteArray().sha256()
     return if (format) {
         val sb = StringBuilder()
-        for (i in 0 until signature.length step 2) sb.append(signature.substring(i, i + 2)).append(":")
-        sb.deleteCharAt(sb.length - 1).toString().toUpperCase()
+        for (i in signature.indices step 2) sb.append(signature.substring(i, i + 2)).append(":")
+        sb.deleteCharAt(sb.length - 1).toString().toUpperCase(Locale.getDefault())
     } else
         signature
 }
