@@ -26,7 +26,7 @@ buildscript {
     }
     dependencies {
         //noinspection GradleDependency
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.6.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         // NOTE: Do not place your application dependencies here; they belong
@@ -48,7 +48,7 @@ task clean(type: Delete) {
 
 ext {
     compileSdkVersion = 29
-    buildToolsVersion = '29.0.2'
+    buildToolsVersion = '29.0.3'
 
     minSdkVersion = 21
     targetSdkVersion = 29
